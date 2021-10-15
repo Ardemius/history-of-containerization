@@ -1,0 +1,105 @@
+= Communauté technique StarTECH (by Softeam)
+// classic AsciiDoctor attributes
+:icons: font
+:imagesdir: images
+// Despite the warning of the documentation, https://github.com/asciidoctor/asciidoctor-reveal.js, highlight.js syntax highlighting WORKS, BUT, you need to explicitly set the highlighter using the below attribute
+// see http://discuss.asciidoctor.org/Highlighting-source-code-for-reveal-js-backend-td2750.html
+:source-highlighter: highlightjs
+// reveal.js attributes
+:customcss: styles/myCustomCSS.css
+
+Mais c'est quoi le *StarTECH* ?!?
+
+== Le StarTECH regroupe les technophiles de Softeam souhaitant *partager leur passion* !
+
+== Les valeurs du StarTECH
+
+[%step]
+* *Curiosité*
+* *Enthousiasme*
+* *Coopération*
+* *Bienveillance*
+
+== Nos devises
+
+[%step]
+* *Learn*, *Unlearn*, *Relearn*
+* *Adapt*, *Improve*, *Overcome*
+* *Assume nothing*, *Question everything*, *Never stop improving*
+
+== Nos objectifs
+
+[%step]
+* Echanger sur notre passion : *LA TECH !*
+* Nous former en continu
+* Partager nos connaissances
+
+// we use passthrough block to use native reveal.sj fragment class, out of list component, because not currently supported by asciidoctor-revealjs
+++++
+<p class="fragment">Et pour ce faire...</p>
+++++
+
+=== Veille technologique
+
+Nous nous *réunissons régulièrement*, en physique et sur notre serveur *Discord*, afin de discuter de l'actualité, et des dernières nouveautés techniques.
+
+=== Débats techniques
+
+Nous aimons *débattre*, et confronter nos idées, retours d'expérience, problèmes rencontrés, etc. +
+Simple news, ou point technique très pointu, pas de tabou, nous prenons tout !
+
+=== Formations
+
+Le meilleur moyen de s'assurer que l'on maîtrise bien un sujet, est d'être capable de bien l'expliquer ! +
+Et pour ce faire, nous *créons et présentons régulièrement des formations* (Data, méthodo, TDD, framework, etc.) à la communauté 🙂
+
+=== Présence en conférences, salons, MeetUps
+
+*Devoxx*, *Paris JUG*, *DevFest*, *BreizhCamp*... +
+Pour suivre les dernières tendances et nouveautés, le mieux est souvent d'écouter ceux qui les créent ! +
+Et si cela peut se terminer devant un petit pot, c'est encore mieux 🍻
+
+== Softeam aime les *passionnés* !
+
+Pour nous permettre d'*assouvir notre passion*, les moyens suivants ont été mis en place :
+
+=== StarPoints
+
+Votre participation (rédaction d'articles, présentation de formation, etc.) vous permet de cumuler des *StarPoints*. +
+Ces derniers peuvent ensuite être utilisés pour acquérir :
+
+[%step]
+* un bel ordinateur
+* les licences de vos outils préférés
+* payer votre place au salon de votre choix, et *vous donner les jours de congés allant avec*.
+* vous voulez la liste ? C'est https://github.com/startechsofteam/startech/blob/master/resources/bar%C3%A8me-starpoints-contributeurs_202106.png[ici] !
+** et si vous pensez à autre chose, n'hésitez pas à le dire 🙂
+
+=== Jours off
+
+Pas facile de geeker sur son temps de libre avec nos vies bien occupées. +
+Aussi, pour chaque *2h de formation*, ou *12@13*, que vous souhaitez donner, Softeam vous permet de *sortir de mission 1/2 journée* pour faciliter votre préparation.
+
+== Les ressources de la communauté StarTECH
+
+* Notre site sur l'*Intranet* .COM1 : +
+image:StarTECH-sharepoint-site.png[width=500,link="https://laposte.sharepoint.com/sites/startech/SitePages/Pr%C3%A9sentation-du-StarTECH.aspx"]
+
+=== !
+
+
+* Notre *organisation GitHub* : https://github.com/startechsofteam
+[%step]
+    ** Où vous trouverez entre autres nos *comptes rendus de réunion* ainsi que nos *articles* et *formations*.    
+
+=== Bonus
+
+Inscrivez-vous donc aux challenges http://softeam.us12.list-manage.com/subscribe?u=5d30d132bde801dc4b5cedd64&id=cf3f1ca949[What??? Recordings] de notre English Academy at Softeam 🙂
+
+== DONC, passionné et fier de l'être ?
+
+image:StarTECH-Java_we-want-you.png[width=400]
+
+Rejoins-nous ! +
+mailto:61916e0e.laposte.onmicrosoft.com@emea.teams.ms?subject=Communaut%C3%A9+StarTECH+%3A+demande+d%27acc%C3%A8s+au+serveur+Discord&body=Bonjour%2C%0D%0AJe+souhaite+participer+aux+r%C3%A9unions+de+la+communaut%C3%A9+StarTECH+%F0%9F%99%82%0D%0A%0D%0AQuelques+mots+sur+moi+et+pourquoi+la+communaut%C3%A9+m%27int%C3%A9resse+%3A%0D%0A%0D%0A-+Pr%C3%A9nom+et+nom%0D%0A-+Qu%27est-ce+qui+m%27int%C3%A9resse+dans+les+activit%C3%A9s+de+la+communaut%C3%A9%3F+%28pas+besoin+d%27%C3%A9crire+un+pav%C3%A9%2C+1+ligne+ou+2+suffisent+%F0%9F%98%89%29[Clique et inscris-toi au Discord de la communauté]
+

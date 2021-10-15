@@ -1,0 +1,174 @@
+= The Container Ecosystem
+Thomas SCHWENDER <https://github.com/ardemius[@ardemius]>
+// Handling GitHub admonition blocks icons
+ifndef::env-github[:icons: font]
+ifdef::env-github[]
+:status:
+:outfilesuffix: .adoc
+:caution-caption: :fire:
+:important-caption: :exclamation:
+:note-caption: :paperclip:
+:tip-caption: :bulb:
+:warning-caption: :warning:
+endif::[]
+:imagesdir: ./images
+:source-highlighter: highlightjs
+// Next 2 ones are to handle line breaks in some particular elements (list, footnotes, etc.)
+:lb: pass:[<br> +]
+:sb: pass:[<br>]
+// check https://github.com/Ardemius/personal-wiki/wiki/AsciiDoctor-tips for tips on table of content in GitHub
+:toc: macro
+:toclevels: 4
+// To number the sections of the table of contents
+:sectnums:
+// To turn off figure caption labels and numbers
+:figure-caption!:
+// Same for examples
+//:example-caption!:
+// To turn off ALL captions
+// :caption:
+
+toc::[]
+
+== Ressources
+
+* A : https://www.tutorialworks.com/difference-docker-containerd-runc-crio-oci/ : excellente ressource
+    ** Jeter un oeil au site parent, qui est vraiment très bien : https://www.tutorialworks.com/
+    ** Attention, les schémas ne font pas suffisamment apparaître le *Docker Daemon* (*dockerd*) selon moi
+
+* B : https://blog.engineering.publicissapient.fr/2019/12/23/docker-est-mort-vive-docker/
+    ** Dans les 1eres minutes, le Docker Daemon est mieux présenté
+        *** reprendre le schéma en 2:01, il est complet AVEC le docker daemon
+            **** pour un schéma complet, voir également : http://sysblog.informatique.univ-paris-diderot.fr/wp-content/uploads/2020/03/Docker-2.3.png
+        *** on pourrait également faire apparaître le *docker registry* sur le schéma
+
+    ** Très bonne présentation des différents éléments de "Docker", qui est un fork de *Moby*
+        *** https://mobyproject.org/ : Moby is an open framework created by Docker to assemble specialized container systems without reinventing the wheel.
+            **** Moby permet de pratiquer avec la plomberie de Docker "Docker internals", il n'est pas conseillé si l'on souhaite simplement un moyen simple et rapide de lancer des containers
+
+* Schéma de Docker en 2019 (récent) : https://www.codetd.com/en/article/6502770
+    ** montre les 3 parties de *Docker engine*, à savoir : Docker Daemon (dockerd), ContainerD, RunC
+        *** pour des définitions de *ContainerD* et *RunC*, voir https://jfrog.com/knowledge-base/the-basics-7-alternatives-to-docker-all-in-one-solutions-and-standalone-container-tools/
+            **** voir également https://docs.docker.com/engine/api/, où il est écrit : +
+            "Docker provides an API for interacting with the Docker daemon (called the Docker Engine API), as well as SDKs for Go and Python"
+            **** NOOONNNNN ! Plus clair : https://docs.docker.com/engine/ : 
++
+----
+Docker Engine acts as a client-server application with:
+
+- A server with a long-running daemon process dockerd.
+- APIs which specify interfaces that programs can use to talk to and instruct the Docker daemon.
+- A command line interface (CLI) client docker.
+----
+            **** A l'aide de cette dernière explication, on se rend compte que Docker Engine regroupe en fait la CLI, la Docker Engine API et le Docker daemon. +
+            Ce dernier est peut-être considéré ici comme "englobant" containerd et runc, étant donné que le *schéma d'architecture* https://docs.docker.com/get-started/overview/#docker-architecture montre le docker daemon en lien avec la gestion des images, elle-même liée aux containers
+            **** concernant la *Docker Engine API* permettant l'interaction avec le Docker Daemon, voir https://docs.docker.com/engine/api/
+
+    ** autre bon schéma : https://www.aquasec.com/cloud-native-academy/docker-container/docker-architecture/ +
+    Ce dernier indique également que le Docker Engine englobe la CLI, l'API de comm avec le docker daemon, et le docker daemon lui-même +
+    PAR CONTRE, est-ce toujours totalement d'actualité ? Aucune mention à runc et containerd, ce qui me pose un petit problème...
+        *** OUI, c'est bien toujours d'actualité. Vu plus bas, le docker server (implémenté à l'aide de docker daemon) contient bien / utilise bien containerd et runc.
+    ** réponse finale ici : https://www.studytrails.com/2018/12/04/docker-architecture-engine-containerd-runc/ +
+    *Docker Engine* est bien composé de : 
+        *** *Docker Server*, qui est implémenté à l'aide de docker daemon (dockerd), et qui est responsable de la création des images, containers, networks et volumes
+            **** Et on considère que le *Docker Server contient containerd et runc*
+        *** a RESTFul API to talk to the docker server -> donc une API pour parler à dockerd, c'est à dire *Docker Engine API*
+        *** une *CLI* (the docker command)
+
+* dockerd vs containerd vs runc : https://stackoverflow.com/questions/46649592/dockerd-vs-docker-containerd-vs-docker-runc-vs-docker-containerd-ctr-vs-docker-c
+    ** on y trouve aussi une bonne explication sur shim
+        *** toujours concernant shim (docker-containerd-shim), voir pour une bonne explication : https://www.threatstack.com/blog/diving-deeper-into-runtimes-kubernetes-cri-and-shims +
+        Le point essentiel de shim est de permettre "It allows for daemon-less containers." +
+        "It basically sits as the parent of the container’s processes to facilitate communications, and eliminates the long running runtime processes for containers."
+        *** dockershim est également très bien expliqué dans https://www.tutorialworks.com/difference-docker-containerd-runc-crio-oci/
+
+* autre très bonne ressource, la série d'articles de Ian Lewis : https://www.ianlewis.org/en/container-runtimes-part-1-introduction-container-r
+    ** en fait, toutes les différentes facettes de l'écosystème des containers y sont présentées (docker, dockerd, containerd, runc)
+    ** et une fois lu, voir également https://alenkacz.medium.com/whats-the-difference-between-runc-containerd-docker-3fc8f79d4d6e
+
+* pour une explication de ce qui a amené aux containers, avec les *namespaces*, les *cgroups* (control groups), l'isolation des appels (*seccomp-bpf*), et finalement les "containers Docker", voir l'excellent article https://jvns.ca/blog/2016/10/10/what-even-is-a-container/
+    ** Docker a fourni un wrapping simple et facile d'utilisation de ces fonctionnalités du kernel Linux (et en a également apporté d'autres également)
+    ** A l'occasion, regarder le Zine "How Containers work" de Julia Evans (2020) : https://wizardzines.gumroad.com/l/containers-zine/buyonegiveone / https://jvns.ca/blog/2020/04/27/new-zine-how-containers-work/
+        *** Ce Zine contient une description sympa des *container Kernel features* : 
+            **** *pivot_root* : set a process's root directory to a directory with the contents of the container image
+                ***** difference between pivot_root and *chroot* : chroot is easy to escape from if you're root and pivot root isn't +
+                -> so containers use pivot_root instead of chroot
+            **** *cgroups* : limit memory / CPU usage for a group of processes
+            **** *namespaces* : allow processes to have their own network / PIDs / users / hostname / mounts / and more !
+            **** *seccomp-bpf* : security: prevent dangerous system calls
+                ***** seccomp means "secure computing"
+                ***** bpf, pour Berkeley Packet Filter, est une extension de seccomp
+            **** *capabilities* : security: avoid giving root access +
+            Capabilities allow to reduce the privileges of an active process
+            **** *overlay filesystems* : optimization to reduce disk space used by containers which are using the same image
+            **** quand on utilise toutes les fonctionnalités précédentes, on a un container
+            **** Et un GROS reminder : *A container is a group of processes*
+
+    ** Cf wikipedia (https://en.wikipedia.org/wiki/Cgroups), *cgroups* : +
+    "cgroups (abbreviated from control groups) is a Linux kernel feature that limits, accounts for, and isolates the resource usage (CPU, memory, disk I/O, network, etc.) of a collection of processes."
+        *** la vidéo https://www.youtube.com/watch?v=sK5i-N34im8[cgroups, namespaces, and beyond: what are containers made from?] explique en détails les différentes fonctionnalités des cgroups, namespaces
+        *** le travail sur les cgroups a commencé en 2006 chez Google sous le nom "process containers", avant d'être renommé en "control groups" pour éviter toute confusion avec le terme "container" dans un contexte Linux Kernel
+
+    ** *namespaces* are a Linux feature allowing your processes to be separated from the other processes on the computer. +
+    You can have PID namespace, networking namespace, mount namespace. +
+    Namespaces can be creates using the `unshare` program.
+
+Une bonne définition d'un *container runtime* : +
+.https://www.quora.com/What-is-container-runtime-in-Kubernetes/answer/John-Sundarraj
+----
+A container runtime is a library or software which has the ability to create, deploy and manage containers on its own. Basically, container runtimes are responsible for container lifecycle. It provides simple API layer to create, deploy and manage containers.
+----
+
+
+
+* Attention ! Fin 2020 (décembre ?) deprecation de docker/docker-shim
+    ** pour un quickie, on va éviter de le sujet shim qui est spécifique à Kubernetes
+    ** à discuter, si on part sur du 30 min ou plus, c'est parfaitement jouable
+
+* Attention  2021/09, changement de licence Docker Desktop, on ne peut plus l'utiliser sur Windows en entreprise.
+* Parler de Docker Desktop qui conseille maintenant de passer, avec WSL 2, aux Linux Containers ?
+
+== Préparation des slides
+
+* Docker allows to run containerized apps
+
+* OCI : Image spec ET Runtime spec
+    ** cf "https://www.tutorialworks.com/difference-docker-containerd-runc-crio-oci/" : the Open Container Initiative (OCI) which publishes specifications for images and containers.
+        *** cf https://faun.pub/docker-containerd-standalone-runtimes-heres-what-you-should-know-b834ef155426, il est bien question de specifications pour des image-spec et runtime-spec
+            **** runtime et container doivent être équivalents, car dans le schéma de https://www.tutorialworks.com/difference-docker-containerd-runc-crio-oci/, il est expliqué que : +
+            "OCI provides specifications for container images and running containers."
+    ** "https://blog.engineering.publicissapient.fr/2019/12/23/docker-est-mort-vive-docker/" voir en 2:06
+    ** runc est une implémentation de OCI
+
+Plan du talk : 
+
+0. *Les containers au début*
+    ** et au début, les containers, c'était Docker.
+        *** Maintenant, il y a Docker la compagnie, et Docker la technologie
+    ** Docker la compagnie ? Les images, les containers, la ligne de commande ?
+    ** A la base la compagnie Docker a créé un outil simple et ergonomique pour travailler avec les containers, outil appelé "docker" (la CLI docker pour être plus précis)
+        *** cette CLI permet très facilement to build images, pull them from registries, create, start and manager containers
+    ** et la grosse différence se fait avec le passage à la version 1.11, et l'apparition de containerd et runc
+
+1. *Docker "à l'ancienne" avant la 1.11 (2016/04)*
+    ** https://jvns.ca/blog/2016/10/02/i-just-want-to-run-a-container/
+        *** *containerd* et *runc* ont commencé à apparaître à partir de Docker *1.11.0* (2016/04) ? +
+        à confirmer via https://jvns.ca/blog/2016/10/02/i-just-want-to-run-a-container/ (site de 2016)
+            **** OUI, confirmé via https://faun.pub/docker-containerd-standalone-runtimes-heres-what-you-should-know-b834ef155426 : +
+            "Docker Engine 1.11 was the first release built on runC (a runtime based on Open Container Intiative technology) and containerd."
+    
+2. *Docker en 2021 et le CRI de Kubernetes*
+    ** Docker client (CLI, GUI, etc.) 
+    ** parle à un Docker Daemon 
+    ** qui parle à containerd : un autre daemon qui va aller surveiller vos containers, les redémarrer
+        *** containerd supervise les containers (start, stop, pause)
+    ** qui à runc : une librairie, un espèce de wrapper qui va vous permettre de lancer plus facilement des processus isolés
+        *** et c'est runc qui va lancer votre processus de façon isolé via les features de votre kernel (namespaces & co, etc.)
+        *** runC can help you avoid being strongly tied to specific technologies, hardware, or cloud service providers.
+
+3. Donc l'ecosystem des containers est loin de se limiter au seul "Docker", c'est vraiment un *assemblage de diverses technos*, parmi lesquelles on peut citer : 
+    * pour builder des images OCI compliant : Kaniko (Google), buildah (RedHat), Makisu (Uber)
+    * pour lancer des containers depuis des images : CRI-o, rkt, containerd, Kata containers, gVisor, singularity, nabla, podman
+
+Au final, les composants de Docker ont pour but de : *build des images*, et *run des containers*
+

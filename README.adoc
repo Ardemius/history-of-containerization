@@ -1,0 +1,7 @@
+= Containers ecosystem slides
+
+Contains the slides of the talk on *containers ecosystem*. +
+They can be http://ardemius.github.io/containers-ecosystem/slides-containers-ecosystem.html[*viewed online here*], by using the *GitHub pages* of the project.
+
+They were built using http://asciidoctor.org/[*Asciidoctor*], and the backend https://github.com/asciidoctor/asciidoctor-reveal.js[*reveal.js*]. +
+To know how to generate them, have a look at https://github.com/Ardemius/asciidoctor-presentation#slides-rendering-with-revealjs[this section] of my presentation on those tools.
