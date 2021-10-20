@@ -76,13 +76,13 @@ Docker Engine acts as a client-server application with:
         *** une *CLI* (the docker command)
 
 * dockerd vs containerd vs runc : https://stackoverflow.com/questions/46649592/dockerd-vs-docker-containerd-vs-docker-runc-vs-docker-containerd-ctr-vs-docker-c
-    ** on y trouve aussi une bonne explication sur shim
+    ** on y trouve aussi une bonne explication sur *shim*
         *** toujours concernant shim (docker-containerd-shim), voir pour une bonne explication : https://www.threatstack.com/blog/diving-deeper-into-runtimes-kubernetes-cri-and-shims +
         Le point essentiel de shim est de permettre "It allows for daemon-less containers." +
         "It basically sits as the parent of the container’s processes to facilitate communications, and eliminates the long running runtime processes for containers."
         *** dockershim est également très bien expliqué dans https://www.tutorialworks.com/difference-docker-containerd-runc-crio-oci/
 
-* autre très bonne ressource, la série d'articles de Ian Lewis : https://www.ianlewis.org/en/container-runtimes-part-1-introduction-container-r
+* autre *très bonne ressource*, la série d'articles de *Ian Lewis* (2017/12) : https://www.ianlewis.org/en/container-runtimes-part-1-introduction-container-r
     ** en fait, toutes les différentes facettes de l'écosystème des containers y sont présentées (docker, dockerd, containerd, runc)
     ** et une fois lu, voir également https://alenkacz.medium.com/whats-the-difference-between-runc-containerd-docker-3fc8f79d4d6e
 
@@ -106,7 +106,22 @@ Docker Engine acts as a client-server application with:
 
     ** Cf wikipedia (https://en.wikipedia.org/wiki/Cgroups), *cgroups* : +
     "cgroups (abbreviated from control groups) is a Linux kernel feature that limits, accounts for, and isolates the resource usage (CPU, memory, disk I/O, network, etc.) of a collection of processes."
-        *** la vidéo https://www.youtube.com/watch?v=sK5i-N34im8[cgroups, namespaces, and beyond: what are containers made from?] explique en détails les différentes fonctionnalités des cgroups, namespaces
+        *** la vidéo https://www.youtube.com/watch?v=sK5i-N34im8[cgroups, namespaces, and beyond: what are containers made from?] de Jérôme PETAZZONI (Docker) explique en détails les différentes fonctionnalités des *cgroups*, *différents types de namespaces*. +
+        ATTENTION ! Elle date de 2015 !
+            **** Il est également question des *container runtimes* qui sont basés sur les cgroups et les namespaces. +
+            Exemples de container runtimes basés sur des namespaces et des cgroups : 
+                ***** *LXC* : easy for sysadmins / OPS, hard for devs (requires significant elbow grease)
+                ***** *systemd-nspawn*
+                ***** *Docker*
+                ***** *rkt*
+                ***** *runC*
+                ***** All those container runtimes use the same kernel features (at that time, 2015 ?)
+            **** et maintenant des container runtimes qui ne sont PAS basés sur les namespaces et les cgroups : 
+                **** *OpenVZ* : by example Travis CI gives you root in OpenVZ
+                **** *Jails* / *Zones*
+            **** la vidéo de Jérôme se termine par un live demo d'une création de container *à la main* (un début de container)
+            **** autre très bonne vidéo de container complètement créé à la main en Go, https://www.youtube.com/watch?v=Utf-A4rODH8, de *Liz RICE* (2016/10)
+                **** Voir également le Gist en GO de *Julien Friedman* dont Liz s'est inspirée : https://gist.github.com/julz/c0017fa7a40de0543001 (au final on build un container en ~55 lignes de Go)
         *** le travail sur les cgroups a commencé en 2006 chez Google sous le nom "process containers", avant d'être renommé en "control groups" pour éviter toute confusion avec le terme "container" dans un contexte Linux Kernel
 
     ** *namespaces* are a Linux feature allowing your processes to be separated from the other processes on the computer. +
@@ -119,10 +134,60 @@ Une bonne définition d'un *container runtime* : +
 A container runtime is a library or software which has the ability to create, deploy and manage containers on its own. Basically, container runtimes are responsible for container lifecycle. It provides simple API layer to create, deploy and manage containers.
 ----
 
+* Docker was released in 2013
+
+* https://www.ianlewis.org/en/container-runtimes-part-1-introduction-container-r
+    ** developers who want to run apps in containers will need more than just the features that low-level runtimes provide, they need APIs and features around image formats, image management, and sharing images, which are provided by high-level runtimes.
+    ** Developers who implement low-level runtimes will say that higher level runtimes like *containerd* and *cri-o* are not actually container runtimes, as from their perspective they outsource the implementation of running a container to *runc*.
+
+* https://www.ianlewis.org/en/container-runtimes-part-2-anatomy-low-level-contai
+    ** le concept de *low-level container runtime* est mis en avant
+    ** Low-level runtimes have a limited feature set and typically perform the low-level tasks for *running a container* (ex : runC)
+        ** low-level runtimes are responsible for the mechanics of actually running a container
+    ** *Namespaces* let you virtualize system resources, like the file system or networking for each container.
+        *** Namespaces are "what you can see"
+    ** *cgroups* provide a way to limit the amount of resources, such as CPU and memory, that each container can use.
+        *** control groups are "what you can use"
+    ** At their core, low-level container runtimes are responsible for setting up these namespaces and cgroups for containers, and then running commands inside those namespaces and cgroups.
+    ** Examples of low-level container runtimes : 
+
+        *** *lmctfy* (Let Me Contain That For You) : projet by Google, based on the internal container runtime that *Borg* uses. +
+        It supports container hierarchies that use cgroup hierarchies via the container names (a root container called "busybox" could create sub-containers under the name "busybox/sub1" or "busybox/sub2") +
+        While lmctfy provides some interesting features and ideas, other runtimes were more usable so Google decided it would be better for the community to focus worked on Docker's libcontainer instead of lmctfy.
+            *** *Borg* is Google's cluster manager that runs hundreds of thousands of jobs, from many thousands of different applications, across a number of clusters each with up to tens of thousands of machines. +
+            See https://research.google/pubs/pub43438/ for more details
+
+        *** *runC* : most widely used container runtime
+            **** originally developed as part of Docker, then extracted as a separate tool and library
+            **** runC implements the *OCI runtime spec* (Open Container Initiative)
+                ***** Pour plus détails, lire l'OCI runtime spec : https://github.com/opencontainers/runtime-spec
+
+        *** *rkt* (CoreOS *Rocket*):
+            **** developed by CoreOS
+            **** provides all features provided by low-level container runtimes, PLUS some high-level ones
+            **** *projet ended / discontinued on 2020/02* and is not maintained anymore.
+
+* https://www.ianlewis.org/en/container-runtimes-part-3-high-level-runtimes
+    ** *high-level runtimes* are responsible for *transport and management of container images*, unpacking the image, and *passing off to the low-level runtime* to run the container.
+    ** Typically, high-level runtimes provide a *daemon* application and an *API* that remote applications can use to logically run containers and monitor them but they sit on top of and *delegate to low-level runtimes* or other high-level runtimes for the actual work.
+    ** Exemples of high-level container runtime : 
+
+        *** *Docker*
+            **** Originally built as a monolithic daemon, *dockerd*, and the *docker client (Docker CLI)* application. +
+            The daemon provided most of the logic of building containers, managing the images, and running containers, along with an API. +
+            The command line client could be run to send commands and to get information from the daemon.
+            **** It really was *the first* popular runtime to incorporate all of the features needed during the lifecycle of building and running containers, hence its success.
+            **** A la base Docker faisait tout, les low et les high level features, mais cela a depuis (v1.11) été scindé en différentes briques, dont containerd et runC. +
+            Docker se compose donc maintenant (2021) de docker CLI, dockerd, docker-containerd et docker-runc (les 2 derniers étant simplement des versions packagées de containerd et runc)
+
+
+* Voir également *Kata containers*
+    ** Kata containers est un container runtime open source, voir https://katacontainers.io/
 
 
 * Attention ! Fin 2020 (décembre ?) deprecation de docker/docker-shim
     ** pour un quickie, on va éviter de le sujet shim qui est spécifique à Kubernetes
+        *** pas sûr que le shim dans l'absolu soit spécifique à Kubernetes
     ** à discuter, si on part sur du 30 min ou plus, c'est parfaitement jouable
 
 * Attention  2021/09, changement de licence Docker Desktop, on ne peut plus l'utiliser sur Windows en entreprise.
@@ -135,12 +200,26 @@ A container runtime is a library or software which has the ability to create, de
 * OCI : Image spec ET Runtime spec
     ** cf "https://www.tutorialworks.com/difference-docker-containerd-runc-crio-oci/" : the Open Container Initiative (OCI) which publishes specifications for images and containers.
         *** cf https://faun.pub/docker-containerd-standalone-runtimes-heres-what-you-should-know-b834ef155426, il est bien question de specifications pour des image-spec et runtime-spec
-            **** runtime et container doivent être équivalents, car dans le schéma de https://www.tutorialworks.com/difference-docker-containerd-runc-crio-oci/, il est expliqué que : +
+            **** Dans le schéma de https://www.tutorialworks.com/difference-docker-containerd-runc-crio-oci/, il est expliqué que : +
             "OCI provides specifications for container images and running containers."
     ** "https://blog.engineering.publicissapient.fr/2019/12/23/docker-est-mort-vive-docker/" voir en 2:06
     ** runc est une implémentation de OCI
 
 Plan du talk : 
+
+0. *Les premisses des containers : cgroups et namespaces*
+
+Hummmm, détailler dans des sections à part les low-level et high-level runtime containers ?
+
+* Puis Docker
+* Puis Docker 1.11 et le "split"
+* Puis OCI et CRI
+* Puis Kubernetes
+* Et maintenant les alternatives
+    ** pour les alternatives, voir https://linoxide.com/docker-alternative-container-tools/
+    ** Podman (grâce à Kubernetes) est devenu un incontournable
+
+
 
 0. *Les containers au début*
     ** et au début, les containers, c'était Docker.
