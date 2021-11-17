@@ -48,10 +48,12 @@ toc::[]
 
 * Schéma de Docker en 2019 (récent) : https://www.codetd.com/en/article/6502770
     ** montre les 3 parties de *Docker engine*, à savoir : Docker Daemon (dockerd), ContainerD, RunC
-        *** pour des définitions de *ContainerD* et *RunC*, voir https://jfrog.com/knowledge-base/the-basics-7-alternatives-to-docker-all-in-one-solutions-and-standalone-container-tools/
-            **** voir également https://docs.docker.com/engine/api/, où il est écrit : +
+        *** NON ! Préférer l'explication fournie plus bas : +
+        Docker Engine = Docker Server (implémenté à l'aide de dockerd, qui lui même utilise containerd, qui lui même utilise runc) + API + CLI
+    ** pour des définitions de *ContainerD* et *RunC*, voir https://jfrog.com/knowledge-base/the-basics-7-alternatives-to-docker-all-in-one-solutions-and-standalone-container-tools/
+        *** voir également https://docs.docker.com/engine/api/, où il est écrit : +
             "Docker provides an API for interacting with the Docker daemon (called the Docker Engine API), as well as SDKs for Go and Python"
-            **** NOOONNNNN ! Plus clair : https://docs.docker.com/engine/ : 
+        *** NON ! Plus clair, site même de Docker : https://docs.docker.com/engine/ : 
 +
 ----
 Docker Engine acts as a client-server application with:
@@ -60,8 +62,8 @@ Docker Engine acts as a client-server application with:
 - APIs which specify interfaces that programs can use to talk to and instruct the Docker daemon.
 - A command line interface (CLI) client docker.
 ----
-            **** A l'aide de cette dernière explication, on se rend compte que Docker Engine regroupe en fait la CLI, la Docker Engine API et le Docker daemon. +
-            Ce dernier est peut-être considéré ici comme "englobant" containerd et runc, étant donné que le *schéma d'architecture* https://docs.docker.com/get-started/overview/#docker-architecture montre le docker daemon en lien avec la gestion des images, elle-même liée aux containers
+            **** A l'aide de cette dernière explication, on se rend compte que *Docker Engine* regroupe en fait la *CLI*, la Docker Engine *API* et le *Docker daemon*. +
+            Ce dernier est peut-être considéré ici comme *"englobant" containerd et runc*, étant donné que le *schéma d'architecture* https://docs.docker.com/get-started/overview/#docker-architecture montre le docker daemon en lien avec la gestion des images, elle-même liée aux containers
             **** concernant la *Docker Engine API* permettant l'interaction avec le Docker Daemon, voir https://docs.docker.com/engine/api/
 
     ** autre bon schéma : https://www.aquasec.com/cloud-native-academy/docker-container/docker-architecture/ +
@@ -70,17 +72,37 @@ Docker Engine acts as a client-server application with:
         *** OUI, c'est bien toujours d'actualité. Vu plus bas, le docker server (implémenté à l'aide de docker daemon) contient bien / utilise bien containerd et runc.
     ** réponse finale ici : https://www.studytrails.com/2018/12/04/docker-architecture-engine-containerd-runc/ +
     *Docker Engine* est bien composé de : 
-        *** *Docker Server*, qui est implémenté à l'aide de docker daemon (dockerd), et qui est responsable de la création des images, containers, networks et volumes
+        *** *Docker Server*, qui est implémenté à l'aide de *docker daemon (dockerd)*, et qui est responsable de la création des images, containers, networks et volumes
             **** Et on considère que le *Docker Server contient containerd et runc*
-        *** a RESTFul API to talk to the docker server -> donc une API pour parler à dockerd, c'est à dire *Docker Engine API*
+        *** a *RESTFul API* to talk to the docker server -> donc une API pour parler à dockerd, c'est à dire *Docker Engine API*
         *** une *CLI* (the docker command)
+    
+    ** *dockerd* is the thing that helps you *work with volumes*, *networking* or even *orchestration*. +
+    And of course it *can launch containers* or *manage images* as well, *but containerd is listening on linux socket* and this is *just translated to calls to its GRPC API*. +
+    see https://alenkacz.medium.com/whats-the-difference-between-runc-containerd-docker-3fc8f79d4d6e
+
+    ** Une bonne comparaison, rapide et efficace entre Docker et Kubernetes : (https://www.threatstack.com/blog/diving-deeper-into-runtimes-kubernetes-cri-and-shims) +
+    "*Docker* is a technology for automating the process of deploying containers. *Kubernetes* is orchestration software that gives us an API to manage how the containers will run." +
+    "In a broad sense, Docker runs on nodes, and Kubernetes runs clusters of nodes. To run containers in pods, Kubernetes uses runtimes. Considering what we know about runtimes and how they are defined, Docker can be considered a runtime for Kubernetes, and is a high-level runtime as defined in our last post."
+
+    ** On pourrait également définir Docker très simplement ainsi : *Docker allows to run containerized apps*
+        *** Au final, les composants de Docker ont pour but de : *build des images*, et *run des containers*
 
 * dockerd vs containerd vs runc : https://stackoverflow.com/questions/46649592/dockerd-vs-docker-containerd-vs-docker-runc-vs-docker-containerd-ctr-vs-docker-c
-    ** on y trouve aussi une bonne explication sur *shim*
-        *** toujours concernant shim (docker-containerd-shim), voir pour une bonne explication : https://www.threatstack.com/blog/diving-deeper-into-runtimes-kubernetes-cri-and-shims +
-        Le point essentiel de shim est de permettre "It allows for daemon-less containers." +
-        "It basically sits as the parent of the container’s processes to facilitate communications, and eliminates the long running runtime processes for containers."
-        *** dockershim est également très bien expliqué dans https://www.tutorialworks.com/difference-docker-containerd-runc-crio-oci/
+    ** on y trouve aussi une bonne explication sur *shim* : +
+    "(docker-)containerd-shim - After runC actually runs the container, it exits (allowing us to not have any long-running processes responsible for our containers). The shim is the component which sits between containerd and runc to facilitate this."
+
+    ** toujours concernant shim (docker-containerd-shim), voir pour une bonne explication : https://www.threatstack.com/blog/diving-deeper-into-runtimes-kubernetes-cri-and-shims +
+    Le point essentiel de shim est de permettre "It allows for *daemon-less containers*." +
+    "It basically sits as the parent of the container’s processes to facilitate communications, and eliminates the long running runtime processes for containers." +
+    "The processes of the *shim and the container* are bound tightly; however, they are *totally separated from the process of the container manager*" +
+    "Shim allows a runtime (runC) to exit after the container is started. Without this we would still be subject to long runtime processes."
+        *** cet article décrit également très bien Kubernetes et Docker, et les liens entre Kubelet, implémentation de CRI (CRI-O) et un low-level container runtime (très souvent runc)
+    ** autre bon article sur le sujet : https://alenkacz.medium.com/whats-the-difference-between-runc-containerd-docker-3fc8f79d4d6e
+        *** *containerd-shim* is the *parent process of every container started* and it *also allows daemon-less containers* (meaning you can upgrade docker daemon without restarting all your containers, which was a big pain)
+
+    ** *dockershim* est également très bien expliqué dans https://www.tutorialworks.com/difference-docker-containerd-runc-crio-oci/ : +
+    "In tech terms, a shim is a component in a software system, which acts as a *bridge between different APIs*, or as a compatibility layer. A shim is sometimes added when you want to use a third-party component, but you need a little bit of glue code to make it work."
 
 * autre *très bonne ressource*, la série d'articles de *Ian Lewis* (2017/12) : https://www.ianlewis.org/en/container-runtimes-part-1-introduction-container-r
     ** en fait, toutes les différentes facettes de l'écosystème des containers y sont présentées (docker, dockerd, containerd, runc)
@@ -134,16 +156,19 @@ Une bonne définition d'un *container runtime* : +
 A container runtime is a library or software which has the ability to create, deploy and manage containers on its own. Basically, container runtimes are responsible for container lifecycle. It provides simple API layer to create, deploy and manage containers.
 ----
 
-* Docker was released in 2013
+* *Docker was released in 2013*
 
 * https://www.ianlewis.org/en/container-runtimes-part-1-introduction-container-r
+
     ** developers who want to run apps in containers will need more than just the features that low-level runtimes provide, they need APIs and features around image formats, image management, and sharing images, which are provided by high-level runtimes.
     ** Developers who implement low-level runtimes will say that higher level runtimes like *containerd* and *cri-o* are not actually container runtimes, as from their perspective they outsource the implementation of running a container to *runc*.
 
-* https://www.ianlewis.org/en/container-runtimes-part-2-anatomy-low-level-contai
+* https://www.ianlewis.org/en/container-runtimes-part-2-anatomy-low-level-contai : *LOW LEVEL CONTAINER RUNTIME*
+
     ** le concept de *low-level container runtime* est mis en avant
     ** Low-level runtimes have a limited feature set and typically perform the low-level tasks for *running a container* (ex : runC)
         ** low-level runtimes are responsible for the mechanics of actually running a container
+        ** raison pour laquelle de nombreux low-level container runtime s'appellent "run<quelque chose>"
     ** *Namespaces* let you virtualize system resources, like the file system or networking for each container.
         *** Namespaces are "what you can see"
     ** *cgroups* provide a way to limit the amount of resources, such as CPU and memory, that each container can use.
@@ -158,18 +183,27 @@ A container runtime is a library or software which has the ability to create, de
             See https://research.google/pubs/pub43438/ for more details
 
         *** *runC* : most widely used container runtime
-            **** originally developed as part of Docker, then extracted as a separate tool and library
+            **** originally developed as part of Docker, then extracted as a separate tool and library.
+                ***** So runC is the low-level runtime that was broken off from Docker.
             **** runC implements the *OCI runtime spec* (Open Container Initiative)
                 ***** Pour plus détails, lire l'OCI runtime spec : https://github.com/opencontainers/runtime-spec
+            **** https://www.tutorialworks.com/difference-docker-containerd-runc-crio-oci/ : runc is responsible for creating and running the container process.
 
         *** *rkt* (CoreOS *Rocket*):
-            **** developed by CoreOS
+            **** developed by CoreOS, which was later acquired by Red Hat
             **** provides all features provided by low-level container runtimes, PLUS some high-level ones
             **** *projet ended / discontinued on 2020/02* and is not maintained anymore.
+                ***** for more details on the reasons, see https://github.com/rkt/rkt/issues/4024 +
+                The main ones seem to be : 
+                ***** the previous development team at CoreOS got dismantled, and post Red Hat acquisition there are no plan to push the development forward
+                ***** no more have development plans for rkt (from the new development team)
+                ***** a declining engagement from the community
 
-* https://www.ianlewis.org/en/container-runtimes-part-3-high-level-runtimes
-    ** *high-level runtimes* are responsible for *transport and management of container images*, unpacking the image, and *passing off to the low-level runtime* to run the container.
-    ** Typically, high-level runtimes provide a *daemon* application and an *API* that remote applications can use to logically run containers and monitor them but they sit on top of and *delegate to low-level runtimes* or other high-level runtimes for the actual work.
+* https://www.ianlewis.org/en/container-runtimes-part-3-high-level-runtimes : *HIGH LEVEL CONTAINER RUNTIMES*
+
+    ** *high-level runtimes* are responsible for *transport and management of container images*, unpacking the image, and *passing off to the low-level runtime* to *run the container*.
+    ** Typically, high-level runtimes provide a *daemon* application and an *API* that remote applications can use to logically run containers and monitor them but they sit on top of and *delegate to low-level runtimes* or other high-level runtimes for the actual work. +
+    High-level runtimes can also provide *features* that sound low-level, but are *used across individual containers on a machine*. For example, one feature might be the management of network namespaces, and allowing containers to join another container's network namespace.
     ** Exemples of high-level container runtime : 
 
         *** *Docker*
@@ -178,65 +212,119 @@ A container runtime is a library or software which has the ability to create, de
             The command line client could be run to send commands and to get information from the daemon.
             **** It really was *the first* popular runtime to incorporate all of the features needed during the lifecycle of building and running containers, hence its success.
             **** A la base Docker faisait tout, les low et les high level features, mais cela a depuis (v1.11) été scindé en différentes briques, dont containerd et runC. +
-            Docker se compose donc maintenant (2021) de docker CLI, dockerd, docker-containerd et docker-runc (les 2 derniers étant simplement des versions packagées de containerd et runc)
+            Docker se compose donc maintenant (2021) de docker CLI, dockerd, docker-containerd et docker-runc (les 2 derniers étant simplement des versions packagées de containerd et runc) ainsi que la Docker Engine API
+                ***** *dockerd* provides features such as *building images*, and dockerd uses docker-containerd to provide features such as image management and running containers. For instance, Docker's build step is actually just some logic that interprets a Dockerfile, runs the necessary commands in a container using containerd, and *saves the resulting container file system as an image*.
 
+        *** *ContainerD* 
+            **** is the high-level runtime that was split off from Docker.
+            **** implements downloading images, managing them, and running containers from images. +
+            When it needs to *run a container* it unpacks the image into an OCI runtime bundle and *shells out to runc* to run it.
+            **** Containerd also provides an API and client application that can be used to interact with it. The *containerd command line client* is *ctr*.
+            ****  In contrast with Docker, containerd is *focused solely on running containers*, so it *does NOT provide a mechanism for building containers*.
+                ***** Docker was focused on end-user and developer use cases, whereas containerd is focused on operational use cases, such as running containers on servers. Tasks such as building container images are left to other tools.
+                ***** traduction simple : containerd can't build images (c'est le travail du daemon dockerd par exemple)
+            **** containerd is made *compliant with CRI* through its *CRI plugin* "cri-containerd" (as coming from Docker, it is NOT natively compliant with CRI which comes from Kubernetes)
+                ***** see https://github.com/containerd/cri for more details
 
-* Voir également *Kata containers*
-    ** Kata containers est un container runtime open source, voir https://katacontainers.io/
+        *** *rkt*
+            **** CAREFUL ! See above, *projet ended in 2020/02* !
+            **** rkt is a runtime that has both low-level and high-level features
+            **** rkt allows you to *build container images*, *fetch* and *manage container images* in a local repository, and *run them* all from a single command
 
+* https://www.ianlewis.org/en/container-runtimes-part-4-kubernetes-container-run : *KUBERNETES CONTAINER RUNTIMES & CRI*
 
-* Attention ! Fin 2020 (décembre ?) deprecation de docker/docker-shim
-    ** pour un quickie, on va éviter de le sujet shim qui est spécifique à Kubernetes
-        *** pas sûr que le shim dans l'absolu soit spécifique à Kubernetes
-    ** à discuter, si on part sur du 30 min ou plus, c'est parfaitement jouable
+    ** *Kubernetes* runtimes are *high-level container runtimes* that support the Container Runtime Interface (*CRI*) (mandatory to integrate with Kubernetes)
 
-* Attention  2021/09, changement de licence Docker Desktop, on ne peut plus l'utiliser sur Windows en entreprise.
-* Parler de Docker Desktop qui conseille maintenant de passer, avec WSL 2, aux Linux Containers ?
+        *** CRI was introduced in Kubernetes 1.5 and acts as a *bridge* between the *kubelet* and the *container runtime*.
+            **** *kubelet* : https://kubernetes.io/docs/concepts/overview/components/#kubelet +
+            "An *agent* that runs on each node in the cluster. It *makes sure that containers are running in a Pod*. +
+            The kubelet takes a set of PodSpecs that are provided through various mechanisms and ensures that the containers described in those PodSpecs are running and healthy. The *kubelet doesn't manage containers which were not created by Kubernetes*"
+            **** The kubelet is responsible for managing the container workloads for its node. +
+            When it comes to actually run the workload, the kubelet uses CRI to communicate with the container runtime running on that same node. +
+            In this way *CRI is simply an abstraction layer* or API that allows you to switch out container runtime implementations instead of having them built into the kubelet.
+                ***** *CRI évite donc de coupler kubelet avec le container runtime* (logique, c'est une interface)
 
-== Préparation des slides
+    ** The runtime is expected to handle the *management of images* and to *support Kubernetes pods*, as well as *manage the individual containers*. As a consequence, a Kubernetes runtime must be a high-level runtime per our definition in part 3.
 
-* Docker allows to run containerized apps
+    ** *containerd*
+        *** implements CRI as a plugin, which is enabled by default
+        *** it *supports multiple low-level runtimes* via something called a "runtime handler" starting in version 1.2. The runtime handler is passed via a field in CRI and based on that runtime handler containerd runs an application called a *shim* to start the container. This can be used to run containers using low-level runtimes other than runc, like *gVisor*, *Kata Containers*, or *Nabla Containers*.
+            **** *gVisor*, *Kata Containers* et *Nabla Containers* sont souvent comparés car mettant tous en avant une *isolation très forte vis à vis de l'host*
+            **** https://alenkacz.medium.com/whats-the-difference-between-runc-containerd-docker-3fc8f79d4d6e : +
+            kata containers "is claiming to be all the isolation you love from VMs but that can be easily plugged into all the tooling we have around containers. This means you can spin up these VMs (or kata containers if you wish) through docker or Kubernetes."
 
-* OCI : Image spec ET Runtime spec
-    ** cf "https://www.tutorialworks.com/difference-docker-containerd-runc-crio-oci/" : the Open Container Initiative (OCI) which publishes specifications for images and containers.
+    ** *Docker*
+        *** Nowadays, Docker itself isn't necessary to support CRI, which is done through the use of containerd
+
+    ** *cri-o*
+        *** cri-o is a lightweight *CRI runtime* made as a *Kubernetes specific high-level runtime*.
+        *** It supports the management of OCI compatible images and pulls from any OCI compatible image registry.
+        *** It *supports runc* and *Clear Containers* as low-level runtimes. +
+        It supports other OCI compatible low-level runtimes in theory, but relies on compatibility with the runc OCI command line interface, so in practice it isn't as flexible as containerd's shim API.
+
+    ** the *CRI Specification*
+        *** CRI is a *protocol buffers* and *gRPC* API.
+        *** CRI *defines several remote procedure calls* (RPCs) and *message types*. The RPCs are for operations like "pull image" (ImageService.PullImage), "create pod" (RuntimeService.RunPodSandbox), "create container" (RuntimeService.CreateContainer), "start container" (RuntimeService.StartContainer), "stop container" (RuntimeService.StopContainer), etc.
+        *** We can interact with a CRI runtime directly using the crictl tool. crictl lets us send gRPC messages to a CRI runtime directly from the command line.
+
+*OCI* : *Image spec* ET *Runtime spec*
+
+    * cf "https://www.tutorialworks.com/difference-docker-containerd-runc-crio-oci/" : the Open Container Initiative (OCI) which publishes specifications for images and containers.
         *** cf https://faun.pub/docker-containerd-standalone-runtimes-heres-what-you-should-know-b834ef155426, il est bien question de specifications pour des image-spec et runtime-spec
             **** Dans le schéma de https://www.tutorialworks.com/difference-docker-containerd-runc-crio-oci/, il est expliqué que : +
             "OCI provides specifications for container images and running containers."
-    ** "https://blog.engineering.publicissapient.fr/2019/12/23/docker-est-mort-vive-docker/" voir en 2:06
-    ** runc est une implémentation de OCI
+    * "https://blog.engineering.publicissapient.fr/2019/12/23/docker-est-mort-vive-docker/" voir en 2:06
+    * runc est une implémentation de OCI
 
-Plan du talk : 
+* Attention ! Fin 2020 (décembre) *deprecation de docker/docker-shim* (dockershim)
+    ** oui, c'est bien confirmé : "the Kubernetes community announced it is deprecating Docker as a container runtime after v1.20". +
+    Donc, il s'agit bien de la deprecation de *docker-shim*, ET *NON* de containerd-shim, qui n'a rien à voir sinon le "shim" dans le nom. +
+    "Docker-shim was a temporary solution proposed by the Kubernetes community to add support for Docker so that it could serve as its container runtime." +
+    Pour plus de détails, voir https://kubesphere.io/blogs/dockershim-out-of-kubernetes/ et https://linoxide.com/docker-alternative-container-tools/
 
-0. *Les premisses des containers : cgroups et namespaces*
+* Attention ! 2021/09, changement de licence Docker Desktop, on ne peut plus l'utiliser sur Windows en entreprise.
+* Parler de Docker Desktop qui conseille maintenant de passer, avec WSL 2, aux Linux Containers ?
 
-Hummmm, détailler dans des sections à part les low-level et high-level runtime containers ?
+== Plan du talk
 
-* Puis Docker
-* Puis Docker 1.11 et le "split"
-* Puis OCI et CRI
-* Puis Kubernetes
-* Et maintenant les alternatives
-    ** pour les alternatives, voir https://linoxide.com/docker-alternative-container-tools/
-    ** Podman (grâce à Kubernetes) est devenu un incontournable
+1. L'histoire de la containerisation d'hier à aujourd'hui
 
+    * cgroups et namespaces : les premisses des containers
+    * Puis Docker
+        ** prévoir schéma de ce "Docker l'ancien"
+    * Puis Docker 1.11 et le "split" avec containerd et runc
+        ** nouveau schéma, Docker Engine, server avec containerd et runc
+        ** checker où en était Kubernetes à date du split (2016/04). CRI avait-il déjà fait son apparition ?
+    * Puis l'arrivée de Kubernetes qui a entraîné l'apparition de CRI
+        ** nouveau schéma avec Docker ET Kubernetes, et leurs container runtimes
+    * Et maintenant toutes les alternatives possibles à "Docker" (en fait, de nouveaux high et low container runtime)
+        ** pour les alternatives, voir https://linoxide.com/docker-alternative-container-tools/
+        ** Podman (grâce à Kubernetes) est devenu un incontournable
 
+    Ou on commence par une frise temporelle du début des containers à nos jours ?
 
-0. *Les containers au début*
-    ** et au début, les containers, c'était Docker.
+    A chaque début de nouvelle section, reprendre où nous en sommes dans la frise temporelle
+
+2. *Les cgroups et les namespaces*
+
+    ** pourquoi a-t-on fait ça ? Principalement pour des besoins d'isolation
+        *** retrouver les 1ers usages
+
+3. *L'arrivée de Docker, le début des containers*
+
+    ** et au début, les containers, pour l'immense majorité des devs, c'était Docker et rien que Docker.
         *** Maintenant, il y a Docker la compagnie, et Docker la technologie
     ** Docker la compagnie ? Les images, les containers, la ligne de commande ?
     ** A la base la compagnie Docker a créé un outil simple et ergonomique pour travailler avec les containers, outil appelé "docker" (la CLI docker pour être plus précis)
         *** cette CLI permet très facilement to build images, pull them from registries, create, start and manager containers
     ** et la grosse différence se fait avec le passage à la version 1.11, et l'apparition de containerd et runc
 
-1. *Docker "à l'ancienne" avant la 1.11 (2016/04)*
-    ** https://jvns.ca/blog/2016/10/02/i-just-want-to-run-a-container/
-        *** *containerd* et *runc* ont commencé à apparaître à partir de Docker *1.11.0* (2016/04) ? +
-        à confirmer via https://jvns.ca/blog/2016/10/02/i-just-want-to-run-a-container/ (site de 2016)
-            **** OUI, confirmé via https://faun.pub/docker-containerd-standalone-runtimes-heres-what-you-should-know-b834ef155426 : +
-            "Docker Engine 1.11 was the first release built on runC (a runtime based on Open Container Intiative technology) and containerd."
-    
-2. *Docker en 2021 et le CRI de Kubernetes*
+    ** *Docker "à l'ancienne" avant la 1.11 (2016/04)*
+        *** https://jvns.ca/blog/2016/10/02/i-just-want-to-run-a-container/
+
+4. *Le split de Docker : l'apparition de containerd et runc*
+
+    On a maintenant le Docker engine
     ** Docker client (CLI, GUI, etc.) 
     ** parle à un Docker Daemon 
     ** qui parle à containerd : un autre daemon qui va aller surveiller vos containers, les redémarrer
@@ -245,9 +333,27 @@ Hummmm, détailler dans des sections à part les low-level et high-level runtime
         *** et c'est runc qui va lancer votre processus de façon isolé via les features de votre kernel (namespaces & co, etc.)
         *** runC can help you avoid being strongly tied to specific technologies, hardware, or cloud service providers.
 
-3. Donc l'ecosystem des containers est loin de se limiter au seul "Docker", c'est vraiment un *assemblage de diverses technos*, parmi lesquelles on peut citer : 
-    * pour builder des images OCI compliant : Kaniko (Google), buildah (RedHat), Makisu (Uber)
-    * pour lancer des containers depuis des images : CRI-o, rkt, containerd, Kata containers, gVisor, singularity, nabla, podman
+    ** *containerd* et *runc* ont commencé à apparaître à partir de Docker *1.11.0* (2016/04) ? +
+        à confirmer via https://jvns.ca/blog/2016/10/02/i-just-want-to-run-a-container/ (site de 2016)
+            **** OUI, confirmé via https://faun.pub/docker-containerd-standalone-runtimes-heres-what-you-should-know-b834ef155426 : +
+            "Docker Engine 1.11 was the first release built on runC (a runtime based on Open Container Intiative technology) and containerd."
 
-Au final, les composants de Docker ont pour but de : *build des images*, et *run des containers*
+    ** détailler ici les low-level container runtimes, et les high-level container runtimes
+
+5. *l'arrivée de Kubernetes, et la démultiplication des runtimes*
+
+    Kubernetes : fait naturellement tourner des containers dans des pods.
+
+    * Donc l'ecosystem des containers est loin de se limiter au seul "Docker", c'est vraiment un *assemblage de diverses technos*, parmi lesquelles on peut citer : 
+        ** pour builder des images OCI compliant : Kaniko (Google), buildah (RedHat), Makisu (Uber)
+        ** pour lancer des containers depuis des images : CRI-o, rkt, containerd, Kata containers, gVisor, singularity, nabla, podman
+
+    * Parler des confusions possible entre les différents "shim" : le deprecated docker-shim, et containerd-shim
+
+6. *Et... demain ?*
+    ** Voir si tente de se projeter dans l'avenir
+
+
+
+
 
