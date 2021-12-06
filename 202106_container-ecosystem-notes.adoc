@@ -30,6 +30,16 @@ endif::[]
 
 toc::[]
 
+== Overview
+
+Talk ayant pour but de retracer l'histoire de la conteneurisation, depuis ses débuts jusqu'à nos jours, et d'expliquer les raisons derrière chaque grande évolution.
+Nous commencerons par les prémises avec les cgroups et namespaces, puis parlerons de l'émergence de Docker, son évolution et l'arrivée des low level (ex : runc) et high level (ex : containerD) runtimes, et finiront avec les alternatives actuelles à Docker, permettant de gérer complètement le cycle de vie d'un container sans ce dernier.
+
+== Recherche du nom de la conférence
+
+* A brief history of containerization, from yesterday to today
+* Histoire accélérée de la conteneurisation, d'hier à nos jours
+
 == Ressources
 
 * A : https://www.tutorialworks.com/difference-docker-containerd-runc-crio-oci/ : excellente ressource
@@ -158,6 +168,39 @@ A container runtime is a library or software which has the ability to create, de
 
 * *Docker was released in 2013*
 
+* *Why Docker ?* by Solomon Hykes : https://www.youtube.com/watch?v=3N3n9FzebAA (2013/08/01, EXCELLENTE conf, toujours d'actualité) +
+La grande raison de l'époque : *shipping software from A to B, reliably and automatically*
+    ** It has to behave the same way on both machine, and this with technological stack behind applications being more and more complex
+    ** and your shipping place can be different depending on developer environment, servers, etc etc. (a lot of possible combinations that result finally in different environments)
+    ** 08:39 (https://youtu.be/3N3n9FzebAA?t=519), to avoid all those shipping problems in the (shipping) industry, one day in the 1950s, people agreed on using a standard box, with standard dimensions, weight, way to open the doors, etc etc. AND it resulted with the creation on the container we know today. +
+    This "ugly box" allows *separation of concerns* : je crée un outil / soft, je veux le shipper, je le mets dans le container, et ma responsabilité pour le shipping s'arrête là. Je ne m'intéresse QU'A mon produit, et PAS au container. +
+    De la même façon, pour les personnes en charge du shipping, elles n'ont pas besoin de s'intéresser à ce qu'il y a dans le container : elles savent que le container a une taille, un poids, des dimensions données, et que TOUS ces containers peuvent être utilisés via les mêmes moyens standards.
+        *** ces "boîtes" ont réellement changé le monde à cette époque : AVANT, c'était une galère de livrer du fait de toutes les combinaisons possibles de packaging des produits à livrer.
+        *** We finally wanted to do the same in our IT world for our own shipping needs.
+        
+    ** Avant, on avait bien déjà des archives comme des jars, rvms, etc. MAIS ce *sandboxing n'était pas complet*
+
+    ** Il y avait bien *les VMs* : cette fois-ci, on a l'appli et on livre finalement toute la machine avec. On est maintenant sûr qu'on a bien le même "contexte" à chaque livraison.
+        *** C'est la seule façon de s'assurer de share software in a truly reliable and repeatable way : to *ship the WHOLE system with the application* (because, truly, the system is PART OF the application)
+        *** *le souci* avec les VMs est que l'*on ship trop de choses* : hard drives, network interfaces, le total de RAM, le type de processeur, etc. 
+            **** Et il ne faut pas que ce soit le développeur qui décide comment l'on va faire fonctionner son application sur toutes les infrastructures possibles, ce n'est pas son rôle (on brise la "separation of concerns" précédente)
+                ***** Pour reprendre l'analogie avec les "vrais" containers, cela reviendrait à imposer le modèle de grue avec lequel les décharger, et le modèle de bateau avec lequel les transporter.
+                ***** In our IT world, the infrastructure provider is NOT free to make those choices just because you give them to him with your application.
+        *** autre souci, *les VMs sont volumineuses* : est-ce facile d'en faire tourner 10 en parallèle ? Non.
+            **** En fait, les VMs ont certains des "défauts" des machines classiques : elles mettent du temps à booter, consomment beaucoup de RAM, etc etc. Pas le plus pratique pour un dev dans son travail quotidien.
+        
+    ** Pour avoir le *meilleur des 2 mondes*, archives et VMs, il faudrait : 
+        *** Sandbox the entire system
+        *** without machine details
+        *** and without the performance hit
+        *** Et tout ceci est rendu *possible grâce aux fonctionnalités du kernel Linux*, tout particulièrement le *namespacing* qui a été rendu "réellement" fonctionnel dernièrement
+            **** avec ce nouveau namespacing (2013), on peut maintenant isoler n'importe quel process des autres, et faire "croire" à ce process qu'il a sa propre VM (alors qu'il ne l'a pas)
+                ***** mais utiliser ces fonctionnalités d'isolation du kernel Linux n'est pas évident, ce qu'il manque est une façon standard de les utiliser (un container standard pour cela) : c'est ce qu'est Docker +
+                Docker est avant tout : 
+                ***** un standard container format
+                ***** simple tools that enable people running the infrastructure to take that container (without knowing what is inside), and then run it
+
+
 * https://www.ianlewis.org/en/container-runtimes-part-1-introduction-container-r
 
     ** developers who want to run apps in containers will need more than just the features that low-level runtimes provide, they need APIs and features around image formats, image management, and sharing images, which are provided by high-level runtimes.
@@ -285,7 +328,11 @@ A container runtime is a library or software which has the ability to create, de
 * Attention ! 2021/09, changement de licence Docker Desktop, on ne peut plus l'utiliser sur Windows en entreprise.
 * Parler de Docker Desktop qui conseille maintenant de passer, avec WSL 2, aux Linux Containers ?
 
+* Une présentation de Podman, à Devoxx France 2021 (2021/10), par Benjamin Vouillaume : https://www.youtube.com/watch?v=pUFIG2AMDhg
+
 == Plan du talk
+
+Commencez par un petit disclaimer pour le public ? "ce que ce talk n'est pas ?" (à savoir une prez sur comment utiliser Docker, CRI-O ou Podman)
 
 1. L'histoire de la containerisation d'hier à aujourd'hui
 
