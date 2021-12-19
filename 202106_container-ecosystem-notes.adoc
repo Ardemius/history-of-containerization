@@ -41,8 +41,81 @@ Ce talk ne va pas rentrer dans le détail de toutes les étapes
 
 == Recherche du nom de la conférence
 
+* A Brief History of Containers
 * A brief history of containerization, from yesterday to today
-* *Petite histoire de la conteneurisation*, d'hier à nos jours : on va garder ce titre
+
+* Petite histoire de la conteneurisation, d'hier à nos jours
+* *L'évolution de la conteneurisation, de 1979 à aujourd'hui* : on va garder ce titre
+
+== Abstract
+
+* Expliquer le "pourquoi ces changements, ces évolutions ?" afin de comprendre comment nous en sommes arrivés à la situation actuelle
+
+.idées de formulation
+----
+La plupart d'entre nous ont découvert le concept de conteneur en 2013 avec l'arrivée de Docker.
+2013 avait marqué l'arrivée de Docker, et fait connaître le concept de conteneur au plus grand nombre.
+
+Aujourd'hui, avec l'avènement du Cloud et de Kubernetes, les conteneurs sont partout autour de nous.
+
+
+Mais en fait, l'histoire de ces derniers / des conteneurs est bien plus étendue que cela, et il faut remonter à la fin des années 70s pour en trouver le véritable début / commencement avec l'apparition de chroot.
+Mais l'histoire de ces derniers / des conteneurs est en fait bien plus étendue que cela, et il faut remonter à la fin des années 70s pour en trouver le véritable début / commencement avec l'apparition de chroot.
+Mais l'histoire de la conteneurisation a en fait débuté il y a bien longtemps, dès la fin des années 70s avec l'apparition de chroot, et depuis
+
+Toutefois, l'histoire de la conteneurisation reste globalement méconnue.
+Qui pour se souvenir que tout a finalement commencé en 1979 avec l'apparition de chroot, qui marqua le début de l'isolation des process ?
+Qu'il a fallu attendre d'avoir les cgroups (2008), puis plus tard les user namespaces (2013) pour qu'enfin Docker puisse voir le jour ?
+Que la généralisation des containers, conséquence de l'adoption de Kubernetes par tous les Cloud providers (2018), entraîna l'apparition des sandbox runtimes et des daemonless runtimes ?
+
+Au cours de ce talk, nous allons détailler les grandes étapes qui ont marqué l'histoire de la conteneurisation, et expliquer ce qui les a déclenchées / POURQUOI elles ont eu lieu.
+L'objectif est qu'en fin de séance, vous ayez compris quelle orientation a suivi la conteneurisation depuis toutes ces années, et ce vers quoi nous allons.
+
+Le but de ce talk est de vous expliquer POURQUOI les choses ont changés, afin de vous permettre de comprendre l'orientation qu'a suivi la conteneurisaiton depuis toutes ses années.
+Pourquoi a-t-il 
+
+
+Après ce sont suivis les Linux namespaces, les cgroups, Docker, l'arrivée des low-level et high-level runtimes avec runc et containerd, jusqu'aux derniers sandbox runtimes et daemonless runtimes.
+
+Au cours de ce talk, nous allons détailler les étapes majeures de la conteneurisation, et vous permettre de comprendre POURQUOI <nous> sommes passés de l'une à l'autre, et quelles orientations ont suivies / suivent les containers <aujourd'hui>
+
+et il faut remonter à la fin des années 70 pour voir apparaître chroot, le point de départ / l'ancêtre de la containerisation
+
+et a été marquée par de
+et de nombreux évènements et shift technologiques ont été vécus pour arriver aux conteneurs que nous conaissons aujourd'hui
+
+Au cours de ce talk, nous allons détailler
+
+cgroups et namespaces, arrivée de docker, split et arrivée des low-level et high-level runtimes avec runc et containerd, etc.
+Nous allons détailler dans ce talk les grandes étapes de la conteneurisation, et vous permettre de comprendre POURQUOI nous 
+
+Avec l'avènement du Cloud et de Kubernetes, les containers sont aujourd'hui partout autour de nous.
+2013 avait 
+
+Chaque 
+Plus Docker, il y a maintenant runc et containerd
+----
+
+.version finale
+----
+La plupart d'entre nous ont découvert le concept de conteneur en 2013 avec l'arrivée de Docker.
+Aujourd'hui, avec l'avènement du Cloud et de Kubernetes, les conteneurs sont partout autour de nous.
+
+Toutefois, l'histoire de la conteneurisation reste globalement méconnue.
+Qui pour se souvenir que tout a finalement commencé en 1979 avec l'apparition de chroot, qui marqua le début de l'isolation des process ?
+Qu'il a fallu attendre d'avoir les cgroups (2008), puis plus tard les user namespaces (2013) pour qu'enfin Docker puisse voir le jour ?
+Que la généralisation des containers, conséquence de l'adoption de Kubernetes par tous les Cloud providers (2018), entraîna l'apparition des sandbox runtimes et des daemonless runtimes ?
+
+Au cours de ce talk, nous allons détailler les grandes étapes qui ont marqué l'histoire de la conteneurisation, et expliquer POURQUOI elles ont eu lieu.
+L'objectif est qu'en sortant, vous ayez compris quelle orientation a suivi la conteneurisation depuis toutes ces années, et ce vers quoi nous allons.
+----
+
+== Message pour le comité
+
+* Donner le lien vers le repo GitHub, pour montrer la recherche documentaire
+* Expliquer que ce sujet m'a initialement intéressé du fait de mon travail actuel avec les stacks Cloud, qui sont très friandes de containerization.
+
+* J'ai déjà testé une partie de ce talk avec la communauté technique de Softeam. Le sujet a beaucoup intéressé nos ITs, surtout les raisons des grands changements qui ont eu lieu dans ce domaine, et dont l'on parle finalement assez peu.
 
 == Ressources
 
@@ -143,7 +216,7 @@ Docker Engine acts as a client-server application with:
             **** *capabilities* : security: avoid giving root access +
             Capabilities allow to reduce the privileges of an active process
             **** *overlay filesystems* : optimization to reduce disk space used by containers which are using the same image
-            **** quand on utilise toutes les fonctionnalités précédentes, on a un container
+            **** quand on utilise *toutes les fonctionnalités précédentes*, on a un *container*
             **** Et un GROS reminder : *A container is a group of processes*
 
     ** Cf wikipedia (https://en.wikipedia.org/wiki/Cgroups), *cgroups* : +
@@ -168,6 +241,7 @@ Docker Engine acts as a client-server application with:
         *** le travail sur les *cgroups* a commencé en 2006 chez Google sous le nom "process containers", avant d'être renommé en "control groups" pour éviter toute confusion avec le terme "container" dans un contexte Linux Kernel.
             **** cf Wikipedia (https://en.wikipedia.org/wiki/Cgroups) : +
             "A control group (abbreviated as cgroup) is a *collection of processes that are bound by the same criteria* and associated with a set of parameters or limits. These groups can be *hierarchical*, meaning that *each group inherits limits from its parent group*. The kernel provides access to multiple controllers (also called subsystems) through the cgroup interface;[2] for example, the "memory" controller limits memory use, "cpuacct" accounts CPU usage, etc."
+
         *** Development and maintenance of cgroups was then taken over by Tejun Heo. Tejun Heo redesigned and rewrote cgroups. This rewrite is now called version 2, the documentation of *cgroups v2* first appeared in Linux kernel 4.5 released on 14 March 2016. +
         Unlike v1, cgroups v2 has only a *single process hierarchy* and discriminates between processes, not threads.
 
@@ -275,7 +349,7 @@ La grande raison de l'époque : *shipping software from A to B, reliably and aut
             **** runC implements the *OCI runtime spec* (Open Container Initiative)
                 ***** Pour plus détails, lire l'OCI runtime spec : https://github.com/opencontainers/runtime-spec
             **** https://www.tutorialworks.com/difference-docker-containerd-runc-crio-oci/ : runc is responsible for creating and running the container process.
-            **** pour une très bonne ressoure sur runc, voir https://www.agaetis.fr/blogpost/les-runtimes-oci
+            **** pour une très bonne ressource sur runc, voir https://www.agaetis.fr/blogpost/les-runtimes-oci
                 ***** il est question de *runc* et de *crun* comme des "native runtimes", auxquels on va comparer les "*sandbox runtimes*" que *gVisor*, *Nabla containers* et *Kata containers* +
                 Ces derniers sont présentés comme "limitant les interactions entre le conteneur et le kernel pour réduire au maximum la surface d’attaque, permettant ainsi une plus grande isolation. Dans cette catégorie nous allons voir gVisor,  Nabla containers et Kata containers." Donc un accent mis sur la *sécurité*.
                 ***** concernant plus précisément runc et crun, il est expliqué que : +
@@ -642,7 +716,17 @@ Using this new architecture we can run “*daemon-less containers*” and we hav
 
 Commencez par un petit disclaimer pour le public ? "ce que ce talk n'est pas ?" (à savoir une prez sur comment utiliser Docker, CRI-O ou Podman)
 
-1. L'histoire de la containerisation d'hier à aujourd'hui
+1. un rappel : qu'est-ce qu'un container ?
+
+Julia EVANS en dit la chose suivante (https://jvns.ca/blog/2016/10/10/what-even-is-a-container/) : +
+"The word “container” doesn’t mean anything super precise. Basically there are a few new Linux kernel features (“namespaces” and “cgroups”) that let you isolate processes from each other. When you use those features, you call it “containers”." +
+
+On trouve également le rappel "tout bête" suivant : *A container is a group of processes*
+
+-> D'où : a container is a "just" a group of processes that are isolated from each other by some means.
+
+[start=2]
+2. L'histoire de la containerisation d'hier à aujourd'hui : La frise chronologique
 
     * cgroups et namespaces : les premisses des containers
     * Puis Docker
@@ -660,12 +744,14 @@ Commencez par un petit disclaimer pour le public ? "ce que ce talk n'est pas ?" 
 
     A chaque début de nouvelle section, reprendre où nous en sommes dans la frise temporelle
 
-2. *Les cgroups et les namespaces*
+Les étapes majeures à présenter plus en détails : 
+
+* *Les cgroups et les namespaces*
 
     ** pourquoi a-t-on fait ça ? Principalement pour des besoins d'isolation
         *** retrouver les 1ers usages
 
-3. *L'arrivée de Docker, le début des containers*
+* *L'arrivée de Docker, le début des containers*
 
     ** et au début, les containers, pour l'immense majorité des devs, c'était Docker et rien que Docker.
         *** Maintenant, il y a Docker la compagnie, et Docker la technologie
@@ -677,7 +763,7 @@ Commencez par un petit disclaimer pour le public ? "ce que ce talk n'est pas ?" 
     ** *Docker "à l'ancienne" avant la 1.11 (2016/04)*
         *** https://jvns.ca/blog/2016/10/02/i-just-want-to-run-a-container/
 
-4. *Le split de Docker (v1.11.0) : l'apparition de containerd et runc (high level et low level container runtime)*
+* *Le split de Docker (v1.11.0) : l'apparition de containerd et runc (high level et low level container runtime)*
 
     On a maintenant le Docker engine
     ** Docker client (CLI, GUI, etc.) 
@@ -699,7 +785,7 @@ Commencez par un petit disclaimer pour le public ? "ce que ce talk n'est pas ?" 
 
     ** détailler ici les low-level container runtimes, et les high-level container runtimes
 
-5. *l'arrivée de Kubernetes, et la démultiplication des runtimes*
+* *l'arrivée de Kubernetes, et la démultiplication des runtimes*
 
     Kubernetes : fait naturellement tourner des containers dans des pods.
 
@@ -709,12 +795,6 @@ Commencez par un petit disclaimer pour le public ? "ce que ce talk n'est pas ?" 
 
     * Parler des confusions possible entre les différents "shim" : le deprecated docker-shim, et containerd-shim
 
-6. *Et... demain ?*
-    ** Voir si tente de se projeter dans l'avenir
-
-7. Les ressources utiles sur le sujet : 
-    ** https://www.youtube.com/watch?v=3N3n9FzebAA : "Why Docker ?" Le talk durant lequel Solomon Hykes a introduit Docker, le 2013/08/01
-
 == Frise temporelle complète v1
 
 * *1970s* : Le concept d'isolation émerge du côte des systèmes Unix. +
@@ -722,30 +802,79 @@ Commencez par un petit disclaimer pour le public ? "ce que ce talk n'est pas ?" 
     "The *original idea* of a container has been around since the 1970s, when the concept was first employed on *Unix systems* to *better isolate application code*. While useful in certain application development and deployment scenarios, the *biggest drawback* to containers in those early days was the simple fact that they were *anything but portable*." +
     "Back in the 1970s, *early containers created an isolated environment where services and applications could run without interfering with other processes* – producing something akin to a sandbox to test applications, services, and other processes. The original idea was to *isolate the container's workload from production systems* in way that *enabled developers to test their applications and processes on production hardware without risking disruption to other services*."
 
+    "During the development of Unix version 7 in 1979, the *chroot* system call was introduced, changing the root directory of a process and its children to a new location in the filesystem." +
+        "This advance was *the beginning process isolation*: segregating file access for each process. Chroot was added to BSD in 1982."
+
 * *1979* : GRANDE ETAPE - *chroot* +
 
-    "During the development of Unix version 7 in 1979, the *chroot* system call was introduced, changing the root directory of a process and its children to a new location in the filesystem." +
-    "This advance was *the beginning process isolation*: segregating file access for each process. Chroot was added to BSD in 1982."
-        ** développement de chroot, dans la version 7 d'Unix +
-        "Chroot marked the beginning of container-style process isolation by restricting an application's file access to a specific directory -- the root -- and its children. A key benefit of chroot separation was improved system security, such that an isolated environment could not compromise external systems if an internal vulnerability was exploited."
+    ** "During the development of Unix version 7 in 1979, the *chroot* system call was introduced, changing the root directory of a process and its children to a new location in the filesystem."
+    ** "This advance was *the beginning process isolation*: segregating file access for each process. Chroot was added to BSD in 1982."
+    ** développement de chroot, dans la version 7 d'Unix
+    ** "Chroot marked the beginning of container-style process isolation by restricting an application's file access to a specific directory -- the root -- and its children. A key benefit of chroot separation was improved system security, such that an isolated environment could not compromise external systems if an internal vulnerability was exploited."
+
+        *** system call - http://www.di.uevora.pt/~lmr/syscalls.html : +
+        A system call is just what its name implies -- a request for the operating system to do something on behalf of the user's program. The system calls are functions used in the kernel itself.
 
 * *2000/03* : *FreeBSD Jails* +
 
-    At that time, "a small shared-environment hosting provider came up with FreeBSD jails to achieve *clear-cut separation between its services and those of its customers* for *security* and *ease of administration*. FreeBSD Jails allows administrators to partition a FreeBSD computer system into several ndependent, smaller systems – called “jails” – with the ability to assign an IP address for each system and configuration."
-        ** https://en.wikipedia.org/wiki/FreeBSD_jail : "Jails were first introduced in FreeBSD version 4.0, that was released on *March 14, 2000*"
-        ** "jails", an early implementation of container technology, was added to FreeBSD
+    ** "jails", an early implementation of container technology, was added to FreeBSD
+    ** At that time, "a small shared-environment hosting provider came up with FreeBSD jails to achieve *clear-cut separation between its services and those of its customers* for *security* and *ease of administration*. FreeBSD Jails allows administrators to partition a FreeBSD computer system into several independent, smaller systems – called “jails” – with the ability to assign an IP address for each system and configuration."
+    ** https://en.wikipedia.org/wiki/FreeBSD_jail : "Jails were first introduced in FreeBSD version 4.0, that was released on *March 14, 2000*"
 
 * *2001* : *Linux VServer* +
 
-    Container technology made it to the Linux side of the house +
+    ** Container technology made it to the Linux side of the house +
     "Jacques Gélinas created the VServer project, which according to the 0.0 version’s change log allowed “running several general purpose Linux server on a single box with a high degree of Independence and security.”"
-        ** "Like FreeBSD Jails, Linux VServer is a jail mechanism that can partition resources (file systems, network addresses, memory) on a computer system. Introduced in 2001, this operating system virtualization that is implemented by patching the Linux kernel. Experimental patches are still available, but the ast stable patch was released in 2006."
+    ** "Like FreeBSD Jails, Linux VServer is a jail mechanism that can partition resources (file systems, network addresses, memory) on a computer system. Introduced in 2001, this operating system virtualization that is implemented by *patching the Linux kernel*. Experimental patches are still available, but the last stable patch was released in 2006."
 
 * *2002/08* : Les 1er *Linux namespaces* (mount namespaces) sont ajoutés au kernel Linux 2.4.19 (2002/08/03)
 
+    ** *namespaces* : allow processes to have their own network / PIDs / users / hostname / mounts / and more !
+
+    ** la vidéo https://www.youtube.com/watch?v=sK5i-N34im8[cgroups, namespaces, and beyond: what are containers made from?] de Jérôme PETAZZONI (Docker) explique en détails les différentes fonctionnalités des *cgroups*, *différents types de namespaces*. +
+        ATTENTION ! Elle date de 2015 !
+            **** Il est également question des *container runtimes* qui sont basés sur les cgroups et les namespaces. +
+            Exemples de container runtimes basés sur des namespaces et des cgroups : 
+                ***** *LXC* (Linux Containers) : easy for sysadmins / OPS, hard for devs (requires significant elbow grease)
+                ***** *systemd-nspawn*
+                ***** *Docker*
+                ***** *rkt*
+                ***** *runC*
+                ***** All those container runtimes use the same kernel features (at that time, 2015 ?)
+            **** et maintenant des container runtimes qui ne sont PAS basés sur les namespaces et les cgroups : 
+                **** *OpenVZ* : by example Travis CI gives you root in OpenVZ
+                **** *Jails* / *Zones*
+
+    ** *namespaces* are a Linux feature allowing your processes to be separated from the other processes on the computer. +
+    You can have PID namespace, networking namespace, mount namespace. +
+    Namespaces can be creates using the `unshare` program.
+
+    ** Pour les *dates* de création des *cgroups* et *namespaces*, voir cet article : https://www.silicon.co.uk/software/open-source/linux-kernel-cgroups-namespaces-containers-186240
+
+    ** *namespaces* were originally developed by *Eric Biederman*, and the final major namespace was merged into *Linux 3.8*. +
+        Cf Wikipedia (https://en.wikipedia.org/wiki/Linux_namespaces) : 
+        "The Linux Namespaces originated in *2002 in the 2.4.19 kernel* (2002/08/03) with work on the *mount namespace* kind. Additional namespaces were added beginning in 2006[2] and continuing into the future. +
+        Adequate containers support functionality was finished in kernel *version 3.8* with the *introduction of User namespaces*."
+            **** Et l'info très intéressante est ici : ce sont les user namespaces, introduit avec le kernel 3.8 de Linux qui ont changé la donne, et dont Solomon Hykes dit en 2013 (voir la conf ci-dessous, à 16:19) que, ça y est, "les namespaces marchent maintenant".
+            **** https://kernelnewbies.org/Linux_3.8 : "*Linux 3.8* was released on Mon, *18 Feb 2013*."
+
+    ** *Namespaces* let you virtualize system resources, like the file system or networking for each container.
+        *** Namespaces are "what you can see"
+
+    ** At their core, low-level container runtimes are responsible for setting up these namespaces and cgroups for containers, and then running commands inside those namespaces and cgroups.
+
+    ** fin 2007 : ajout des 1eres briques de l'implémentation des user namespaces dans le kernel Linux 2.6.23 par Eric Biederman (Red Hat) +
+        "Red Hatter Eric W. Biederman’s 2008 user namespaces patches being arguably the most complex and one of the most important namespaces in the context of containers. The implementation of user namespaces allows a process to have it’s own set of users and in particular to *allows a process root privileges inside a container, but not outside*."
+
+    ** "Nevertheless, this kind of container technology (speaking of Borg) could only go so far. This led to the development of process containers, which became control groups (cgroups) as early as 2004. Cgroups noted the relationships between processes and reined in user access to specific activities and memory volumes. The cgroups concept was absorbed into the Linux kernel in January 2008, after which the Linux container technology LXC emerged. *Namespaces developed shortly thereafter to provide the basis for container network security* -- to hide a user's or group's activity from others."
+
+    ** vidéos sympas détaillant les débuts de l'histoire des  containers (jusqu'à Docker), et résumant bien l'usage des namespaces et cgroups : https://www.youtube.com/watch?v=9Egk9Tnc28E&list=PL5JFPVMx5WzXB-NlH13_G8R8dgfz564uo&index=2
+
 * *2003* : Google introduced *Borg*, the organization's container cluster management system. +
 
-    "It relied on the *isolation mechanisms that Linux already had in place*. In those early days in the evolution of containers, *security wasn't much of a concern*. Anyone could see what was going on inside the machine, which enabled a system of accounting for who was using the most memory and how to make the system perform better."
+    ** "It relied on the *isolation mechanisms that Linux already had in place*. In those early days in the evolution of containers, *security wasn't much of a concern*. Anyone could see what was going on inside the machine, which enabled a system of accounting for who was using the most memory and how to make the system perform better."
+    ** *Borg* is Google's cluster manager that runs hundreds of thousands of jobs, from many thousands of different applications, across a number of clusters each with up to tens of thousands of machines. +
+    See https://research.google/pubs/pub43438/ for more details
 
 * *2004* : *Solaris Containers* +
 
@@ -756,15 +885,52 @@ Commencez par un petit disclaimer pour le public ? "ce que ce talk n'est pas ?" 
 
     "This is an operating system-level virtualization technology for Linux which uses a patched Linux kernel for virtualization, isolation, resource management and checkpointing. The code was not released as part of the official Linux kernel."
 
-* *2006* : début des travaux sur les *Process Containers* chez Google (later renamed *cgroups* / Control Groups) +
+* *2006* : début des travaux sur les *Process Containers* chez Google (later renamed *cgroups* / Control Groups)
 
-    Début des travaux sur les cgroups par Paul Menage and Rohit Seth chez Google
+        ** Début des travaux sur les cgroups par Paul Menage and Rohit Seth chez Google
+
         ** Paul Menage (Google) travaille sur les "process containers", plus tard renommé en cgroups (control groups) +
         "Cgroups allow processes to be grouped together, and ensure that each group gets a share of memory, CPU and disk I/O; preventing any one container from monopolizing any of these resources"
+
         ** "Process Containers (launched by Google in 2006) was designed for limiting, accounting and isolating resource usage (CPU, memory, disk I/O, network) of a collection of processes. It was renamed “Control Groups (cgroups)” a year later and eventually merged to Linux kernel 2.6.24."
+
         ** "Nevertheless, this kind of container technology (speaking of Borg) could only go so far. This led to the development of process containers, which became control groups (cgroups) as early as 2004. Cgroups noted the relationships between processes and reined in user access to specific activities and memory volumes. *The cgroups concept was absorbed into the Linux kernel in January 2008*, after which the Linux container technology LXC emerged. Namespaces developed shortly thereafter to provide the basis for container network security -- to hide a user's or group's activity from others."
 
-* *fin 2007* : ajout des 1eres briques de l'implémentation des *user namespaces* dans le kernel Linux 2.6.23 par Eric Biederman (Red Hat) +
+        ** Cf wikipedia (https://en.wikipedia.org/wiki/Cgroups), *cgroups* : +
+        "cgroups (abbreviated from control groups) is a Linux kernel feature that limits, accounts for, and isolates the resource usage (CPU, memory, disk I/O, network, etc.) of a collection of processes."
+        ** la vidéo https://www.youtube.com/watch?v=sK5i-N34im8[cgroups, namespaces, and beyond: what are containers made from?] de Jérôme PETAZZONI (Docker) explique en détails les différentes fonctionnalités des *cgroups*, *différents types de namespaces*. +
+        ATTENTION ! Elle date de 2015 !
+            *** Il est également question des *container runtimes* qui sont basés sur les cgroups et les namespaces. +
+            Exemples de container runtimes basés sur des namespaces et des cgroups : 
+                **** *LXC* (Linux Containers) : easy for sysadmins / OPS, hard for devs (requires significant elbow grease)
+                **** *systemd-nspawn*
+                **** *Docker*
+                **** *rkt*
+                **** *runC*
+                **** All those container runtimes use the same kernel features (at that time, 2015 ?)
+            *** et maintenant des container runtimes qui ne sont PAS basés sur les namespaces et les cgroups : 
+                *** *OpenVZ* : by example Travis CI gives you root in OpenVZ
+                *** *Jails* / *Zones*
+
+        ** le travail sur les *cgroups* a commencé en 2006 chez Google sous le nom "process containers", avant d'être renommé en "control groups" pour éviter toute confusion avec le terme "container" dans un contexte Linux Kernel.
+            **** cf Wikipedia (https://en.wikipedia.org/wiki/Cgroups) : +
+            "A control group (abbreviated as cgroup) is a *collection of processes that are bound by the same criteria* and associated with a set of parameters or limits. These groups can be *hierarchical*, meaning that *each group inherits limits from its parent group*. The kernel provides access to multiple controllers (also called subsystems) through the cgroup interface;[2] for example, the "memory" controller limits memory use, "cpuacct" accounts CPU usage, etc."
+
+        ** Pour les *dates* de création des *cgroups* et *namespaces*, voir cet article : https://www.silicon.co.uk/software/open-source/linux-kernel-cgroups-namespaces-containers-186240
+
+            *** *cgroups* were originally developed by Paul Menage and Rohit Seth of Google, and their first features were merged into *Linux 2.6.24* (*2008/01*) +
+            Cf Wikipedia (https://en.wikipedia.org/wiki/Cgroups) : 
+            "Engineers at Google (primarily *Paul Menage* and *Rohit Seth*) *started the work on this feature in 2006* under the name "*process containers*".[1] In late 2007, the nomenclature changed to "control groups" to avoid confusion caused by multiple meanings of the term "container" in the Linux kernel context, and the control groups functionality was merged into the Linux kernel mainline in *kernel version 2.6.24*, which was *released in January 2008*."
+
+        ** *cgroups* : limit memory / CPU usage for a group of processes
+
+        ** *cgroups* provide a way to limit the amount of resources, such as CPU and memory, that each container can use.
+            *** control groups are "what you can use"
+        ** At their core, low-level container runtimes are responsible for setting up these namespaces and cgroups for containers, and then running commands inside those namespaces and cgroups.
+
+        ** vidéos sympas détaillant les débuts de l'histoire des  containers (jusqu'à Docker), et résumant bien l'usage des namespaces et cgroups : https://www.youtube.com/watch?v=9Egk9Tnc28E&list=PL5JFPVMx5WzXB-NlH13_G8R8dgfz564uo&index=2
+
+* *2007/10* : ajout des 1eres briques de l'implémentation des *user namespaces* dans le kernel Linux 2.6.23 par Eric Biederman (Red Hat) +
 
     "Red Hatter Eric W. Biederman’s 2008 user namespaces patches being arguably the most complex and one of the most important namespaces in the context of containers. The implementation of user namespaces allows a process to have it’s own set of users and in particular to *allows a process root privileges inside a container, but not outside*."
         ** le kernel Linux 2.6.23 est le 2007/10/10 (https://lwn.net/Articles/253813/)
@@ -777,13 +943,17 @@ Commencez par un petit disclaimer pour le public ? "ce que ce talk n'est pas ?" 
         ** https://fr.wikipedia.org/wiki/LXC : initial release 2008/08/06
         ** "LXC (LinuX Containers) was the first, most complete implementation of Linux container manager. It was implemented in 2008 using cgroups and Linux namespaces, and it works on a single Linux kernel *without requiring any patches*."
 
+    TO BE COMPLETED
+
 * *2011* : Warden +
 
     "CloudFoundry started Warden in 2011, using LXC in the early stages and later replacing it with its own implementation. Warden can isolate environments on any operating system, running as a daemon and providing an API for container management. It developed a client-server model to manage a collection of ontainers across multiple hosts, and Warden includes a service to manage cgroups, namespaces and the process life cycle."
 
-* 2013/02 : GRANDE ETAPE - ajout des *user namespaces* au kernel Linux 3.8
+* *2013/02* : GRANDE ETAPE - ajout des *user namespaces* au kernel Linux 3.8
 
-* 2013/03/20 : GRANDE ETAPE - *1ere release de Docker*
+    ** A ce moment, on a les cgroups et les namespaces (que Solomon HYKES présente comme si importants), mais il y a également d'autres Linux Kernel features utilisés par les containers que l'on va présenter rapidement.
+
+* *2013/03/20* : ETAPE MAJEURE - *1ere release de Docker*
 
     ** "When Docker emerged in 2013, containers exploded in popularity. It’s no coincidence the growth of Docker and container use goes hand-in-hand." +
     "Just as Warden did, Docker also used LXC in its initial stages and later replaced that container manager with its own library, libcontainer. But there’s no doubt that Docker separated itself from the pack by offering an entire ecosystem for container management."
@@ -820,7 +990,7 @@ Commencez par un petit disclaimer pour le public ? "ce que ce talk n'est pas ?" 
 
 * *2015/07* : GRANDE ETAPE - *runc* est publié pour la 1ere fois, et son code a *tout de suite donné par Docker à l'OCI* (runc est l'implémentation de référence de la runtime-spec)
 
-* *2015/07/21* : GRANDE ETAPE - *release de la 1ere version de Kubernetes* par Google, et *création de la CNCF*, comme umbrella projet de la Linux Foundation, à laquelle Kubernetes sera donné comme élément fondateur. +
+* *2015/07/21* : ETAPE MAJEURE - *release de la 1ere version de Kubernetes* par Google, et *création de la CNCF*, comme umbrella projet de la Linux Foundation, à laquelle Kubernetes sera donné comme élément fondateur. +
 
     Google versera / contribuera cette v1.0 de Kubernetes à la CNCF en tant que tout 1er projet et élément fondateur. +
     Pour rappel, la CNCF se définit comme "a Linux Foundation project that was founded in 2015 to help advance container technology and align the tech industry around its evolution" (voir https://en.wikipedia.org/wiki/Cloud_Native_Computing_Foundation et https://fr.wikipedia.org/wiki/Cloud_Native_Computing_Foundation)
@@ -835,7 +1005,7 @@ Commencez par un petit disclaimer pour le public ? "ce que ce talk n'est pas ?" 
         *** *runc* : runc fully supports cgroup v2 (unified mode) since v1.0.0-rc93, 2021/02/04 (https://github.com/opencontainers/runc)
         *** *crun* : dans la spécification d'origine en 2019/03, et "add support for OCI unified cgroups v2 in v0.15, 2020/09/23" (https://github.com/containers/crun/releases?q=cgroup+v2&expanded=true)
 
-* *2016/04/13* : GRANDE ETAPE - sortie de la *version 1.11 de Docker* : 1ere release de Docker basée sur containerd et runC (OCI)
+* *2016/04/13* : ETAPE MAJEURE - sortie de la *version 1.11 de Docker* : 1ere release de Docker basée sur containerd et runC (OCI)
     ** cette release marque le passage à l'architecture "moderne" de Docker
 
 -> A partir de 2017, Kubernetes a de plus en plus le vent en poupe
@@ -859,9 +1029,9 @@ Commencez par un petit disclaimer pour le public ? "ce que ce talk n'est pas ?" 
 
 -> 2018, l'avènement de Kubernetes, tous les plus grands Cloud providers en proposant une offre packagé, ET la démultiplication des container runtimes de types différents (sandbox runtimes, daemonless runtimes)
 
--> *2018* : GRANDE ETAPE - *L'avènement de Kubernetes*, où tous les Cloud providers propose leur offre de Kubernetes managé +
+-> *2018* : ETAPE MAJEURE - *L'avènement de Kubernetes*, où tous les Cloud providers propose leur offre de Kubernetes managé +
 "The massive adoption of Kubernetes pushed cloud vendors such as AWS, Google with GKE (Google Kubernetes Engine), Azure, and Oracle with Container Engine for Kubernetes, to offer managed Kubernetes services. Furthermore, leading software vendors such as VMWare, RedHat, and Rancher started offering Kubernetes-based management platforms." +
-L'usage croissant de Kubernetes a démultiplié l'usage des containers (1 seul cluster Kubernetes pouvant en faire tourner jusqu'à un maximum de 300 000), rendant la sécurisation de ces derniers d'autant plus importante. +
+L'usage croissant de Kubernetes a démultiplié l'usage des containers (1 seul cluster Kubernetes pouvant en faire tourner jusqu'à un maximum de 300 000), rendant la *sécurisation* de ces derniers d'autant plus importante. +
 Ce besoin accrue de sécurisation a amené à l'apparition de nouveaux types de runtimes : les sandbox runtimes, ainsi que les daemonless / rootless runtimes 
 
 * émergences des "*sandbox runtimes*" : *Kata containers*, *gVisor*, *Nabla* : +
@@ -879,19 +1049,22 @@ Ce besoin accrue de sécurisation a amené à l'apparition de nouveaux types de 
     ** Ces "sandbox runtimes" permettent d’isoler les conteneurs, mais au prix de *performances dégradées*, et parfois plus : 
         *** *gVisor* n’est pas compatible avec toutes les applications, notamment celles qui nécessitent un accès direct aux système de fichier, et il impactent aussi les performances.
         *** *Nabla container* induit également une baisse de performance et plus important encore, il n’est pas tout à fait fini et *ne semble plus très maintenu*.
-    ** *Kata containers* : lancement de la v1.0 le 2018/05/22 (https://techcrunch.com/2018/05/22/the-kata-containers-project-hits-1-0/)
-    ** *gVisor* : release initiale en 2018/05/02 (https://en.wikipedia.org/wiki/GVisor)
+
+    ** *2018/05/22* : *Kata containers* : lancement de la v1.0 le 2018/05/22 (https://techcrunch.com/2018/05/22/the-kata-containers-project-hits-1-0/)
+
+    ** *2018/05/02* : *gVisor* : release initiale en 2018/05/02 (https://en.wikipedia.org/wiki/GVisor)
         *** blog de Google annonçant la sortie de gVisor le 2018/05/02 : https://cloud.google.com/blog/products/identity-security/open-sourcing-gvisor-a-sandboxed-container-runtime +
         "To that end, we’d like to introduce gVisor, a new kind of sandbox that helps provide secure isolation for containers, while being more lightweight than a virtual machine (VM). gVisor integrates with Docker and Kubernetes, making it simple and easy to run sandboxed containers in production environments."
         *** https://www.zdnet.com/article/google-open-sources-gvisor-a-sandboxed-container-runtime/ (2018/05/03) : +
         "With gVisor, Google has introduced a new way to *sandbox containers*. These are containers that provide a *secure isolation boundary* between the host operating system and the application running within the container."
-    ** *Nabla containers* : les Nabla containers ont été lancés en 2018/07 https://blog.hansenpartnership.com/a-new-method-of-containment-ibm-nabla-containers/ 
+
+    ** *2018/07* : *Nabla containers* : les Nabla containers ont été lancés en 2018/07 https://blog.hansenpartnership.com/a-new-method-of-containment-ibm-nabla-containers/ 
     ** Le choix de ces nouveaux runtimes est expliqué par Justin Cormarck, le CTO de Docker, à la KubeCon 2018 : https://static.sched.com/hosted_files/kccna18/c6/KubeCon_%20How%20to%20Choose%20a%20Kubernetes%20Runtime.pdf / https://www.youtube.com/watch?v=OZJkwvAnLb4 +
     Le choix de ces nouveaux containers runtimes est lié à l'usage de plus en plus massif de Kubernetes, et des containers qu'il fait tourner : de plus en plus de containers qui tournent impliquant une attention plus poussée à leur sécurité.
 
-* émergence des daemonless runtimes et du rootless : *podman* (avec *buildah* et *Skopeo*)
+* émergence des *daemonless runtimes* et du *rootless* : *podman* (avec *buildah* et *Skopeo*)
 
-    ** 2018/04 : 1ere release de Podman sur le repo https://github.com/containers/podman/releases +
+    ** *2018/04* : 1ere release de Podman sur le repo https://github.com/containers/podman/releases +
         "*Podman* works with the “runC” we mentioned earlier so it works in accordance with the *daemonless* concept." It corrects some "daemon with" problems : 
             *** At the point where no news is received from Daemon, there will be no access to the processes.
             *** All Docker operations are performed by one or more users with the same root privileges. This could create a vulnerability.
@@ -944,23 +1117,27 @@ Ce besoin accrue de sécurisation a amené à l'apparition de nouveaux types de 
     Of the 1,250 IT leaders surveyed, just under 50% said they use containers in production to at least some degree. A further 37% use containers for development only, while just 16% are still evaluating or researching container adoption, according to Red Hat. +
     Voir https://www.computerweekly.com/feature/Containers-for-a-post-pandemic-IT-architecture
 
+*Informations globales à donner* : 
 
-Grands shifts à placer et expliquer : 
+    * insister sur les Linux Kernel features, pas que les cgroups et namespaces
+        ** montrer un exemple de code expliquant que l'on peut "coder un container" uniquement avec ces features (Gist en GO de *Julien Friedman*)
+    * parler des "user namespaces qui marchent vraiment" de la version 3.8 du kernel Linux qui ont, cf Solomon Hykes lui-même, permis la sortie de Docker
 
-    * à partir de 2017 - 2019 : les containers, l'accent de plus en plus mis sur la sécurité
-
-Informations globales à donner : 
-
+    * bien définir ce qu'est un container runtime
+        ** et définir ce que sont les low-level et high-level container runtimes
+    * schéma de l'architecture de Docker A PARTIR DE LA 1.11
+    * schéma des relations entre Docker ET Kubernetes avec les container runtimes qu'ils utilisent
+    
     * parler des problèmes de sécurité qui faisaient peur à la sortie de Docker avec les containers : "shared OS kernel"
+
     * pour parler du daemonless, bien rappeler que tous les noms d'outils se terminant par "d" indiquent qu'il s'agit de daemon
         ** https://en.wikipedia.org/wiki/Daemon_(computing) : a daemon is a computer program that runs as a background process, rather than being under the direct control of an interactive user. +
         For example, syslogd is a daemon that implements system logging facility, and sshd is a daemon that serves incoming SSH connections.
-    * parler des "user namespaces qui marchent vraiment" de la version 3.8 du kernel Linux qui ont, cf Solomon Hykes lui-même, permis la sortie de Docker
 
-Ressources à donner dans le talk : 
+*Ressources à donner dans le talk* : 
 
     * la série d'articles de Ian Lewis
-    * le discours de présentation de Docker par Solomon HYKES
+    * Le talk durant lequel Solomon Hykes a introduit Docker, le 2013/08/01 : https://www.youtube.com/watch?v=3N3n9FzebAA[Why Docker ?]
 
 * TODO : parler du grand problème de Docker, le "monolith daemon that required root access for everything" +
 Ce qui a conduit à l'émergence des daemonless et autre rootless comme Podman et Buildah
@@ -974,6 +1151,60 @@ S'inspirer par exemple de https://iximiuz.com/en/posts/implementing-container-ru
     ** faire un mix avec le schéma du docker engine disponible ici : https://kubernetes.io/blog/2018/05/24/kubernetes-containerd-integration-goes-ga/ (qui fait apparaître dockerd)
     ** Voici un schéma faisant apparaître tous les éléments de Docker, avec dockershim et dockerd (faire juste attention au schéma indiquant le docker engine, on a l'impression que ce dernier utilie PLUTOT QUE contient dockerd, la CLI et l'API)
 
+=== Outils à tester pour créer un chronologie en ligne 
+
+Voir le https://elearningindustry.com/top-10-free-timeline-creation-tools-for-teachers. +
+Les outils suivants ont l'air bien adaptés : 
+
+    * https://timeline.knightlab.com/
+    * https://www.timetoast.com/ : je trouve cet outil très bien, à tester
+
 == Frise temporelle réduite
 
+* *1979* : développement de *chroot*, dans la version 7 d'Unix, Le concept d'isolation émerge. +
+-> "le point de départ, les prémi"
+* *2000/03* : *FreeBSD Jails* 
+* *2001* : *Linux VServer*
+* *2002/08* : Les 1er *Linux namespaces* (mount namespaces) sont ajoutés au kernel Linux 2.4.19 (2002/08/03)
+* *2003* : Google introduced *Borg*, the organization's container cluster management system.
+* *2004* : *Solaris Containers*
+* *2005* : *Open VZ* (Open Virtuzzo)
+* *2006* : début des travaux sur les *Process Containers* chez Google (later renamed *cgroups* / Control Groups)
+* *2007/10* : ajout des 1eres briques de l'implémentation des *user namespaces* dans le kernel Linux 2.6.23 par Eric Biederman (Red Hat)
+* *2008/01* : GRANDE ETAPE - ajout de la fonctionnalité des *cgroups* dans le kernel Linux 2.6.24
+* *2008/08* : GRANDE ETAPE - création du projet *Linux Containers (LXC)* par des ingénieurs d'IBM. +
+* *2011* : Warden
+* *2013/02* : GRANDE ETAPE - ajout des *user namespaces* au kernel Linux 3.8
+* *2013/03/20* : ETAPE MAJEURE - *1ere release de Docker* +
+-> "Le monde découvre les containers"
+* *2013/10* : LMCTFY
+* *2014/02/20* : release de la 1ere version 1.0 de LXC
+* *2014/06/07* : GRANDE ETAPE - toute première release de *Kubernetes* par Google (1er commit GitHub)
+* *2014/11* : 1ere release de rkt (prononcer "rocket"), le container runtime créé par les équipes de CoreOS.
+* *2015/06* : GRANDE ETAPE - *Docker Inc donne la codebase du projet Docker à l'OCI*, projet de la Linux Fondation, *créé pour cette occasion*.
+* *2015/07* : GRANDE ETAPE - *runc* est publié pour la 1ere fois, et son code a *tout de suite donné par Docker à l'OCI* (runc est l'implémentation de référence de la runtime-spec)
+* *2015/07/21* : ETAPE MAJEURE - *release de la 1ere version de Kubernetes* par Google, et *création de la CNCF*, comme umbrella projet de la Linux Foundation, à laquelle Kubernetes sera donné comme élément fondateur.
+* *2015/12* : GRANDE ETAPE - Docker introduce *containerd*
+* *2016/03/14* : 1ere apparition des cgroups v2 dans le Linux Kernel 4.5
+* *2016/04/13* : ETAPE MAJEURE - sortie de la *version 1.11 de Docker* : 1ere release de Docker basée sur containerd et runC (OCI) +
+-> cette étape marque l'apparition des low-level et des high-level containers runtimes
+* *2017/03/15* : GRANDE ETAPE - *Docker's donation of containerd project to the CNCF*, and *CoreOS's donation of rkt to the CNCF*
+* *2017/04* : Microsoft enabled organizations to run Linux containers on Windows Server.
+* *2017/07/19* : Release of the OCI v1.0 runtime and image specifications
+* *2017/10* : DockerCon 2017, Docker announced they will support the Kubernetes container orchestrator, same thing for Azure and Amazon.
+* *2018* : ETAPE MAJEURE - *L'avènement de Kubernetes*, où tous les Cloud providers propose leur offre de Kubernetes managé +
+-> A partir de cette date, les containers deviennent présents partout, et dès lors, la *sécurité des containers* devient un sujet primordial.
+    ** 2018 marque également l'apparition des "*sandbox runtimes*" : *Kata containers*, *gVisor*, *Nabla*
+        *** *2018/05/02* : release initiale de *gVisor* par Google
+        *** *2018/05/22* : lancement de la v1.0 de *Kata containers*
+        *** *2018/07* : lancemnet des *Nabla containers*
+    ** ainsi que celles des *daemonless runtimes* et du *rootless* : *podman* (avec *buildah* et *Skopeo*)
+        *** *2018/04* : 1ere release de Podman
+* *2019* : GRANDE ETAPE - les conséquences de l'essor de Kubernetes (le déclin de Docker et d'autres container runtimes)
+* *2019/04* : la CNCF archive le projet rkt, suite à une adoption utilisateur en forte baisse
+* *2019/11/13* : Docker se scinde en 2 : Mirantis rachète Docker Enterprise, et Docker Inc se recentre autour de Docker Desktop (et Docker Hub) 
+* *2020/02* : le project rkt est arrêté (https://github.com/rkt/rkt/issues/4024)
+* *2020/12* : le daemon docker (dockerd) est déprécié pour Kubernetes 1.20 (2020/12), et est remplacé par containerd
+* *2021* : les containers sont maintenant partout, et le constat suivent tiré des études de Gartner : +
+"Gartner predicted in 2020 that, by 2022, more than 75% of global organisations will be running containerised applications in production, against 30% in 2020."
 
