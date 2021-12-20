@@ -1,5 +1,7 @@
 = History of containerization slides
 
+Talk proposed to Devoxx France 2022 CFP (conference)
+
 Contains the slides of the talk on *the history of containerization*. +
 They can be http://ardemius.github.io/history-of-containerization/history-of-containerization.html[*viewed online here*], by using the *GitHub pages* of the project.
 
