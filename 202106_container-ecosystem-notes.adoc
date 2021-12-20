@@ -1,4 +1,4 @@
-= The Container Ecosystem and its history from yesterday to today
+= L'évolution de la conteneurisation, de 1979 à aujourd'hui
 Thomas SCHWENDER <https://github.com/ardemius[@ardemius]>
 // Handling GitHub admonition blocks icons
 ifndef::env-github[:icons: font]
@@ -32,8 +32,9 @@ toc::[]
 
 == Overview
 
+Proposition de sujet (conference) pour Devoxx France 2022
+
 Talk ayant pour but de retracer l'histoire de la conteneurisation, de donner ses grandes dates depuis ses débuts jusqu'à nos jours, et d'expliquer les raisons derrière chaque grande évolution.
-Nous commencerons par les prémises avec les cgroups et namespaces, puis parlerons de l'émergence de Docker, son évolution et l'arrivée des low level (ex : runc) et high level (ex : containerD) runtimes, et finiront avec les alternatives actuelles à Docker, permettant de gérer complètement le cycle de vie d'un container sans ce dernier.
 
 L'autre idée derrière ce talk : "mais POURQUOI on a fait tout ça ?"
 
@@ -110,12 +111,36 @@ Au cours de ce talk, nous allons détailler les grandes étapes qui ont marqué 
 L'objectif est qu'en sortant, vous ayez compris quelle orientation a suivi la conteneurisation depuis toutes ces années, et ce vers quoi nous allons.
 ----
 
+.version finale au format markdown (pour le CFP de Devoxx France)
+----
+La plupart d'entre nous ont découvert le concept de conteneur en **2013** avec l'arrivée de **Docker**.
+Aujourd'hui, avec l'avènement du Cloud et de Kubernetes, les conteneurs sont partout autour de nous.
+
+Toutefois, **l'histoire de la conteneurisation** reste globalement méconnue.
+Qui pour se souvenir que tout a finalement commencé en **1979** avec l'apparition de **chroot**, qui marqua le début de l'isolation des process ?
+Qu'il a fallu attendre d'avoir les **cgroups** (2008), puis plus tard les **user namespaces** (2013) pour qu'enfin Docker puisse voir le jour ?
+Que la généralisation des containers, conséquence de **l'adoption de Kubernetes** par tous les Cloud providers (2018), entraîna l'apparition des **sandbox runtimes** et des **daemonless runtimes** ?
+
+Au cours de ce talk, nous allons détailler les **grandes étapes** qui ont marqué l'histoire de la conteneurisation, et expliquer **POURQUOI** elles ont eu lieu.
+L'objectif est qu'en sortant, vous ayez compris **quelle orientation a suivi la conteneurisation** depuis toutes ces années, et ce vers quoi nous allons.
+----
+
 == Message pour le comité
 
 * Donner le lien vers le repo GitHub, pour montrer la recherche documentaire
-* Expliquer que ce sujet m'a initialement intéressé du fait de mon travail actuel avec les stacks Cloud, qui sont très friandes de containerization.
+* Expliquer que l'idée du talk est venue de la prez à la StarTECH sur les low-level et high-level containers : quelques personnes connaissaient ces concepts, mais personne ne savaient d'où ils venaient.
 
-* J'ai déjà testé une partie de ce talk avec la communauté technique de Softeam. Le sujet a beaucoup intéressé nos ITs, surtout les raisons des grands changements qui ont eu lieu dans ce domaine, et dont l'on parle finalement assez peu.
+----
+Bonjour,
+
+Mi-2021 j'ai fait une présentation à la communauté technique de ma société sur les low-level et les high-level container runtimes (ex : runc et containerd). Il est apparu que, si certains en avaient déjà entendu parler, aucun ne savait réellement comment ni pourquoi les conteneurs en étaient arrivés là.
+
+C'est de là d'où m'est venue l'idée de ce talk : détailler la chronologie des grandes étapes de la conteneurisation, de ses débuts à nos jours, et surtout expliquer POURQUOI ces étapes ont eu lieu.
+J'ai demandé aux membres de la communauté s'ils trouvaient le sujet intéressant, et ai eu un très bon retour.
+
+J'ai terminé ma recherche documentaire sur sujet, et ceux qui le souhaitent peuvent déjà jeter un oeil à la chronologie dans mes notes sur GitHub.
+Je ferai plusieurs
+----
 
 == Ressources
 
