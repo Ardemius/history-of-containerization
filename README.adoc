@@ -1,4 +1,4 @@
-= Containers ecosystem slides
+= History of containerization slides
 
 Contains the slides of the talk on *the history of containerization*. +
 They can be http://ardemius.github.io/history-of-containerization/history-of-containerization.html[*viewed online here*], by using the *GitHub pages* of the project.
