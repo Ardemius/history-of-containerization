@@ -38,7 +38,17 @@ Talk ayant pour but de retracer l'histoire de la conteneurisation, de donner ses
 
 L'autre idée derrière ce talk : "mais POURQUOI on a fait tout ça ?"
 
-Ce talk ne va pas rentrer dans le détail de toutes les étapes 
+Ce talk ne va pas rentrer dans le détail de toutes les étapes
+
+*Thème principal* : Cloud, Containers et Infrastructure, DevOps
+
+*Niveau de la présentation* : Ouvert à tout niveau d'audience, débutant comme expert
+
+*Tags* : 
+
+    * Container
+    * history
+    * container characteristics
 
 == Recherche du nom de la conférence
 
@@ -113,15 +123,15 @@ L'objectif est qu'en sortant, vous ayez compris quelle orientation a suivi la co
 
 .version finale au format markdown (pour le CFP de Devoxx France)
 ----
-La plupart d'entre nous ont découvert le concept de conteneur en **2013** avec l'arrivée de **Docker**.
+La plupart d'entre nous ont découvert le concept de conteneur en **2013** avec l'arrivée de **Docker**.  
 Aujourd'hui, avec l'avènement du Cloud et de Kubernetes, les conteneurs sont partout autour de nous.
 
-Toutefois, **l'histoire de la conteneurisation** reste globalement méconnue.
-Qui pour se souvenir que tout a finalement commencé en **1979** avec l'apparition de **chroot**, qui marqua le début de l'isolation des process ?
-Qu'il a fallu attendre d'avoir les **cgroups** (2008), puis plus tard les **user namespaces** (2013) pour qu'enfin Docker puisse voir le jour ?
+Toutefois, **l'histoire de la conteneurisation** reste globalement méconnue.  
+Qui pour se souvenir que tout a finalement commencé en **1979** avec l'apparition de **chroot**, qui marqua le début de l'isolation des process ?  
+Qu'il a fallu attendre d'avoir les **cgroups** (2008), puis plus tard les **user namespaces** (2013) pour qu'enfin Docker puisse voir le jour ?  
 Que la généralisation des containers, conséquence de **l'adoption de Kubernetes** par tous les Cloud providers (2018), entraîna l'apparition des **sandbox runtimes** et des **daemonless runtimes** ?
 
-Au cours de ce talk, nous allons détailler les **grandes étapes** qui ont marqué l'histoire de la conteneurisation, et expliquer **POURQUOI** elles ont eu lieu.
+Au cours de ce talk, nous allons détailler les **grandes étapes** qui ont marqué l'histoire de la conteneurisation, et expliquer **POURQUOI** elles ont eu lieu.  
 L'objectif est qu'en sortant, vous ayez compris **quelle orientation a suivi la conteneurisation** depuis toutes ces années, et ce vers quoi nous allons.
 ----
 
@@ -140,9 +150,27 @@ J'ai demandé aux membres de la communauté s'ils trouvaient le sujet intéressa
 
 J'ai déjà terminé ma recherche documentaire, ainsi que l'étude associée en très grande partie. Ceux qui le souhaitent peuvent déjà jeter un oeil à la chronologie que je compte présenter dans mes notes sur GitHub : 
 https://github.com/Ardemius/history-of-containerization/blob/main/history-of-containerization-notes.adoc#8-frise-temporelle-r%C3%A9duite
+J'ai dans l'idée de la passer dans un outil comme https://www.timetoast.com/ pour la rendre plus dynamique.
 
 Je suis preneur de toutes vos questions et retours pour approfondir le sujet.
-Je ferai plusieurs présentations blanches avec ma communauté dans les premiers mois de l'année pour me préparer.
+Il est déjà prévu avec ma communauté technique que je fasse plusieurs présentations blanches début d'année pour aider ma préparation.
+----
+
+.version markdown pour le CFP de Devoxx France 2022
+----
+Bonjour,
+
+Mi-2021 j'ai fait une présentation à la communauté technique de ma société sur les low-level et les high-level container runtimes (ex : runc et containerd). Il est apparu que, si certains en avaient déjà entendu parler, aucun ne savait réellement comment ni pourquoi les conteneurs en étaient arrivés là.
+
+C'est de là d'où m'est venue l'idée de ce talk : détailler la chronologie des grandes étapes de la conteneurisation, de ses débuts à nos jours, et surtout expliquer POURQUOI ces étapes ont eu lieu.
+J'ai demandé aux membres de la communauté s'ils trouvaient le sujet intéressant, et les retours ont été très enthousiastes.
+
+J'ai déjà terminé ma recherche documentaire, ainsi que l'étude associée en très grande partie. Ceux qui le souhaitent peuvent déjà jeter un oeil à la chronologie que je compte présenter dans mes notes sur GitHub :  
+https://github.com/Ardemius/history-of-containerization/blob/main/history-of-containerization-notes.adoc#8-frise-temporelle-r%C3%A9duite  
+J'ai dans l'idée de la passer dans un outil comme https://www.timetoast.com/ pour la rendre plus dynamique.
+
+Je suis preneur de toutes vos questions et retours pour approfondir le sujet.  
+Il est déjà prévu avec ma communauté technique que je fasse plusieurs présentations blanches début d'année pour aider ma préparation.
 ----
 
 == Ressources
@@ -1190,7 +1218,7 @@ Les outils suivants ont l'air bien adaptés :
 == Frise temporelle réduite
 
 * *1979* : développement de *chroot*, dans la version 7 d'Unix, Le concept d'isolation émerge. +
--> "le point de départ, les prémi"
+-> "le point de départ, les prémices de la conteneurisation"
 * *2000/03* : *FreeBSD Jails* 
 * *2001* : *Linux VServer*
 * *2002/08* : Les 1er *Linux namespaces* (mount namespaces) sont ajoutés au kernel Linux 2.4.19 (2002/08/03)
