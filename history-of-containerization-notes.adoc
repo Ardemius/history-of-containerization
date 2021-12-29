@@ -143,16 +143,17 @@ L'objectif est qu'en sortant, vous ayez compris **quelle orientation a suivi la 
 ----
 Bonjour,
 
-Mi-2021 j'ai fait une présentation à la communauté technique de ma société sur les low-level et les high-level container runtimes (ex : runc et containerd). Il est apparu que, si certains en avaient déjà entendu parler, aucun ne savait réellement comment ni pourquoi les conteneurs en étaient arrivés là.
+Mi-2021 j'ai fait une présentation à la communauté technique de ma société sur les low-level et les high-level container runtimes (ex : runc et containerd). Il est apparu que, si certains en avaient déjà entendu parler, **aucun ne savait réellement comment ni pourquoi les conteneurs en étaient arrivés là**.
 
-C'est de là d'où m'est venue l'idée de ce talk : détailler la chronologie des grandes étapes de la conteneurisation, de ses débuts à nos jours, et surtout expliquer POURQUOI ces étapes ont eu lieu.
+C'est de là d'où m'est venue l'idée de ce talk : **détailler la chronologie des grandes étapes de la conteneurisation**, de ses débuts à nos jours, et surtout **expliquer POURQUOI ces étapes ont eu lieu**.  
 J'ai demandé aux membres de la communauté s'ils trouvaient le sujet intéressant, et les retours ont été très enthousiastes.
 
-J'ai déjà terminé ma recherche documentaire, ainsi que l'étude associée en très grande partie. Ceux qui le souhaitent peuvent déjà jeter un oeil à la chronologie que je compte présenter dans mes notes sur GitHub : 
-https://github.com/Ardemius/history-of-containerization/blob/main/history-of-containerization-notes.adoc#8-frise-temporelle-r%C3%A9duite
-J'ai dans l'idée de la passer dans un outil comme https://www.timetoast.com/ pour la rendre plus dynamique.
+J'ai déjà terminé ma recherche documentaire, ainsi que l'étude associée en très grande partie.  
+Ceux qui le souhaitent peuvent déjà jeter un oeil à la chronologie que je compte présenter dans mes notes sur GitHub :  
+[https://github.com/Ardemius/history-of-containerization/blob/main/history-of-containerization-notes.adoc#8-frise-temporelle-r%C3%A9duite](https://github.com/Ardemius/history-of-containerization/blob/main/history-of-containerization-notes.adoc#8-frise-temporelle-r%C3%A9duite)  
+J'ai dans l'idée de la passer dans un outil comme [https://www.timetoast.com/](https://www.timetoast.com/) pour la rendre plus dynamique.
 
-Je suis preneur de toutes vos questions et retours pour approfondir le sujet.
+**Je suis preneur de toutes vos questions et retours** pour approfondir le sujet.  
 Il est déjà prévu avec ma communauté technique que je fasse plusieurs présentations blanches début d'année pour aider ma préparation.
 ----
 
