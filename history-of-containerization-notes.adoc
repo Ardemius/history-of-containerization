@@ -174,7 +174,17 @@ Je suis preneur de toutes vos questions et retours pour approfondir le sujet.
 Il est déjà prévu avec ma communauté technique que je fasse plusieurs présentations blanches début d'année pour aider ma préparation.
 ----
 
-== Ressources
+
+
+
+
+
+
+
+
+
+
+== RESSOURCES
 
 * A : https://www.tutorialworks.com/difference-docker-containerd-runc-crio-oci/ : excellente ressource
     ** Jeter un oeil au site parent, qui est vraiment très bien : https://www.tutorialworks.com/
@@ -248,7 +258,7 @@ Docker Engine acts as a client-server application with:
         *** *containerd-shim* is the *parent process of every container started* and it *also allows daemon-less containers* (meaning you can upgrade docker daemon without restarting all your containers, which was a big pain)
     ** voir également https://oziie.medium.com/something-missed-history-of-container-technology-e978f202464a :
         *** It provides container operation by using runC. It also provides a “*Daemonless container*” environment. This means that there is no need for a long-running runtime process for containers. There are 2 benefits of running a Daemonless container :
-            **** *runC* stops after container starts and and it doesn’t have to work during the working container process.
+            **** *runC* stops after container starts and it doesn’t have to work during the working container process.
             **** *containerd-shim* :  It keeps file information such as stdin (standard input), stdout (standard output), stderr (standard error), even if Docker or containerd becomes inoperable for any reason.
 
     ** *dockershim* est également très bien expliqué dans https://www.tutorialworks.com/difference-docker-containerd-runc-crio-oci/ : +
@@ -275,6 +285,10 @@ Docker Engine acts as a client-server application with:
             **** *overlay filesystems* : optimization to reduce disk space used by containers which are using the same image
             **** quand on utilise *toutes les fonctionnalités précédentes*, on a un *container*
             **** Et un GROS reminder : *A container is a group of processes*
+
+    ** LCC (Les Cast Codeurs) 270 : interview de *Nicolas De Loof* sur Docker et Docker Compose 
+        *** Définition de Docker : "Docker est un moyen de lancer des applications, des process, mais on va prendre le process Linux, celui que tu veux faire tourner sur ta machine de PROD, et on va te donner un moyen simple de le faire tourner chez toi tout pareil"
+            **** L'idée c'est vraiment, cf Nicolas, "moyen de lancer des applications"
 
     ** Cf wikipedia (https://en.wikipedia.org/wiki/Cgroups), *cgroups* : +
     "cgroups (abbreviated from control groups) is a Linux kernel feature that limits, accounts for, and isolates the resource usage (CPU, memory, disk I/O, network, etc.) of a collection of processes."
@@ -854,7 +868,7 @@ Les étapes majeures à présenter plus en détails :
 
 == Frise temporelle complète v1
 
-* *1970s* : Le concept d'isolation émerge du côte des systèmes Unix. +
+* *1970s* : Le concept d'isolation émerge du côté des systèmes Unix. +
 
     "The *original idea* of a container has been around since the 1970s, when the concept was first employed on *Unix systems* to *better isolate application code*. While useful in certain application development and deployment scenarios, the *biggest drawback* to containers in those early days was the simple fact that they were *anything but portable*." +
     "Back in the 1970s, *early containers created an isolated environment where services and applications could run without interfering with other processes* – producing something akin to a sandbox to test applications, services, and other processes. The original idea was to *isolate the container's workload from production systems* in way that *enabled developers to test their applications and processes on production hardware without risking disruption to other services*."
@@ -1191,6 +1205,9 @@ Ce besoin accrue de sécurisation a amené à l'apparition de nouveaux types de 
         ** https://en.wikipedia.org/wiki/Daemon_(computing) : a daemon is a computer program that runs as a background process, rather than being under the direct control of an interactive user. +
         For example, syslogd is a daemon that implements system logging facility, and sshd is a daemon that serves incoming SSH connections.
 
+    * redéfinir rapidement ce qu'est un "shim" +
+    "In tech terms, a shim is a component in a software system, which acts as a *bridge between different APIs*, or as a compatibility layer. A shim is sometimes added when you want to use a third-party component, but you need a little bit of glue code to make it work."
+
 *Ressources à donner dans le talk* : 
 
     * la série d'articles de Ian Lewis
@@ -1206,7 +1223,7 @@ S'inspirer par exemple de https://iximiuz.com/en/posts/implementing-container-ru
     ** et en ajouter un de plus pour faire apparaître dockershim et le lien avec Kubernetes avant la v1.20
         *** et en ayant sur le même schéma dockershim et dockerd ce serait fantastique
     ** faire un mix avec le schéma du docker engine disponible ici : https://kubernetes.io/blog/2018/05/24/kubernetes-containerd-integration-goes-ga/ (qui fait apparaître dockerd)
-    ** Voici un schéma faisant apparaître tous les éléments de Docker, avec dockershim et dockerd (faire juste attention au schéma indiquant le docker engine, on a l'impression que ce dernier utilie PLUTOT QUE contient dockerd, la CLI et l'API)
+    ** Voici un schéma faisant apparaître tous les éléments de Docker, avec dockershim et dockerd (faire juste attention au schéma indiquant le docker engine, on a l'impression que ce dernier utilise PLUTOT QUE contient dockerd, la CLI et l'API)
 
 === Outils à tester pour créer un chronologie en ligne 
 
@@ -1264,4 +1281,13 @@ Les outils suivants ont l'air bien adaptés :
 * *2020/12* : le daemon docker (dockerd) est déprécié pour Kubernetes 1.20 (2020/12), et est remplacé par containerd
 * *2021* : les containers sont maintenant partout, et le constat suivent tiré des études de Gartner : +
 "Gartner predicted in 2020 that, by 2022, more than 75% of global organisations will be running containerised applications in production, against 30% in 2020."
+
+~39 dates à présenter dans les 45 min de ce format conférence.
+
+    * si l'on veut garder 5 min pour les questions, cela laisse 40 min pour le talk, soit ~1 min par date
+    * 1 min ne sera pas suffisante pour certaines grandes dates (docker, l'apparition des high et low level container runtimes, etc.) +
+    Il faudra passer rapidement certaines dates pour se concentrer sur les plus importantes
+
+
+
 

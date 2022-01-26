@@ -1,0 +1,34 @@
+/**
+ * Custom CSS for Asciidoctor / reveal.js back-end
+ */
+
+ /* customize the titles of all slides */
+.reveal h1 {
+    font-size: 80px;
+}
+
+/* we globally need a font a bit smaller */
+.reveal {
+    font-size: 38px;
+}
+
+/* specific color for bold characters */
+.reveal strong,
+.reveal b {
+  color: #FF6A00; }
+
+/* a class selector, to custom some given text using the syntax "[ORANGE]#some text#" */
+.orange {
+    color: #FF6A00;
+}
+.blue {
+    color: blue;
+}
+.red {
+    color: red;
+}
+
+/* we do not want border around images */
+.reveal section img { 
+	background:none; border:none; box-shadow:none; 
+}

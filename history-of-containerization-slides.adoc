@@ -8,14 +8,55 @@
 // reveal.js attributes
 :customcss: styles/myCustomCSS.css
 
-XXX
+Thomas SCHWENDER
 
-== YYY
+icon:github[] https://github.com/Ardemius/[GitHub] / icon:twitter[role="blue"] https://twitter.com/thomasschwender[@thomasschwender] +
+image:StarTECH-logo.png[Logo StarTECH]
+//image:softeam-docaposte-logo.png[Logo Softeam Docaposte,200]
+image:Softeam-software-crafter-logo.jpg[Logo Crafter,200,200]
 
-== ZZZ
+== Chronologie
+
+TODO : ajouter ici un screenshot de la chronologie sur Timetoast
+
+[NOTE.speaker]
+--
+Ne pas tout de suite donner le lien, afin de garder le public concentré 😉 +
+Ce dernier sera donné dans les ressources en fin de talk
+--
+
+== Les années 70s, les prémices de la conteneurisation
 
 [%step]
 * *aaa*
 * *bbb*
+
+
+
+== Ressources
+
+TO BE COMPLETED
+
+== Des questions ?
+
+== Merci !
+
+
+
+
+
+
+
+Ce qu'est Docker : 
+Docker a fourni un wrapping simple et facile d'utilisation de ces fonctionnalités du kernel Linux (et en a également apporté d'autres également)
+Nicolas De Loof : Docker permet de lancer ses process de façon isolée
+
+Linux namespaces : bien parler des user namespaces, et de la conf de Solomon Hykes de 2013 qui met ces derniers en avant comme ayant permis la création de Docker
+
+*Why Docker ?* by Solomon Hykes : La grande raison de l'époque : *shipping software from A to B, reliably and automatically* (2013)
+Et parler des vrais conteneurs à cette occasion (dans mes notes)
+
+
+
 
 
