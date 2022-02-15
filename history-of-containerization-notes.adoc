@@ -184,6 +184,14 @@ Il est déjà prévu avec ma communauté technique que je fasse plusieurs prése
 
 
 
+
+
+
+
+
+
+
+
 == RESSOURCES
 
 * A : https://www.tutorialworks.com/difference-docker-containerd-runc-crio-oci/ : excellente ressource
@@ -1288,6 +1296,20 @@ Les outils suivants ont l'air bien adaptés :
     * 1 min ne sera pas suffisante pour certaines grandes dates (docker, l'apparition des high et low level container runtimes, etc.) +
     Il faudra passer rapidement certaines dates pour se concentrer sur les plus importantes
 
+== Création des slides
 
+1. clone du repo avec récupération du contenu du submodule reveal.js :
+
+    git clone --recursive https://github.com/Ardemius/history-of-containerization.git
+
+2. lancement du container :
+
+    docker run -it -v <path-to-the-cloned-repo>/docs:/documents/ asciidoctor/docker-asciidoctor
+
+    docker run -it -b D:\resources\my-talks-and-trainings\history-of-containerization:/documents/ asciidoctor/docker-asciidoctor
+
+3. génération des slides :
+
+    asciidoctor-revealjs history-of-containerization-slides.adoc -o docs/slides.html
 
 

@@ -2,18 +2,51 @@
 // classic AsciiDoctor attributes
 :icons: font
 :imagesdir: images
-// Despite the warning of the documentation, https://github.com/asciidoctor/asciidoctor-reveal.js, highlight.js syntax highlighting WORKS, BUT, you need to explicitly set the highlighter using the below attribute
-// see http://discuss.asciidoctor.org/Highlighting-source-code-for-reveal-js-backend-td2750.html
+// Activate syntax highlighting with highlight.js
 :source-highlighter: highlightjs
+// We must enable experimental attribute to display Keyboard, button, and menu macros
+:experimental:
+:lb: pass:[<br> +]
 // reveal.js attributes
 :customcss: styles/myCustomCSS.css
+:revealjs_theme: white
 
 Thomas SCHWENDER
 
 icon:github[] https://github.com/Ardemius/[GitHub] / icon:twitter[role="blue"] https://twitter.com/thomasschwender[@thomasschwender] +
 image:StarTECH-logo.png[Logo StarTECH]
 //image:softeam-docaposte-logo.png[Logo Softeam Docaposte,200]
-image:Softeam-software-crafter-logo.jpg[Logo Crafter,200,200]
+image:Softeam-software-crafter-logo.png[Logo Crafter,200,200]
+
+== Disclaimer
+
+Ce talk n'a *PAS* vocation à expliquer les commandes Docker, Kubernetes ou celles d'un quelconque container runtime 🙂 
+
+[NOTE.speaker]
+--
+Rappel de l'abstract :
+
+La plupart d'entre nous ont découvert le concept de conteneur en 2013 avec l'arrivée de Docker. +
+Aujourd'hui, avec l'avènement du Cloud et de Kubernetes, les conteneurs sont partout autour de nous.
+
+Toutefois, l'histoire de la conteneurisation reste globalement méconnue. +
+Qui pour se souvenir que tout a finalement commencé en 1979 avec l'apparition de chroot, qui marqua le début de l'isolation des process ? +
+Qu'il a fallu attendre d'avoir les cgroups (2008), puis plus tard les user namespaces (2013) pour qu'enfin Docker puisse voir le jour ? +
+Que la généralisation des containers, conséquence de l'adoption de Kubernetes par tous les Cloud providers (2018), entraîna l'apparition des sandbox runtimes et des daemonless runtimes ?
+
+Au cours de ce talk, nous allons détailler les grandes étapes qui ont marqué l'histoire de la conteneurisation, et expliquer POURQUOI elles ont eu lieu. +
+L'objectif est qu'en sortant, vous ayez compris quelle orientation a suivi la conteneurisation depuis toutes ces années, et ce vers quoi nous allons.
+--
+
+== Mais c'est quoi un conteneur aujourd'hui ?
+
+La même chose qu'hier ! 😉 +
+Tout simplement un *groupe de process isolés les uns des autres* par un certain moyen.
+
+[NOTE.speaker]
+--
+On commence par un rappel simple
+--
 
 == Chronologie
 
