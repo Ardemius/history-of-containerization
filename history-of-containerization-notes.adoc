@@ -884,6 +884,9 @@ Les étapes majeures à présenter plus en détails :
     "During the development of Unix version 7 in 1979, the *chroot* system call was introduced, changing the root directory of a process and its children to a new location in the filesystem." +
         "This advance was *the beginning process isolation*: segregating file access for each process. Chroot was added to BSD in 1982."
 
+    ** Voir également cet excellent article sur les débuts d'Unix (Unics à l'époque, pour "Uniplexed Information and Computing Service") : +
+    https://www.spiria.com/fr/blogue/breves-technos/unix-a-50-ans/
+
 * *1979* : GRANDE ETAPE - *chroot* +
 
     ** "During the development of Unix version 7 in 1979, the *chroot* system call was introduced, changing the root directory of a process and its children to a new location in the filesystem."
@@ -893,6 +896,9 @@ Les étapes majeures à présenter plus en détails :
 
         *** system call - http://www.di.uevora.pt/~lmr/syscalls.html : +
         A system call is just what its name implies -- a request for the operating system to do something on behalf of the user's program. The system calls are functions used in the kernel itself.
+
+    ** Pour des exemples de chroot "breakouts", voir https://securityqueens.co.uk/im-in-chroot-jail-get-me-out-of-here/ +
+    L'article contient également un bon schéma illustrant le résultat d'un chroot
 
 * *2000/03* : *FreeBSD Jails* +
 

@@ -32,3 +32,10 @@
 .reveal section img { 
 	background:none; border:none; box-shadow:none; 
 }
+
+/* custom font attributes to be used in slides with [.fontFor2ColLayout]#some-text# syntax */
+.fontFor2ColLayout {
+    /* font-family: monospace; */
+    font-size: 0.8em;
+    /* line-height: calc(1 / 1.1); */
+  }

@@ -10,10 +10,16 @@
 // reveal.js attributes
 :customcss: styles/myCustomCSS.css
 :revealjs_theme: white
+// To turn off figure caption labels and numbers
+//:figure-caption!:
+// Same for examples
+//:example-caption!:
+// To turn off ALL captions (see https://github.com/asciidoctor/asciidoctor/issues/2804)
+:caption:
 
 Thomas SCHWENDER
 
-icon:github[] https://github.com/Ardemius/[GitHub] / icon:twitter[role="blue"] https://twitter.com/thomasschwender[@thomasschwender] +
+icon:github[] https://github.com/Ardemius/[Ardemius] / icon:twitter[role="blue"] https://twitter.com/thomasschwender[@thomasschwender] +
 image:StarTECH-logo.png[Logo StarTECH]
 //image:softeam-docaposte-logo.png[Logo Softeam Docaposte,200]
 image:Softeam-software-crafter-logo.png[Logo Crafter,200,200]
@@ -58,13 +64,56 @@ Ne pas tout de suite donner le lien, afin de garder le public concentré 😉 +
 Ce dernier sera donné dans les ressources en fin de talk
 --
 
+[.columns.fontFor2ColLayout]
 == Les années 70s, les prémices de la conteneurisation
 
-[%step]
-* *aaa*
-* *bbb*
+[.column]
+--
+L'idée originale de conteneur a germé dans les années 70s sur les systèmes Unix, quand l'on a eu besoin de *mieux isoler le code applicatif*.
 
+A cette époque les ordinateurs étaient très chers et donc très *rares*, il fallait donc pouvoir les *exploiter au maximum*.
+--
 
+[.column]
+--
+
+.Ken Thompson et Dennis Ritchie, inventeurs d'UNIX, devant un PDP-11 vers 1972
+image::1972_Unix-Ken-Thompson-Dennis-Ritchie-PDP-11.jpg[]
+
+--
+
+[NOTE.speaker]
+--
+Concernant l'image, il s'agit d'un PDP-11 avec Ken Thompson et Dennis Ritchie à côté de lui. +
+Pour rappel, ce sont les créateurs d'Unix et du langage C, et Ken Thompson est également le créateur du premier shell Unix en 1971, sur la 1ere version d'Unix. +
+Cette photo, c'est l'alter ego informatique de "Trois hommes dans un salon" avec Brassens, Brel et Ferré en 1969, c'est un moment d'histoire...
+--
+
+[.columns.fontFor2ColLayout]
+== 1979 - *grande étape* - création de `chroot`
+
+[.column]
+--
+L'appel système `chroot` a été créé en 1979, pendant le développent de la version 7 d'Unix.
+
+`chroot` permet de *changer le répertoire racine d'un process et de ses enfants*.
+
+Cela a marqué le début de l'*isolation des process*, en restreignant l'accès d'une application à une arborescence de fichiers données.
+--
+
+[.column]
+--
+image::chroot-example.png[]
+
+La sécurité s'en voit renforcée, l'environnement isolé ne permettant théoriquement pas à une attaque de "sortir" sur un système extérieur.
+--
+
+[NOTE.speaker]
+--
+*System call* : a request for the operating system to do something on behalf of the user's program. The system calls are functions used in the kernel itself.
+
+"Chroot marked the beginning of container-style process isolation by restricting an application's file access to a specific directory -- the root -- and its children. A key benefit of chroot separation was improved system security, such that an *isolated environment could not compromise external systems* if an internal vulnerability was exploited."
+--
 
 == Ressources
 
@@ -74,7 +123,9 @@ TO BE COMPLETED
 
 == Merci !
 
-
+[%step]
+* *aaa*
+* *bbb*
 
 
 
