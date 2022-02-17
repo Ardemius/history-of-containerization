@@ -407,7 +407,33 @@ Autres Linux Kernel features :
     * *overlay filesystems* : optimization to reduce disk space used by containers which are using the same image
 --
 
-== 
+[.columns.fontFor2ColLayout.is-vcentered]
+== 2013/02 - *étape majeure* : 1ere release de *Docker*
+
+[.column.has-text-justified]
+--
+Docker a fourni un *wrapping simple* et *facile d'utilisation* des fonctionnalités d'isolation de processus du noyau Linux.
+
+C'est cette facilité d'usage qui a permis l'explosion de popularité des conteneurs.
+--
+
+[.column]
+--
+image::Docker-architecture-2013.png[]
+--
+
+[NOTE.speaker]
+--
+Just as Warden did, Docker also used LXC in its initial stages and later replaced that container manager with its own library, libcontainer.
+--
+
+=== !
+
+Pour Solomon Hykes, la raison d'être de Docker était de *pouvoir systématiquement livrer ("shipper")* une application "de A à B" de façon *fiable* et *automatique*, sans avoir de question à se poser.
+
+=== Hésitations et craintes côté sécurité
+
+image::vms-vs-containers.png[]
 
 == Chronologie
 
