@@ -407,6 +407,8 @@ Autres Linux Kernel features :
     * *overlay filesystems* : optimization to reduce disk space used by containers which are using the same image
 --
 
+== 
+
 == Chronologie
 
 TODO : ajouter ici un screenshot de la chronologie sur Timetoast
@@ -415,11 +417,22 @@ TODO : ajouter ici un screenshot de la chronologie sur Timetoast
 
 [.smallFont]
 --
+* Les *slides de la présentation* : https://github.com/Ardemius/history-of-containerization +
+Vous trouverez également dans ce repo GitHub toutes *mes notes* et *curation de contenu* sur le sujet, ainsi que le *code des slides* (qui utilisent Asciidoctor et la backend reveal.js)
+--
+
+=== !
+
+[.smallFont]
+--
 * Le fantastique zine de *Julia Evans* "*How Containers Work!*". +
 Les planches sont sur son Twitter https://twitter.com/b0rk[@b0rk], et vous pouvez également acheter le *zine complet* sur son blog : https://jvns.ca/blog/2020/04/27/new-zine-how-containers-work/
 
 * Le talk durant lequel *Solomon Hykes* a présenté pour la 1ere fois Docker, "*Why we built Docker?*" : https://www.youtube.com/watch?v=3N3n9FzebAA +
 Le talk a été donné à la conférence dotScale 2013, le 2013/06/07, juste après la 1ere publication de Docker.
+
+* La série de 4 articles de Ian Lewis sur les *container runtimes* : https://www.ianlewis.org/en/container-runtimes-part-1-introduction-container-r +
+Vous y trouverez une description complète des différents éléments composant l'écosystème des conteneurs (docker, dockerd, containerd, runc)
 --
 
 == Des questions ?
@@ -429,14 +442,7 @@ Le talk a été donné à la conférence dotScale 2013, le 2013/06/07, juste apr
 
 
 
-Ce qu'est Docker : 
-Docker a fourni un wrapping simple et facile d'utilisation de ces fonctionnalités du kernel Linux (et en a également apporté d'autres également)
-Nicolas De Loof : Docker permet de lancer ses process de façon isolée
 
-Linux namespaces : bien parler des user namespaces, et de la conf de Solomon Hykes de 2013 qui met ces derniers en avant comme ayant permis la création de Docker
-
-*Why Docker ?* by Solomon Hykes : La grande raison de l'époque : *shipping software from A to B, reliably and automatically* (2013)
-Et parler des vrais conteneurs à cette occasion (dans mes notes)
 
 
 

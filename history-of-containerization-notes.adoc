@@ -274,7 +274,7 @@ Docker Engine acts as a client-server application with:
 
 * autre *FANTASTIQUE ressource*, la série d'articles de *Ian Lewis* (2017/12) : https://www.ianlewis.org/en/container-runtimes-part-1-introduction-container-r
     ** en fait, toutes les différentes facettes de l'écosystème des containers y sont présentées (docker, dockerd, containerd, runc)
-    ** et une fois lu, voir également https://alenkacz.medium.com/whats-the-difference-between-runc-containerd-docker-3fc8f79d4d6e
+    ** et une fois lu, voir également https://alenkacz.medium.com/whats-the-difference-between-runc-containerd-docker-3fc8f79d4d6e, qui cite la série d'articles de Ian Lewis
 
 * pour une explication de ce qui a amené aux containers, avec les *namespaces*, les *cgroups* (control groups), l'isolation des appels (*seccomp-bpf*), et finalement les "containers Docker", voir l'excellent article https://jvns.ca/blog/2016/10/10/what-even-is-a-container/
     ** Docker a fourni un wrapping simple et facile d'utilisation de ces fonctionnalités du kernel Linux (et en a également apporté d'autres également)
@@ -1074,6 +1074,7 @@ Les étapes majeures à présenter plus en détails :
     ** Autre très bonne explication sur Warden : http://underlap.blogspot.com/2014/06/warden-meets-libcontainer.html
     ** Voir également https://tanzu.vmware.com/content/blog/cloud-foundrys-container-technology-a-garden-overview
         *** Warden creates a root process, called "wshd" for Warden shell daemon, in each container.
+        *** The Warden protocol is defined using Google protocol buffer definitions
 
 * *2013/02* : GRANDE ETAPE - ajout des *user namespaces* au kernel Linux 3.8
 
