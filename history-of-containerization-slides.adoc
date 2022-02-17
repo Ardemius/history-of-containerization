@@ -36,7 +36,7 @@ La plupart d'entre nous ont découvert le concept de conteneur en 2013 avec l'ar
 Aujourd'hui, avec l'avènement du Cloud et de Kubernetes, les conteneurs sont partout autour de nous.
 
 Toutefois, l'histoire de la conteneurisation reste globalement méconnue. +
-Qui pour se souvenir que tout a finalement commencé en 1979 avec l'apparition de chroot, qui marqua le début de l'isolation des process ? +
+Qui pour se souvenir que tout a finalement commencé en 1979 avec l'apparition de chroot, qui marqua le début de l'isolation des processus ? +
 Qu'il a fallu attendre d'avoir les cgroups (2008), puis plus tard les user namespaces (2013) pour qu'enfin Docker puisse voir le jour ? +
 Que la généralisation des containers, conséquence de l'adoption de Kubernetes par tous les Cloud providers (2018), entraîna l'apparition des sandbox runtimes et des daemonless runtimes ?
 
@@ -47,7 +47,7 @@ L'objectif est qu'en sortant, vous ayez compris quelle orientation a suivi la co
 == Mais c'est quoi un conteneur aujourd'hui ?
 
 La même chose qu'hier ! 😉 +
-Tout simplement un *groupe de process isolés les uns des autres* par un certain moyen.
+Tout simplement un *groupe de processus isolés les uns des autres* par un certain moyen.
 
 [NOTE.speaker]
 --
@@ -67,14 +67,14 @@ Ce dernier sera donné dans les ressources en fin de talk
 [.columns.fontFor2ColLayout]
 == Les années 70s, les prémices de la conteneurisation
 
-[.column]
+[.column.has-text-justified]
 --
 L'idée originale de conteneur a germé dans les années 70s sur les systèmes Unix, quand l'on a eu besoin de *mieux isoler le code applicatif*.
 
 A cette époque les ordinateurs étaient très chers et donc très *rares*, il fallait donc pouvoir les *exploiter au maximum*.
 --
 
-[.column]
+[.column.has-text-justified]
 --
 
 .Ken Thompson et Dennis Ritchie, inventeurs d'UNIX, devant un PDP-11 vers 1972
@@ -90,18 +90,18 @@ Cette photo, c'est l'alter ego informatique de "Trois hommes dans un salon" avec
 --
 
 [.columns.fontFor2ColLayout]
-== 1979 - *grande étape* - création de `chroot`
+== 1979 - *grande étape* : `chroot`
 
-[.column]
+[.column.has-text-justified]
 --
-L'appel système `chroot` a été créé en 1979, pendant le développent de la version 7 d'Unix.
+L'appel système `chroot` a été créé en 1979, pendant le développement de la version 7 d'Unix.
 
-`chroot` permet de *changer le répertoire racine d'un process et de ses enfants*.
+`chroot` permet de *changer le répertoire racine d'un processus et de ses enfants*.
 
-Cela a marqué le début de l'*isolation des process*, en restreignant l'accès d'une application à une arborescence de fichiers données.
+Cela a marqué le début de l'*isolation des processus*, en restreignant l'accès d'une application à une arborescence de fichiers données.
 --
 
-[.column]
+[.column.has-text-justified]
 --
 image::chroot-example.png[]
 
@@ -112,7 +112,93 @@ La sécurité s'en voit renforcée, l'environnement isolé ne permettant théori
 --
 *System call* : a request for the operating system to do something on behalf of the user's program. The system calls are functions used in the kernel itself.
 
-"Chroot marked the beginning of container-style process isolation by restricting an application's file access to a specific directory -- the root -- and its children. A key benefit of chroot separation was improved system security, such that an *isolated environment could not compromise external systems* if an internal vulnerability was exploited."
+"Chroot marked the beginning of container-style process isolation by restricting an application's file access to a specific directory "the root" and its children. A key benefit of chroot separation was improved system security, such that an *isolated environment could not compromise external systems* if an internal vulnerability was exploited."
+
+Chroot was added to BSD in 1982.
+--
+
+[.columns.fontFor2ColLayout]
+== 2000/03 : FreeBSD `Jails`
+
+[.column.has-text-justified]
+--
+*Jails* permet de partitionner un système FreeBSD en *sous-systèmes indépendants*, appelés _"jails"_, avec la possibilité d'assigner à chacun d'eux une adresse IP spécifique.
+--
+
+[.column]
+--
+image::FreeBSD-jails-example.png[width=500]
+--
+
+[NOTE.speaker]
+--
+Jails were first introduced in FreeBSD OS version 4.0, that was released on *March 14, 2000*
+--
+
+[.columns.fontFor2ColLayout]
+== 2001 : Linux `VServer`
+
+[.column.has-text-justified]
+--
+Comme FreeBSD Jails, Linux VServer est un *mécanisme de "prison"*.
+
+Il permet de *partitionner des ressources* (systèmes de fichiers, adresses réseau, mémoire) au sein de l'OS, via l'ajout de capacités de virtualisation de l'OS au noyau Linux.
+--
+
+[.column.has-text-justified.is-two-fifth]
+--
+image::Linux-VServer-logo.png[width=300]
+
+Son principal inconvénient était qu'il imposait de *patcher le noyau Linux*.
+--
+
+[NOTE.speaker]
+--
+Jacques Gélinas created the VServer project, which according to the 0.0 version’s change log allowed "running several general purpose Linux server on a single box with a high degree of Independence and security."
+
+The Linux-VServer solution was the *first effort on Linux* to "separate the user-space environment into distinct units (Virtual Private Servers) in such a way that each VPS looks and feels like a real server to the processes contained within." +
+Linux-VServer is a virtual private server implementation that was created by *adding operating system-level virtualization capabilities to the Linux kernel*. +
+Ce projet permet d'exécuter un ou plusieurs environnements d'exploitation (systèmes d'exploitation sans le noyau) ; autrement dit, il *permet d'exécuter une ou plusieurs distributions sur une distribution*.
+
+Patcher le kernel Linux : une *charge en plus* pour les distributeurs et les sysadmin.
+
+Last stable patch was released in 2006
+--
+
+[.columns.fontFor2ColLayout.is-vcentered]
+== 2002/08 : 1ers Linux namespaces
+
+[.column.has-text-justified]
+--
+Les `namespaces` sont une *fonctionnalité du noyau Linux* permettant à vos processus d'être séparés des autres processus tournant sur l'OS.
+
+Ils permettent aux processus de disposer chacun de leurs *propres ressources* : réseau, PID, utilisateurs, hostname, mounts, etc.
+
+Les namespaces *"limitent ce que l'on peut voir"*
+--
+
+[.column.has-text-justified]
+--
+image::linux-namespace-schema.png[]
+--
+
+[NOTE.speaker]
+--
+Namespaces can be created using the `unshare` program.
+--
+
+[.columns.fontFor2ColLayout.is-vcentered]
+=== mount namespaces
+
+[.column.has-text-justified]
+--
+Le 1er type de namespaces à avoir été ajouté au noyau Linux, version 2.4.19, est le *mount namespaces* le 2002/08/03.
+--
+
+[.column]
+--
+.Jérôme Petazzoni (Docker), DockerCon 2015
+image::mount-namespaces-description.jpg[]
 --
 
 == Ressources
@@ -122,11 +208,6 @@ TO BE COMPLETED
 == Des questions ?
 
 == Merci !
-
-[%step]
-* *aaa*
-* *bbb*
-
 
 
 

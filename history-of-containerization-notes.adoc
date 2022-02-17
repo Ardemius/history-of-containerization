@@ -334,7 +334,7 @@ Docker Engine acts as a client-server application with:
         Cf Wikipedia (https://en.wikipedia.org/wiki/Cgroups) : 
         "Engineers at Google (primarily *Paul Menage* and *Rohit Seth*) *started the work on this feature in 2006* under the name "*process containers*".[1] In late 2007, the nomenclature changed to "control groups" to avoid confusion caused by multiple meanings of the term "container" in the Linux kernel context, and the control groups functionality was merged into the Linux kernel mainline in *kernel version 2.6.24*, which was *released in January 2008*."
 
-        *** *namespaces* were originally developed by *Eric Biederman*, and the final major namespace was merged into *Linux 3.8*. +
+        *** *user namespaces* were originally developed by *Eric Biederman*, and the final major namespace was merged into *Linux 3.8*. +
         Cf Wikipedia (https://en.wikipedia.org/wiki/Linux_namespaces) : 
         "The Linux Namespaces originated in *2002 in the 2.4.19 kernel* (2002/08/03) with work on the *mount namespace* kind. Additional namespaces were added beginning in 2006[2] and continuing into the future. +
         Adequate containers support functionality was finished in kernel *version 3.8* with the *introduction of User namespaces*."
@@ -606,7 +606,8 @@ En fait, on trouve plus d'infos que je ne le pensais via les recherches Google "
 
         *** *2000* : "jails", an early implementation of container technology, was added to FreeBSD
         *** *2001* : container technology made it to the Linux side of the house +
-        "Jacques Gélinas created the VServer project, which according to the 0.0 version’s change log allowed “running several general purpose Linux server on a single box with a high degree of Independence and security.”"
+        "Jacques Gélinas created the VServer project, which according to the 0.0 version’s change log allowed “running several general purpose Linux server on a single box with a high degree of Independence and security.”" +
+        The Linux-VServer solution was the first effort on Linux to “separate the user-space environment into distinct units (Virtual Private Servers) in such a way that each VPS looks and feels like a real server to the processes contained within.”
         *** *2006* : Paul Menage (Google) travaille sur les "process containers", plus tard renommé en cgroups (control groups) +
         "Cgroups allow processes to be grouped together, and ensure that each group gets a share of memory, CPU and disk I/O; preventing any one container from monopolizing any of these resources"
         *** *fin 2007* : ajout des 1eres briques de l'implémentation des user namespaces dans le kernel Linux 2.6.23 par Eric Biederman (Red Hat) +
@@ -798,7 +799,7 @@ Commencez par un petit disclaimer pour le public ? "ce que ce talk n'est pas ?" 
 1. un rappel : qu'est-ce qu'un container ?
 
 Julia EVANS en dit la chose suivante (https://jvns.ca/blog/2016/10/10/what-even-is-a-container/) : +
-"The word “container” doesn’t mean anything super precise. Basically there are a few new Linux kernel features (“namespaces” and “cgroups”) that let you isolate processes from each other. When you use those features, you call it “containers”." +
+"The word “container” doesn’t mean anything super precise. Basically there are a few *new Linux kernel features* (“namespaces” and “cgroups”) that let you isolate processes from each other. When you use those features, you call it “containers”." +
 
 On trouve également le rappel "tout bête" suivant : *A container is a group of processes*
 
@@ -906,11 +907,16 @@ Les étapes majeures à présenter plus en détails :
     ** At that time, "a small shared-environment hosting provider came up with FreeBSD jails to achieve *clear-cut separation between its services and those of its customers* for *security* and *ease of administration*. FreeBSD Jails allows administrators to partition a FreeBSD computer system into several independent, smaller systems – called “jails” – with the ability to assign an IP address for each system and configuration."
     ** https://en.wikipedia.org/wiki/FreeBSD_jail : "Jails were first introduced in FreeBSD version 4.0, that was released on *March 14, 2000*"
 
+    ** Pour un bon schéma illustrant l'usage de Jails, voir https://www.admin-magazine.com/Archive/2013/13/How-to-configure-and-use-jailed-processes-in-FreeBSD/(offset)/6
+
 * *2001* : *Linux VServer* +
 
     ** Container technology made it to the Linux side of the house +
     "Jacques Gélinas created the VServer project, which according to the 0.0 version’s change log allowed “running several general purpose Linux server on a single box with a high degree of Independence and security.”"
     ** "Like FreeBSD Jails, Linux VServer is a jail mechanism that can partition resources (file systems, network addresses, memory) on a computer system. Introduced in 2001, this operating system virtualization that is implemented by *patching the Linux kernel*. Experimental patches are still available, but the last stable patch was released in 2006."
+
+    ** Linux-VServer is a virtual private server implementation that was created by adding operating system-level virtualization capabilities to the Linux kernel. +
+    https://en.wikipedia.org/wiki/Linux-VServer
 
 * *2002/08* : Les 1er *Linux namespaces* (mount namespaces) sont ajoutés au kernel Linux 2.4.19 (2002/08/03)
 
@@ -930,9 +936,13 @@ Les étapes majeures à présenter plus en détails :
                 **** *OpenVZ* : by example Travis CI gives you root in OpenVZ
                 **** *Jails* / *Zones*
 
-    ** *namespaces* are a Linux feature allowing your processes to be separated from the other processes on the computer. +
+    ** Bon un bon schéma des différents Linux namespaces, voir https://8gwifi.org/docs/linux-namespace.jsp
+
+    ** *namespaces* are a Linux kernel feature allowing your processes to be separated from the other processes on the computer. +
     You can have PID namespace, networking namespace, mount namespace. +
-    Namespaces can be creates using the `unshare` program.
+    Namespaces can be created using the `unshare` program.
+
+    ** *namespaces* limit what you can see : https://youtu.be/sK5i-N34im8?t=1519[Jérôme Petazzoni à la DockerCon 2015]
 
     ** Pour les *dates* de création des *cgroups* et *namespaces*, voir cet article : https://www.silicon.co.uk/software/open-source/linux-kernel-cgroups-namespaces-containers-186240
 
@@ -942,6 +952,8 @@ Les étapes majeures à présenter plus en détails :
         Adequate containers support functionality was finished in kernel *version 3.8* with the *introduction of User namespaces*."
             **** Et l'info très intéressante est ici : ce sont les user namespaces, introduit avec le kernel 3.8 de Linux qui ont changé la donne, et dont Solomon Hykes dit en 2013 (voir la conf ci-dessous, à 16:19) que, ça y est, "les namespaces marchent maintenant".
             **** https://kernelnewbies.org/Linux_3.8 : "*Linux 3.8* was released on Mon, *18 Feb 2013*."
+
+    ** Description des *mount namespaces* par Jérôme Petazzoni de Docker durant la DockerCon 2015 : https://youtu.be/sK5i-N34im8?t=1666
 
     ** *Namespaces* let you virtualize system resources, like the file system or networking for each container.
         *** Namespaces are "what you can see"
@@ -1015,10 +1027,12 @@ Les étapes majeures à présenter plus en détails :
 
         ** vidéos sympas détaillant les débuts de l'histoire des  containers (jusqu'à Docker), et résumant bien l'usage des namespaces et cgroups : https://www.youtube.com/watch?v=9Egk9Tnc28E&list=PL5JFPVMx5WzXB-NlH13_G8R8dgfz564uo&index=2
 
+        ** *cgroups* limit how much you can use : https://youtu.be/sK5i-N34im8?t=1519[Jérôme Petazzoni à la DockerCon 2015]
+
 * *2007/10* : ajout des 1eres briques de l'implémentation des *user namespaces* dans le kernel Linux 2.6.23 par Eric Biederman (Red Hat) +
 
     "Red Hatter Eric W. Biederman’s 2008 user namespaces patches being arguably the most complex and one of the most important namespaces in the context of containers. The implementation of user namespaces allows a process to have it’s own set of users and in particular to *allows a process root privileges inside a container, but not outside*."
-        ** le kernel Linux 2.6.23 est le 2007/10/10 (https://lwn.net/Articles/253813/)
+        ** le kernel Linux 2.6.23 est releasé le 2007/10/10 (https://lwn.net/Articles/253813/)
 
 * *2008/01* : GRANDE ETAPE - ajout de la fonctionnalité des *cgroups* dans le kernel Linux 2.6.24
 
