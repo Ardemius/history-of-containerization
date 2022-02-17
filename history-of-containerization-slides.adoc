@@ -54,16 +54,6 @@ Tout simplement un *groupe de processus isolés les uns des autres* par un certa
 On commence par un rappel simple
 --
 
-== Chronologie
-
-TODO : ajouter ici un screenshot de la chronologie sur Timetoast
-
-[NOTE.speaker]
---
-Ne pas tout de suite donner le lien, afin de garder le public concentré 😉 +
-Ce dernier sera donné dans les ressources en fin de talk
---
-
 [.columns.fontFor2ColLayout]
 == Les années 70s, les prémices de la conteneurisation
 
@@ -76,10 +66,8 @@ A cette époque les ordinateurs étaient très chers et donc très *rares*, il f
 
 [.column.has-text-justified]
 --
-
 .Ken Thompson et Dennis Ritchie, inventeurs d'UNIX, devant un PDP-11 vers 1972
 image::1972_Unix-Ken-Thompson-Dennis-Ritchie-PDP-11.jpg[]
-
 --
 
 [NOTE.speaker]
@@ -94,7 +82,7 @@ Cette photo, c'est l'alter ego informatique de "Trois hommes dans un salon" avec
 
 [.column.has-text-justified]
 --
-L'appel système `chroot` a été créé en 1979, pendant le développement de la version 7 d'Unix.
+L'appel système `chroot` a été créé en 1979, pendant le développement de la *version 7 d'Unix*.
 
 `chroot` permet de *changer le répertoire racine d'un processus et de ses enfants*.
 
@@ -187,12 +175,17 @@ image::linux-namespace-schema.png[]
 Namespaces can be created using the `unshare` program.
 --
 
+=== !
+
+.Julia Evans zine "How Containers work!", focus on namespaces
+image::julia-evans_how-containers-work_12_how-to-make-a-namespace.jpg[width=850]
+
 [.columns.fontFor2ColLayout.is-vcentered]
 === mount namespaces
 
 [.column.has-text-justified]
 --
-Le 1er type de namespaces à avoir été ajouté au noyau Linux, version 2.4.19, est le *mount namespaces* le 2002/08/03.
+Le 1er type de namespaces à avoir été ajouté au noyau Linux, en version 2.4.19, est les *mount namespaces* le 2002/08/03.
 --
 
 [.column]
@@ -264,12 +257,7 @@ OpenVZ permet à un serveur physique d'exécuter de *multiples instances de syst
 
 == 2006 : début des travaux sur les *Process Containers* chez Google
 
-Ces derniers seront plus tard renommés en *cgroups* (*control groups*), et sont, avec les *namespaces*, les fonctionnalités du noyau Linux ayant eu le plus d'importance pour le *développement des conteneurs*.
-
-[NOTE.speaker]
---
-Début des travaux sur les cgroups par *Paul Menage* and *Rohit Seth* chez Google
---
+Ces derniers, développés par *Paul Menage* et *Rohit Seth*, seront rapidement renommés en *cgroups* (*control groups*), et sont, avec les *namespaces*, les fonctionnalités du noyau Linux ayant eu le plus d'importance pour le *développement des conteneurs*.
 
 === ! 
 
@@ -297,9 +285,142 @@ Les *cgroups* limitent "*COMBIEN* on peut utiliser", là où les *namespaces* li
 la complémentarité de ces 2 fonctionnalités est bien visible
 --
 
+== 2007/10 : 1eres briques de l'implémentation des `user namespaces`
+
+*Eric Biederman* développe ces 1eres briques qu'il ajoute à la version 2.6.23 du noyau Linux.
+
+[.columns.fontFor2ColLayout.is-vcentered]
+=== !
+
+[.column.has-text-justified]
+--
+Les *user namespaces* sont les namespaces les plus complexes et les plus importants pour le fonctionnement de la conteneurisation.
+
+Ils permettent à un processus d'avoir ses *propres utilisateurs*, et de disposer des *droits root dans un conteneur*, mais *PAS à l'extérieur*.
+--
+
+[.column]
+--
+image::user-namespaces-explanation.jpg[]
+--
+
+=== !
+
+image::julia-evans_how-containers-work_14_user-namespaces.jpg[]
+
+[NOTE.speaker]
+--
+La planche de Julia décrit les user namespaces quand ils marchaient parfaitement, en 2007/10 il ne s'agissait que des 1ers briques, ce n'était pas encore complet.
+--
+
+== 2008/01 - *grande étape*
+
+Ajout de la fonctionnalité des *cgroups* dans la version 2.6.24 du noyau Linux.
+
+== 2008/08 - *grande étape*
+
+Création du projet "*Linux Containers*" (*LXC*) par des ingénieurs d'IBM.
+
+[.columns.fontFor2ColLayout.is-vcentered]
+=== !
+
+[.column.has-text-justified]
+--
+Les Linux Containers ont été la 1ere véritable implémentation d'une *gestion de conteneurs pour Linux*.
+
+Ils s'appuient sur les *cgroups* et les Linux *namespaces*, et fonctionnent sur un noyau Linux *non* patché.
+--
+
+[.column]
+--
+image::Linux-Container-Architecture.jpg[]
+--
+
+[NOTE.speaker]
+--
+Avec LXC, on peut vraiment commencer à parler de *container runtimes* (c'est le début).
+
+LXC : easy for sysadmins / OPS, *hard for devs* (requires significant elbow grease)
+--
+
+[.columns.fontFor2ColLayout.is-vcentered]
+== 2011 : `Warden`
+
+[.column.has-text-justified]
+--
+Projet lancé par CloundFoundry, *Warden* s'appuyait à la base sur LXC.
+
+Il avait pour but de fournir moyen *simple* de *gérer des environnements isolés* (des conteneurs 😉)
+
+Pour se faire, il tournait comme un *daemon*, et proposait une *API de gestion de conteneurs*.
+--
+
+[.column]
+--
+image::warden-architecture.png[]
+--
+
+[NOTE.speaker]
+--
+* CloudFoundry started Warden in 2011, using *LXC in the early stages* and *later replacing it* with its own implementation. +
+Warden can isolate environments on any operating system, running as a daemon and providing an API for container management. It developed a client-server model to manage a collection of containers across multiple hosts, and Warden includes a service to manage *cgroups*, *namespaces* and the *process life cycle*.
+
+* Warden creates a root process, called "wshd" for Warden shell *daemon*, in each container.
+* The Warden protocol is defined using *Google protocol buffer* definitions
+--
+
+== 2013/02 : *grande étape*
+
+Ajout de la 1ere "version complète" des *user namespaces* au kernel Linux 3.8
+
+=== !
+
+Solomon Hykes l'a affirmé lors de son tout premier talk de présentation Docker, c'est la sortie de ces *user namespaces* "qui marchent maintenant", qui a *rendu Docker possible*.
+
+[NOTE.speaker]
+--
+La 1ere version des "user namespaces qui marchent vraiment" d'après Solomon Hykes. +
+Celle qui a permis la sortie de Docker très peu après. +
+Voir la conf https://www.youtube.com/watch?v=3N3n9FzebAA à 16:19
+--
+
+=== On a maintenant tout pour créer des conteneurs ! 🙂 
+
+Avec les *cgroups*, les *namespaces*, ainsi que quelques autres fonctionnalités du noyau Linux (`pivot_root`, `seccomp-bpf`, `capabilities`), nous avons tout pour créer des conteneurs, y compris "à la main"
+
+=== ! 
+
+image::julia-evans_how-containers-work_3_containers-arent-magic.jpg[]
+
+[NOTE.speaker]
+--
+Autres Linux Kernel features : 
+
+    * *pivot_root* : set a process's root directory to a directory with the contents of the container image
+        ** difference between pivot_root and *chroot* : chroot is easy to escape from if you're root and pivot root isn't +
+        -> so containers use pivot_root instead of chroot
+    * *cgroups* : limit memory / CPU usage for a group of processes
+    * *namespaces* : allow processes to have their own network / PIDs / users / hostname / mounts / and more !
+    * *seccomp-bpf* (SEcure COMPuting) : for security, prevent dangerous system calls
+    * *capabilities* : security: avoid giving root access +
+    Capabilities allow to reduce the privileges of an active process
+    * *overlay filesystems* : optimization to reduce disk space used by containers which are using the same image
+--
+
+== Chronologie
+
+TODO : ajouter ici un screenshot de la chronologie sur Timetoast
+
 == Ressources
 
-TO BE COMPLETED
+[.smallFont]
+--
+* Le fantastique zine de *Julia Evans* "*How Containers Work!*". +
+Les planches sont sur son Twitter https://twitter.com/b0rk[@b0rk], et vous pouvez également acheter le *zine complet* sur son blog : https://jvns.ca/blog/2020/04/27/new-zine-how-containers-work/
+
+* Le talk durant lequel *Solomon Hykes* a présenté pour la 1ere fois Docker, "*Why we built Docker?*" : https://www.youtube.com/watch?v=3N3n9FzebAA +
+Le talk a été donné à la conférence dotScale 2013, le 2013/06/07, juste après la 1ere publication de Docker.
+--
 
 == Des questions ?
 

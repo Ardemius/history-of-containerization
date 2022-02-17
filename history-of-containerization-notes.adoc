@@ -349,7 +349,9 @@ A container runtime is a library or software which has the ability to create, de
 
 * *Docker was released for the 1st time the 2013/03/20*
 
-* *Why Docker ?* by Solomon Hykes : https://www.youtube.com/watch?v=3N3n9FzebAA (2013/08/01, EXCELLENTE conf, toujours d'actualité) +
+* *Why we built Docker ?* by Solomon Hykes (foundateur de dotCloud à l'époque, puis Docker) : https://www.youtube.com/watch?v=3N3n9FzebAA (2013/06/07, EXCELLENTE conf, toujours d'actualité).
+Le talk a été donné à la conférence dotScale 2013, juste après la 1ere publication de Docker.
+
 La grande raison de l'époque : *shipping software from A to B, reliably and automatically*
     ** It has to behave the same way on both machine, and this with technological stack behind applications being more and more complex
     ** and your shipping place can be different depending on developer environment, servers, etc etc. (a lot of possible combinations that result finally in different environments)
@@ -599,6 +601,9 @@ A VOIR / FACULTATIF :
 * https://podman.io/ : What is Podman? Podman is a *daemonless* container engine for developing, managing, and running OCI Containers on your Linux System. Containers can either be run as root or in *rootless* mode.
 
 === Histoire des containers
+
+Alors, ce n'est pas une chronologie à proprement parler, mais cet article de Baeldung décrit très bien les débuts de la containerization, avec les namespaces et les cgroups, jusqu'à Docker : +
+https://www.baeldung.com/linux/docker-containers-evolution
 
 En fait, on trouve plus d'infos que je ne le pensais via les recherches Google "evolution of containers" et "history of containers", surtout en passant par la recherche images de Google
 
@@ -1047,6 +1052,10 @@ Les étapes majeures à présenter plus en détails :
     "Red Hatter Eric W. Biederman’s 2008 user namespaces patches being arguably the most complex and one of the most important namespaces in the context of containers. The implementation of user namespaces allows a process to have it’s own set of users and in particular to *allows a process root privileges inside a container, but not outside*."
         ** le kernel Linux 2.6.23 est releasé le 2007/10/10 (https://lwn.net/Articles/253813/)
 
+    ** Les meilleurs explications et schémas que j'ai trouvés sur les user namespaces : 
+        *** https://blog.quarkslab.com/digging-into-linux-namespaces-part-2.html
+        *** julia-evans_how-containers-work_14_user-namespaces.jpg
+
 * *2008/01* : GRANDE ETAPE - ajout de la fonctionnalité des *cgroups* dans le kernel Linux 2.6.24
 
 * *2008/08* : GRANDE ETAPE - création du projet *Linux Containers (LXC)* par des ingénieurs d'IBM. +
@@ -1055,11 +1064,16 @@ Les étapes majeures à présenter plus en détails :
         ** https://fr.wikipedia.org/wiki/LXC : initial release 2008/08/06
         ** "LXC (LinuX Containers) was the first, most complete implementation of Linux container manager. It was implemented in 2008 using cgroups and Linux namespaces, and it works on a single Linux kernel *without requiring any patches*."
 
-    TO BE COMPLETED
-
 * *2011* : Warden +
 
-    "CloudFoundry started Warden in 2011, using LXC in the early stages and later replacing it with its own implementation. Warden can isolate environments on any operating system, running as a daemon and providing an API for container management. It developed a client-server model to manage a collection of ontainers across multiple hosts, and Warden includes a service to manage cgroups, namespaces and the process life cycle."
+    "CloudFoundry started Warden in 2011, using LXC in the early stages and later replacing it with its own implementation. Warden can isolate environments on any operating system, running as a daemon and providing an API for container management. It developed a client-server model to manage a collection of containers across multiple hosts, and Warden includes a service to manage cgroups, namespaces and the process life cycle."
+
+    ** Voir également https://github.com/cloudfoundry-attic/warden
+    The project's primary goal is to provide a simple API for managing isolated environments. These isolated environments -- or containers -- can be limited in terms of CPU usage, memory usage, disk usage, and network access. As of writing, the only supported OS is Linux.
+
+    ** Autre très bonne explication sur Warden : http://underlap.blogspot.com/2014/06/warden-meets-libcontainer.html
+    ** Voir également https://tanzu.vmware.com/content/blog/cloud-foundrys-container-technology-a-garden-overview
+        *** Warden creates a root process, called "wshd" for Warden shell daemon, in each container.
 
 * *2013/02* : GRANDE ETAPE - ajout des *user namespaces* au kernel Linux 3.8
 
@@ -1252,7 +1266,8 @@ Ce besoin accrue de sécurisation a amené à l'apparition de nouveaux types de 
 *Ressources à donner dans le talk* : 
 
     * la série d'articles de Ian Lewis
-    * Le talk durant lequel Solomon Hykes a introduit Docker, le 2013/08/01 : https://www.youtube.com/watch?v=3N3n9FzebAA[Why Docker ?]
+    * Le talk durant lequel Solomon Hykes a introduit Docker, le 2013/06/07 : https://www.youtube.com/watch?v=3N3n9FzebAA[Why Docker ?]
+    Le talk a été donné à la conférence dotScale 2013, juste après la 1ere publication de Docker.
 
 * TODO : parler du grand problème de Docker, le "monolith daemon that required root access for everything" +
 Ce qui a conduit à l'émergence des daemonless et autre rootless comme Podman et Buildah

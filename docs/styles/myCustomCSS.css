@@ -38,4 +38,11 @@
     /* font-family: monospace; */
     font-size: 0.8em;
     /* line-height: calc(1 / 1.1); */
-  }
+}
+
+/* small font for specific needs */
+.smallFont {
+    /* font-family: monospace; */
+    font-size: 0.7em;
+    /* line-height: calc(1 / 1.1); */
+}
