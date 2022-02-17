@@ -201,6 +201,102 @@ Le 1er type de namespaces à avoir été ajouté au noyau Linux, version 2.4.19,
 image::mount-namespaces-description.jpg[]
 --
 
+[.columns.fontFor2ColLayout.is-vcentered]
+== 2003 : Google présente `Borg`
+
+[.column.has-text-justified]
+--
+Borg était l'*orchestrateur de conteneurs* (container cluster management system) utilisé en interne par Google.
+
+Il était basé sur les *mécanismes d'isolation déjà présents sur Linux* et pouvait exécuter des milliers de jobs, en provenance de milliers d'applications, au travers d'un grand nombre de clusters chacun composé de dizaines de milliers de machines...
+--
+
+[.column]
+--
+image::borg-high-level-architecture.png[]
+--
+
+[.columns.fontFor2ColLayout.is-vcentered]
+== 2004 : Solaris containers
+
+[.column.has-text-justified]
+--
+En 2004, pour Solaris 10, était publiée la 1ere beta publique des Solaris Containers, qui combinaient *contrôle des ressources du système* et *définition de frontières*, à l'aide du concept de *zones*.
+
+Ces zones agissent comme autant de *serveurs virtuels totalement isolés*, au sein d'une seule instance d'OS.
+--
+
+[.column]
+--
+image::solaris-containers-zones.jpg[]
+--
+
+[NOTE.speaker]
+--
+Les zones permettaient d'exploiter les fonctionnalités de *snapshots* et de *clonage* du système de fichiers ZFS, créé pour Solaris 10 et au-delà.
+
+Les principales caractéristiques du système de fichier *ZFS* sont, entre autres, sa *très haute capacité de stockage*, et la *gestion de volume*.
+
+Pour rappel, à cette époque, Solaris était la propriété de Sun Microsystems, qui a été racheté par Oracle en 2009.
+--
+
+== 2005 : `OpenVZ`
+
+OpenVZ est une *technologie de virtualisation de niveau système d'exploitation* pour Linux, basé sur une version modifiée de son noyau.
+
+Ce dernier apporte les fonctionnalités de virtualisation, d'isolement, de gestion de ressources, et de checkpointing.
+
+[NOTE.speaker]
+--
+*Application checkpointing* : permet de *migrer un VE d'un serveur physique à un autre sans arrêt/relance du VE*. +
+Le VE est gelé et son état entier est sauvegardé dans un fichier sur disque. Ce fichier peut alors être transféré sur une autre machine sur laquelle le VE pourra être restauré. Le délai de migration est de quelques secondes, et ce n'est pas un temps d'arrêt, juste un retard.
+--
+
+[.columns.fontFor2ColLayout]
+=== !
+
+[.column]
+--
+image::openvz-architecture.jpg[]
+
+OpenVZ permet à un serveur physique d'exécuter de *multiples instances de systèmes d'exploitation isolés*, qualifiées de serveurs privés virtuels (VPS) ou *environnements virtuels* (VE).
+--
+
+== 2006 : début des travaux sur les *Process Containers* chez Google
+
+Ces derniers seront plus tard renommés en *cgroups* (*control groups*), et sont, avec les *namespaces*, les fonctionnalités du noyau Linux ayant eu le plus d'importance pour le *développement des conteneurs*.
+
+[NOTE.speaker]
+--
+Début des travaux sur les cgroups par *Paul Menage* and *Rohit Seth* chez Google
+--
+
+=== ! 
+
+Les cgroups sont une fonctionnalité du noyau Linux permettant de *limiter*, *quantifier* et *isoler* l'utilisation de *ressources* d'une *collection de processus* (CPU, mémoire, réseau, etc.).
+
+=== !
+
+image::cgroups-schema.png[width=900]
+
+=== !
+
+Ils permettent de *regrouper des processus*, et de s'assurer que chaque groupe puisse récupérer sa part de mémoire, CPU, réseau, etc. afin qu'*aucun groupe ne puisse monopoliser certaines ressources*.
+
+=== !
+
+.Julia Evans zine "How Containers work!", focus on cgroups
+image::julia-evans_how-containers-work_10_cgroups.jpg[]
+
+=== !
+
+Les *cgroups* limitent "*COMBIEN* on peut utiliser", là où les *namespaces* limitent "ce que l'on peut voir".
+
+[NOTE.speaker]
+--
+la complémentarité de ces 2 fonctionnalités est bien visible
+--
+
 == Ressources
 
 TO BE COMPLETED

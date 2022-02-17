@@ -956,7 +956,7 @@ Les étapes majeures à présenter plus en détails :
     ** Description des *mount namespaces* par Jérôme Petazzoni de Docker durant la DockerCon 2015 : https://youtu.be/sK5i-N34im8?t=1666
 
     ** *Namespaces* let you virtualize system resources, like the file system or networking for each container.
-        *** Namespaces are "what you can see"
+        *** Namespaces are *"what you can see"*
 
     ** At their core, low-level container runtimes are responsible for setting up these namespaces and cgroups for containers, and then running commands inside those namespaces and cgroups.
 
@@ -976,11 +976,22 @@ Les étapes majeures à présenter plus en détails :
 * *2004* : *Solaris Containers* +
 
     "In 2004, the first public beta of Solaris Containers was released that combines system resource controls and boundary separation provided by zones, which were able to leverage features like snapshots and cloning from ZFS."
-        ** Cf Wikipedia, les principales caractéristiques du système de fichier ZFS pour Solaris sont, entre autres, sa très haute capacité de stockage, et la gestion de volume.
 
-* *2005* : *Open VZ* (Open Virtuzzo) +
+    ** https://en.wikipedia.org/wiki/Solaris_Containers : +
+    Zones act as completely isolated virtual servers within a single operating system instance
+
+    ** ZFS (https://fr.wikipedia.org/wiki/ZFS) : +
+    Les caractéristiques de ce système de fichiers sont sa *très haute capacité de stockage*, l'intégration de beaucoup de concepts que l'on trouve sur d'autres systèmes de fichiers, et la *gestion de volume*. Il utilise pour cela des structures de données comme les B-tree "On-Disk", et un adressage des secteurs disque logique au lieu d'un adressage physique. +
+    Produit par Sun Microsystems (société rachetée par Oracle en 2009) pour *Solaris 10* et au-delà, il a été conçu par l'équipe de Jeff Bonwick (en). Annoncé pour septembre 2004, il a été intégré à Solaris le 31 octobre 2005 et le 16 novembre 2005 en tant que caractéristique du build 27 d'OpenSolaris. Sun a annoncé que ZFS était intégré dans la mise à jour de Solaris datée de juin 2006, soit un an après l'ouverture de la communauté OpenSolaris.
+
+* *2005* : *Open VZ* +
 
     "This is an operating system-level virtualization technology for Linux which uses a patched Linux kernel for virtualization, isolation, resource management and checkpointing. The code was not released as part of the official Linux kernel."
+
+    ** voir https://fr.wikipedia.org/wiki/OpenVZ +
+    OpenVZ permet à un serveur physique d'exécuter de multiples instances de systèmes d'exploitation isolés, qualifiées de serveurs privés virtuels (VPS) ou environnements virtuels (VE).
+
+    ** pour un bon schéma de l'architecture d'OpenVZ, voir http://www.virtualizationsoftwares.com/openvz-open-virtualization/
 
 * *2006* : début des travaux sur les *Process Containers* chez Google (later renamed *cgroups* / Control Groups)
 
@@ -994,7 +1005,7 @@ Les étapes majeures à présenter plus en détails :
         ** "Nevertheless, this kind of container technology (speaking of Borg) could only go so far. This led to the development of process containers, which became control groups (cgroups) as early as 2004. Cgroups noted the relationships between processes and reined in user access to specific activities and memory volumes. *The cgroups concept was absorbed into the Linux kernel in January 2008*, after which the Linux container technology LXC emerged. Namespaces developed shortly thereafter to provide the basis for container network security -- to hide a user's or group's activity from others."
 
         ** Cf wikipedia (https://en.wikipedia.org/wiki/Cgroups), *cgroups* : +
-        "cgroups (abbreviated from control groups) is a Linux kernel feature that limits, accounts for, and isolates the resource usage (CPU, memory, disk I/O, network, etc.) of a collection of processes."
+        "cgroups (abbreviated from control groups) is a *Linux kernel feature* that limits, accounts for, and isolates the resource usage (CPU, memory, disk I/O, network, etc.) of a collection of processes."
         ** la vidéo https://www.youtube.com/watch?v=sK5i-N34im8[cgroups, namespaces, and beyond: what are containers made from?] de Jérôme PETAZZONI (Docker) explique en détails les différentes fonctionnalités des *cgroups*, *différents types de namespaces*. +
         ATTENTION ! Elle date de 2015 !
             *** Il est également question des *container runtimes* qui sont basés sur les cgroups et les namespaces. +
@@ -1028,6 +1039,8 @@ Les étapes majeures à présenter plus en détails :
         ** vidéos sympas détaillant les débuts de l'histoire des  containers (jusqu'à Docker), et résumant bien l'usage des namespaces et cgroups : https://www.youtube.com/watch?v=9Egk9Tnc28E&list=PL5JFPVMx5WzXB-NlH13_G8R8dgfz564uo&index=2
 
         ** *cgroups* limit how much you can use : https://youtu.be/sK5i-N34im8?t=1519[Jérôme Petazzoni à la DockerCon 2015]
+
+        ** schéma sur les cgroups : https://www.lightnetics.com/topic/17326/what-are-control-groups-in-linux
 
 * *2007/10* : ajout des 1eres briques de l'implémentation des *user namespaces* dans le kernel Linux 2.6.23 par Eric Biederman (Red Hat) +
 
