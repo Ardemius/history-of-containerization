@@ -32,7 +32,7 @@ toc::[]
 
 == Overview
 
-Proposition de sujet (conference) pour Devoxx France 2022
+Proposition de sujet (conference) pour Devoxx France 2022 et 2023
 
 Talk ayant pour but de retracer l'histoire de la conteneurisation, de donner ses grandes dates depuis ses débuts jusqu'à nos jours, et d'expliquer les raisons derrière chaque grande évolution.
 
@@ -52,13 +52,23 @@ Ce talk ne va pas rentrer dans le détail de toutes les étapes
 
 == Recherche du nom de la conférence
 
+=== Devoxx France 2022 CFP
+
 * A Brief History of Containers
 * A brief history of containerization, from yesterday to today
 
 * Petite histoire de la conteneurisation, d'hier à nos jours
 * *L'évolution de la conteneurisation, de 1979 à aujourd'hui* : on va garder ce titre
 
+=== Devoxx France 2023 CFP
+
+* De chroot à Docker, Podman, et maintenant les modules Wasm, histoire accélérée de plus de 40 ans d'évolution de la conteneurisation.
+* chroot, Docker, Podman et maintenant modules Wasm, 40 ans d'évolution de la conteneurisation
+* *De chroot à Docker, Podman, et maintenant les modules Wasm, 40 ans d'évolution de la conteneurisation*
+
 == Abstract
+
+=== Devoxx France 2022 CFP
 
 * Expliquer le "pourquoi ces changements, ces évolutions ?" afin de comprendre comment nous en sommes arrivés à la situation actuelle
 
@@ -118,7 +128,7 @@ Qu'il a fallu attendre d'avoir les cgroups (2008), puis plus tard les user names
 Que la généralisation des containers, conséquence de l'adoption de Kubernetes par tous les Cloud providers (2018), entraîna l'apparition des sandbox runtimes et des daemonless runtimes ?
 
 Au cours de ce talk, nous allons détailler les grandes étapes qui ont marqué l'histoire de la conteneurisation, et expliquer POURQUOI elles ont eu lieu.
-L'objectif est qu'en sortant, vous ayez compris quelle orientation a suivi la conteneurisation depuis toutes ces années, et ce vers quoi nous allons.
+L'objectif est qu'en sortant, vous ayez compris quelles orientations a suivi la conteneurisation depuis toutes ces années, et ce vers quoi nous allons.
 ----
 
 .version finale au format markdown (pour le CFP de Devoxx France)
@@ -132,7 +142,39 @@ Qu'il a fallu attendre d'avoir les **cgroups** (2008), puis plus tard les **user
 Que la généralisation des containers, conséquence de **l'adoption de Kubernetes** par tous les Cloud providers (2018), entraîna l'apparition des **sandbox runtimes** et des **daemonless runtimes** ?
 
 Au cours de ce talk, nous allons détailler les **grandes étapes** qui ont marqué l'histoire de la conteneurisation, et expliquer **POURQUOI** elles ont eu lieu.  
-L'objectif est qu'en sortant, vous ayez compris **quelle orientation a suivi la conteneurisation** depuis toutes ces années, et ce vers quoi nous allons.
+L'objectif est qu'en sortant, vous ayez compris **quelles orientations a suivi la conteneurisation** depuis toutes ces années, et ce vers quoi nous allons.
+----
+
+=== Devoxx France 2023 CFP
+
+.version finale
+----
+La plupart d'entre nous ont découvert le concept de conteneur en 2013 avec l'arrivée de Docker.
+Aujourd'hui, avec l'avènement du Cloud et de Kubernetes, les conteneurs sont partout autour de nous.
+
+Toutefois, l'histoire de la conteneurisation reste globalement méconnue.
+Qui pour se souvenir que tout a commencé en 1979 avec l'apparition de chroot, qui marqua le début de l'isolation des process ?
+Qu'il a fallu attendre d'avoir les cgroups (2008), puis les user namespaces (2013) pour qu'enfin Docker puisse voir le jour ?
+Que la généralisation des containers, conséquence de l'adoption de Kubernetes par tous les Cloud providers (2018), entraîna l'apparition des sandbox runtimes et des daemonless runtimes ?
+Sans oublier la récente poussée de WebAssembly et de ses modules (2022), nos nouveaux "containers Javascript".
+
+Au cours de ce talk, nous allons détailler les grandes étapes qui ont marqué l'histoire de la conteneurisation, et expliquer POURQUOI elles ont eu lieu.
+L'objectif est qu'en sortant, vous ayez compris quelles orientations a suivi la conteneurisation depuis toutes ces années, et ce vers quoi nous allons.
+----
+
+.version finale au format markdown (pour le CFP de Devoxx France)
+----
+La plupart d'entre nous ont découvert le concept de conteneur en **2013** avec l'arrivée de **Docker**.  
+Aujourd'hui, avec l'avènement du Cloud et de Kubernetes, les conteneurs sont partout autour de nous.
+
+Toutefois, **l'histoire de la conteneurisation** reste globalement méconnue.  
+Qui pour se souvenir que tout a commencé en **1979** avec l'apparition de **chroot**, qui marqua le début de l'isolation des process ?  
+Qu'il a fallu attendre d'avoir les **cgroups** (2008), puis les **user namespaces** (2013) pour que Docker puisse voir le jour ?  
+Que la généralisation des containers, conséquence de **l'adoption de Kubernetes** par tous les Cloud providers (2018), entraîna l'apparition des **sandbox runtimes** et des **daemonless runtimes** ?  
+Sans oublier la récente poussée de **WebAssembly** et de ses **modules** (2022), nos nouveaux "containers Javascript".
+
+Au cours de ce talk, nous allons détailler les **grandes étapes** qui ont marqué l'histoire de la conteneurisation, et expliquer **POURQUOI** elles ont eu lieu.  
+L'objectif est qu'en sortant, vous ayez compris **quelles orientations a suivi la conteneurisation** depuis toutes ces années, et ce vers quoi nous allons.
 ----
 
 == Message pour le comité
@@ -157,6 +199,8 @@ J'ai dans l'idée de la passer dans un outil comme [https://www.timetoast.com/](
 Il est déjà prévu avec ma communauté technique que je fasse plusieurs présentations blanches début d'année pour aider ma préparation.
 ----
 
+=== Devoxx France 2022 CFP
+
 .version markdown pour le CFP de Devoxx France 2022
 ----
 Bonjour,
@@ -174,6 +218,61 @@ Je suis preneur de toutes vos questions et retours pour approfondir le sujet.
 Il est déjà prévu avec ma communauté technique que je fasse plusieurs présentations blanches début d'année pour aider ma préparation.
 ----
 
+=== DevFest Nantes 2022 CFP
+
+.version markdown pour le CFP de DevFest Nantes 2022 (section "références du talk")
+----
+Bonjour,
+
+Mi-2021 j'ai fait une présentation à la communauté technique de ma société sur les low-level et les high-level container runtimes (ex : runc et containerd). Il est apparu que, si certains en avaient déjà entendu parler, aucun ne savait réellement comment ni pourquoi les conteneurs en étaient arrivés là.
+
+C'est de là d'où m'est venue l'idée de ce talk : détailler la chronologie des grandes étapes de la conteneurisation, de ses débuts à nos jours, et surtout expliquer **POURQUOI** ces étapes ont eu lieu.
+J'ai demandé aux membres de la communauté s'ils trouvaient le sujet intéressant, et les retours ont été très enthousiastes.
+
+J'ai terminé ma recherche documentaire, ainsi que l'étude associée en très grande partie. Ceux qui le souhaitent peuvent déjà jeter un oeil à la **chronologie** que je compte présenter dans mes notes sur GitHub :  
+https://github.com/Ardemius/history-of-containerization/blob/main/history-of-containerization-notes.adoc#8-frise-temporelle-r%C3%A9duite  
+J'ai dans l'idée de la passer dans un outil comme https://www.timetoast.com/ pour la rendre plus dynamique.
+
+J'ai déjà fait de 1eres présentations de ce talk à mon JUG (https://github.com/startechsofteam) et dans notre équivalent des BBL, et ai eu de très bon retours (même si le talk n'était pas encore totalement terminé).  
+Je compte faire une (ou plusieurs) présentations blanches complètes dans les quelques mois à venir.
+
+Je suis **preneur de toutes vos questions et retours** pour approfondir le sujet 🙂
+----
+
+.version markdown pour le CFP de DevFest Nantes 2022 (section "message pour le comité")
+----
+Bonjour,
+
+Comme expliqué dans la partie "références" du talk, l'idée de ce dernier m'est venu lors d'une présentation plus spécifique des container runtimes.  
+Durant celle-ci, j'ai constaté que l'histoire de la conteneurisation était peu connue, d'où l'idée d'en présenter une chronologie.
+
+Un résumé de celle-ci est disponible sur le GitHub du talk (https://github.com/Ardemius/history-of-containerization/blob/main/history-of-containerization-notes.adoc#8-frise-temporelle-r%C3%A9duite).  
+**Je suis preneur de tous retours et questions dessus**, tout particulièrement **si vous souhaitez que je mette davantage l'accent sur certaines parties**.  
+Le sujet est vaste, et j'ai effectué beaucoup de recherches si chaque partie, dont je propose une synthèse tenant en 45 min.  
+Dans ce temps, je peux insister davantage sur certains points, n'hésitez pas à me faire part de vos préférences 🙂
+----
+
+=== Devoxx France 2023 CFP
+
+.version markdown pour le CFP de Devoxx France 2023
+----
+Bonjour,
+
+Mi-2021 j'ai fait une présentation à la communauté technique de ma société sur les low-level et les high-level container runtimes (ex : runc et containerd). Il est apparu que, si certains en avaient déjà entendu parler, aucun ne savait réellement comment ni pourquoi les conteneurs en étaient arrivés là.
+
+C'est de là d'où m'est venue l'idée de ce talk : détailler la chronologie des grandes étapes de la conteneurisation, de ses débuts à nos jours, et surtout expliquer POURQUOI ces étapes ont eu lieu.
+J'ai demandé aux membres de la communauté s'ils trouvaient le sujet intéressant, et les retours ont été très enthousiastes.
+
+J'ai déjà en grande partie terminé ma recherche documentaire, ainsi que l'étude associée.  
+J'ai également déjà donné un talk à ma société sur une première partie de la chronologie, et ai obtenu de bons retours (le sujet a réellement intéressé les personnes présentes).
+
+Celles et ceux qui le souhaitent peuvent déjà jeter un oeil à la chronologie que je compte présenter dans mes notes sur GitHub :  
+https://github.com/Ardemius/history-of-containerization/blob/main/history-of-containerization-notes.adoc#8-frise-temporelle-r%C3%A9duite  
+
+J'ai dernièrement complété la chronologie avec les modules WebAssembly, et ai des présentations blanches de prévues début 2023 pour peaufiner le tout.
+
+Je suis preneur de toutes vos questions et retours pour approfondir le sujet.  
+----
 
 
 
@@ -351,6 +450,7 @@ A container runtime is a library or software which has the ability to create, de
 
 * *Why we built Docker ?* by Solomon Hykes (foundateur de dotCloud à l'époque, puis Docker) : https://www.youtube.com/watch?v=3N3n9FzebAA (2013/06/07, EXCELLENTE conf, toujours d'actualité).
 Le talk a été donné à la conférence dotScale 2013, juste après la 1ere publication de Docker.
+* Pour d'autres explications par Solomon sur la création de Docker et ses débuts, voir : https://www.youtube.com/watch?v=KF9Awj74dMw
 
 La grande raison de l'époque : *shipping software from A to B, reliably and automatically*
     ** It has to behave the same way on both machine, and this with technological stack behind applications being more and more complex
@@ -600,6 +700,10 @@ A VOIR / FACULTATIF :
 
 * https://podman.io/ : What is Podman? Podman is a *daemonless* container engine for developing, managing, and running OCI Containers on your Linux System. Containers can either be run as root or in *rootless* mode.
 
+=== Les tests containers
+
+* Regarder ce que les containers peuvent faire pour les tests d'intégration (*Testcontaineurs*)
+
 === Histoire des containers
 
 Alors, ce n'est pas une chronologie à proprement parler, mais cet article de Baeldung décrit très bien les débuts de la containerization, avec les namespaces et les cgroups, jusqu'à Docker : +
@@ -755,7 +859,7 @@ En fait, on trouve plus d'infos que je ne le pensais via les recherches Google "
 
             **** *Buildah* : Buildah is a common containerize tool for container systems that comply with the OCI (Open Container Initiative) standards, one of the most important reasons for its development being its power in building container images.
                 ***** 1st release v0.11 2018/01/17
-                ***** Builday is a tool that facilitates building OCI images
+                ***** Buildah is a tool that facilitates building OCI images
                 ***** The build commands in Podman are actually a subset of Buildah commands and they use the same codes.
                 ***** Buildah also works as rootless and daemonless.
             **** Voir également cet excellent article sur les daemonless container runtimes Podman et Buildah, ainsi que le lien qui les unit : https://developers.redhat.com/blog/2018/11/20/buildah-podman-containers-without-daemons : +
@@ -796,6 +900,50 @@ Using this new architecture we can run “*daemon-less containers*” and we hav
 --
         *** Pour un autre *très bon schéma de l'architecture actuelle de Docker* : https://iximiuz.com/en/posts/implementing-container-runtime-shim/ (2021/08/24)
             **** L'article également très bien le fonctionnement du shim containerd-shim
+
+=== 2022 - Deno et les containers Javascript et WASM
+
+* Rappel : *Wasm* = WebAssembly
+
+* 2022/05 : https://javascript.developpez.com/actu/333398/Les-conteneurs-JavaScript-surpasseront-ils-les-conteneurs-Linux-Le-createur-de-Node-js-pense-que-les-conteneurs-JavaScript-pourraient-simplifier-l-ecriture-des-services-Web/
+
+* 2022/11 : LCC 288 : https://lescastcodeurs.com/2022/11/21/lcc-288-l-episode-marathon-mastodonien/
+    ** Docker annonce une technical preview des conteneurs WASM https://www.docker.com/blog/docker-wasm-technical-preview/ (2022/10)
+        *** Nouveau packaging qui wrap un exécutable WASM et le fait tourner avec le runtime *WasmEdge*.
+        *** C'est un nouveau type de conteneur.
+        *** Il y a beaucoup d'activité autour de WASM, et il y a eu de nombreuses annonces et démonstration lors de la conférence CloudNativeCon et le jour spécial sur WASM, lors de KubeCon.
+        *** https://www.infoq.com/news/2022/11/cloud-native-wasm-day/.
+        *** Docker utilise Docker Desktop et Docker engine pour démarrer des shims.
+        *** Ces shims (processes) lancent soit runc (donc pour faire tourner un conteneur), soit wasmedge pour faire tourner des modules wasm.
+        *** Donc docker s'éloigne des conteneurs et essaie de toucher l'orchestration.
+
+    ** 2022/10 - Docker Wasm Technical Preview : https://www.docker.com/blog/docker-wasm-technical-preview/
+        *** Plutôt que de parler de "containers Javascript", il est peut-être préférable de parler de "Wasm modules" (comme dans l'article)
+        *** Bon schéma, simple et clair, du lancement par containerD ET de runC et des containers "classiques" ET de WasmEdge et des modules Wasm via les bons shim.
+
+    ** https://www.infoq.com/news/2022/11/cloud-native-wasm-day/
+        *** "Wasm was originally developed as a secure sandbox for the web browser. In recent years, it has found many applications on the server-side as a secure, lightweight, fast, and portable alternative to VMs and Linux containers (LXCs)"
+        *** *WasmEdge* : "Major Wasm *runtimes* such as WasmEdge and Wasmtime are already committed to supporting and implementing the component model proposal."
+        *** De nombreux liens vers les derniers articles sur les Wasm modules
+        *** De nombreux langages sont maintenant supportés (ou en voie de l'être) par Wasm : PHP, Java (mais sans GC, donc pour short-lived Java programs), Python, .Net
+        *** Wasm gagne même la Data : +
+        "Guba Sandor and Dubas Adam from Cisco presented a *Wasm-based plugin system* for the *Envoy Proxy* that is specifically designed for *customizing logging data pipelines*."
+
+* TODO : rappeler rapidement *la force et les avantages de Wasm*
+    ** https://www.linkedin.com/pulse/webassembly-un-nouveau-must-pour-le-d%C3%A9veloppement-web-arnaud/?originalSubdomain=fr
+        *** "on peut résumer trois grands objectifs pour Wasm : la *rapidité*, la *portabilité* et la *flexibilité*."
+        *** One important WebAssembly advantage revolves around *edge computing*.
+    
+    ** "Why Containers and WebAssembly Work Well Together" : https://www.docker.com/blog/why-containers-and-webassembly-work-well-together/#:~:text=While%20Docker%20excels%20at%20building,creating%20their%20multi%2Darchitecture%20builds.
+        *** "While Docker excels at building and deploying cross-platform cloud applications, Wasm is well-suited to portable, binary code compilation for browser-based applications."
+        *** Bonne explication des différents types de compute infrastructure : “three different categories of compute infrastructure"
+            **** *Virtual machines* (heavyweight class) - AKA the “workhorse” of the cloud, VMs package together an entire operating system — kernels and drivers included, plus code or data — to run an application virtually on compatible hardware. VMs are also great for OS testing and solving infrastructure challenges related to servers, but, they’re often multiple GB in size and consequently start up very slowly.
+            **** *Containers* (middleweight class) - Containers make it remarkably easy to package all application code, dependencies, and other components together and run cross-platform. Container images measure just tens to hundreds of MB in size, and start up in seconds.
+            **** *WebAssembly* (lightweight class) - A step smaller than containers, WebAssembly binaries are minuscule, can run in a secure sandbox, and start up nearly instantly since they were initially built for web browsers.
+
+* QUESTION : Parler de Deno, ou très spécifique / particulier pour une chronologie ?
+
+Définition par Red Hat : *Edge computing* is computing that takes place at or near the physical location of either the user or the source of the data.
 
 == Plan du talk
 
@@ -1244,6 +1392,8 @@ Ce besoin accrue de sécurisation a amené à l'apparition de nouveaux types de 
     Of the 1,250 IT leaders surveyed, just under 50% said they use containers in production to at least some degree. A further 37% use containers for development only, while just 16% are still evaluating or researching container adoption, according to Red Hat. +
     Voir https://www.computerweekly.com/feature/Containers-for-a-post-pandemic-IT-architecture
 
+* 2022/10 : Poussée des modules Wasm ("containers Javascript") et technical preview Docker PLUS Wasm
+
 *Informations globales à donner* : 
 
     * insister sur les Linux Kernel features, pas que les cgroups et namespaces
@@ -1338,6 +1488,7 @@ Les outils suivants ont l'air bien adaptés :
 * *2020/12* : le daemon docker (dockerd) est déprécié pour Kubernetes 1.20 (2020/12), et est remplacé par containerd
 * *2021* : les containers sont maintenant partout, et le constat suivent tiré des études de Gartner : +
 "Gartner predicted in 2020 that, by 2022, more than 75% of global organisations will be running containerised applications in production, against 30% in 2020."
+* *2022/10* : Poussée des modules Wasm ("containers Javascript") et technical preview Docker PLUS Wasm
 
 ~39 dates à présenter dans les 45 min de ce format conférence.
 
@@ -1361,4 +1512,31 @@ Les outils suivants ont l'air bien adaptés :
 
     asciidoctor-revealjs history-of-containerization-slides.adoc -o docs/slides.html
 
+== 2022/11/29 - Point avec Julien Topçu pour discuter de mes propositions pour Devoxx France 2023
 
+La plupart d'entre nous ont découvert le concept de conteneur en **2013** avec l'arrivée de **Docker**.
+Aujourd'hui, avec l'avènement du Cloud et de Kubernetes, les conteneurs sont partout autour de nous.
+
+Toutefois, **l'histoire de la conteneurisation** reste globalement méconnue.
+Qui pour se souvenir que tout a finalement commencé en **1979** avec l'apparition de **chroot** qui marqua le début de l'isolation des process ?
+Qu'il a fallu attendre d'avoir les **cgroups** (2008), puis plus tard les **user namespaces** (2013) pour qu'enfin Docker puisse voir le jour ?
+Que la généralisation des containers, conséquence de **l'adoption de Kubernetes** par tous les Cloud providers (2018), entraîna l'apparition des **sandbox runtimes** et des **daemonless runtimes** ?
+
+Au cours de ce talk, nous allons détailler les **grandes étapes** qui ont marqué l'histoire de la conteneurisation, et expliquer **POURQUOI** elles ont eu lieu.
+L'objectif est qu'en sortant, vous ayez compris **quelle orientation a suivi la conteneurisation** depuis toutes ces années, et ce vers quoi nous allons.
+
+
+En partie centrale, citer les PROBLEMES qui ont amené aux solutions choisis
+
+Changer le titre : La contenairisation des contenairs Linux aux containers javascript, mais garder l'idée de chronologie
+Parler de Deno dans le titre
+
+C'est un talk de curiosité
+
+Comprendre le passé pour comprendre le futur
+
+Waouh effect avec les containers javascript
+
+
+Message au comité : le voir comme une lettre de motivation
+Défendre l'intérêt du sujet, pourquoi il est intéressant
