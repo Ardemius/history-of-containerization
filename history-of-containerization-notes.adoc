@@ -271,7 +271,8 @@ https://github.com/Ardemius/history-of-containerization/blob/main/history-of-con
 
 J'ai dernièrement complété la chronologie avec les modules WebAssembly, et ai des présentations blanches de prévues début 2023 pour peaufiner le tout.
 
-Je suis preneur de toutes vos questions et retours pour approfondir le sujet.  
+Ma préparation du talk est accessible sur GitHub : https://github.com/Ardemius/history-of-containerization  
+Je suis preneur de toutes vos questions et retours pour approfondir le sujet 🙂 
 ----
 
 
