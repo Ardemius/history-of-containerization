@@ -351,6 +351,23 @@ Docker Engine acts as a client-server application with:
 
     ** On pourrait également définir Docker très simplement ainsi : *Docker allows to run containerized apps*
         *** Au final, les composants de Docker ont pour but de : *build des images*, et *run des containers*
+    ** Une autre très bonne comparaison entre Kubernetes et Docker, Docker Composer et Docker Swarm
+        *** "Docker, which is the container engine solution, its container orchestration solution Docker Compose, and Docker Swarm, which is a cluster-container orchestration solution."
+        *** Kubernetes, the alternative cluster-container solution
+        *** *Docker Compose* : Managing multi-containerized applications on the same host is a complicated and time-consuming task. Docker Compose, the orchestration tool for *a single host*, manages multi-containerized applications defined on one host using the Compose file format. 
+        *** *Docker Swarm* : Developers can design an application to run on *multiple containers on different hosts*, which creates the need for an orchestration solution for a cluster of containers across different hosts. For this reason, Docker Inc. introduced Docker Swarm.
+        *** Kubernetes is more widely used than Swarm in large environments because it provides high availability, load balancing, scheduling, and monitoring to provide an always-on, reliable, and robust solution.
+        *** Une TRES BONNE DEFINITION de ce que sont Docker, Docker Composer et Docker Swarm, à quoi ils servent :
+        {lb}
+        "Docker is an open-source platform to package and *run applications in standard containers* that can run across different platforms in the same behavior. With Docker, *containerized applications are isolated from the host*, which offers the flexibility of delivering applications to any platform running any OS. Furthermore, the Docker engine manages containers and allows them to run simultaneously on the same host.""
+        {lb}
+        Due to the client-server architecture, Docker consists of client- and server-side components (*Docker client* and *Docker daemon*). The client and the daemon (*Dockerd*) can run on the same system, or you can connect the client to a remote daemon. *The daemon processes the API requests sent by the client* in addition to managing the other Docker objects (containers, networks, volumes, images, etc.).
+        {lb}
+        *Docker Desktop is the installer of Docker client and daemon* and includes other components like Docker Compose, Docker CLI (Command Line Interface), and more. It can be installed on different platforms: Windows, Linux, and macOS.
+        {lb}
+        Developers can design an application to run on multiple containers on the same host, which creates *the need to manage multiple containers at the same time*. For this reason, Docker Inc. introduced *Docker Compose*. Docker vs Docker Compose can be summarized as follows: Docker can manage a container, while Compose can manage multiple containers *on one host*.
+        {lb}
+        *Docker Swarm* or Docker in Swarm mode is *a cluster of Docker engines* that can be enabled after installing Docker. Swarm allows *managing multiple containers on different hosts*, unlike Compose, which allows managing multiple containers on the same host only.
 
 * dockerd vs containerd vs runc : https://stackoverflow.com/questions/46649592/dockerd-vs-docker-containerd-vs-docker-runc-vs-docker-containerd-ctr-vs-docker-c
     ** on y trouve aussi une bonne explication sur *shim* : +
@@ -921,6 +938,14 @@ Using this new architecture we can run “*daemon-less containers*” and we hav
     ** 2022/10 - Docker Wasm Technical Preview : https://www.docker.com/blog/docker-wasm-technical-preview/
         *** Plutôt que de parler de "containers Javascript", il est peut-être préférable de parler de "Wasm modules" (comme dans l'article)
         *** Bon schéma, simple et clair, du lancement par containerD ET de runC et des containers "classiques" ET de WasmEdge et des modules Wasm via les bons shim.
+    ** Docker fait carrément la promotion de son rapprochement avec Wasm, c'est sur la page d'accueil de leur site : 
++
+.https://www.docker.com/
+----    
+WHAT’S NEW
+Docker + Wasm = Awesome!
+Wasm is a new, fast, and light alternative to the Linux/Windows containers you’re using in Docker today — give it a try with the Docker+Wasm Beta.
+----
 
     ** https://www.infoq.com/news/2022/11/cloud-native-wasm-day/
         *** "Wasm was originally developed as a secure sandbox for the web browser. In recent years, it has found many applications on the server-side as a secure, lightweight, fast, and portable alternative to VMs and Linux containers (LXCs)"
@@ -945,6 +970,15 @@ Using this new architecture we can run “*daemon-less containers*” and we hav
 * QUESTION : Parler de Deno, ou très spécifique / particulier pour une chronologie ?
 
 Définition par Red Hat : *Edge computing* is computing that takes place at or near the physical location of either the user or the source of the data.
+
+Cf l'abstract du meetup Tech Rocks du 23/02/2023 : 
++
+.https://www.meetup.com/fr-FR/Meetup-CTO-Tech-Rocks/events/290691230/
+--
+Tech.Rocks est heureux de vous convier à un meetup virtuel dédié à la découverte de *Web Assembly*, une *technologie de virtualisation* pour implémenter des services *portables* plus *sécurisés* et plus performants.
+
+Ils nous aideront également à mieux comprendre pourquoi Web Assembly s'annonce comme la nouvelle *révolution* pour la *portabilité*, la *sécurité* et la *performance* des applications et services en ligne.
+--
 
 == Plan du talk
 
@@ -1507,7 +1541,7 @@ Les outils suivants ont l'air bien adaptés :
 
     docker run -it -v <path-to-the-cloned-repo>/docs:/documents/ asciidoctor/docker-asciidoctor
 
-    docker run -it -b D:\resources\my-talks-and-trainings\history-of-containerization:/documents/ asciidoctor/docker-asciidoctor
+    docker run -it -v D:\resources\my-talks-and-trainings\history-of-containerization:/documents/ asciidoctor/docker-asciidoctor
 
 3. génération des slides :
 
