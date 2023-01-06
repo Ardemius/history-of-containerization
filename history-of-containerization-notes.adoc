@@ -351,7 +351,7 @@ Docker Engine acts as a client-server application with:
 
     ** On pourrait également définir Docker très simplement ainsi : *Docker allows to run containerized apps*
         *** Au final, les composants de Docker ont pour but de : *build des images*, et *run des containers*
-    ** Une autre très bonne comparaison entre Kubernetes et Docker, Docker Composer et Docker Swarm
+    ** Une autre très bonne comparaison entre Kubernetes et Docker, Docker Composer et Docker Swarm : https://dzone.com/articles/kubernetes-vs-docker-differences-explained
         *** "Docker, which is the container engine solution, its container orchestration solution Docker Compose, and Docker Swarm, which is a cluster-container orchestration solution."
         *** Kubernetes, the alternative cluster-container solution
         *** *Docker Compose* : Managing multi-containerized applications on the same host is a complicated and time-consuming task. Docker Compose, the orchestration tool for *a single host*, manages multi-containerized applications defined on one host using the Compose file format. 
