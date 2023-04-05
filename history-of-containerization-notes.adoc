@@ -470,6 +470,20 @@ Une bonne définition d'un *container runtime* : +
 A container runtime is a library or software which has the ability to create, deploy and manage containers on its own. Basically, container runtimes are responsible for container lifecycle. It provides simple API layer to create, deploy and manage containers.
 ----
 
+* *Définition d'un runtime "classique" :* 
+
+    ** https://fr.wikipedia.org/wiki/Environnement_d%27ex%C3%A9cution +
+    Un *environnement d'exécution* ou *runtime* est un *logiciel responsable de l'exécution des programmes informatiques* écrits dans un langage de programmation donné. Un runtime offre des services d'exécution de programmes tels que les entrées-sorties, l'arrêt des processus, l'utilisation des services du système d'exploitation, le traitement des erreurs de calcul, la génération d'événements, l'utilisation de services offerts dans un autre langage de programmation, le débogage, le profilage et le ramasse-miette. +
+    Contrairement à un logiciel de développement permettant de programmer et développer son application, *un runtime ne permet QUE l'exécution d'un programme*. Un runtime peut être vu comme une machine virtuelle : de la même manière qu'un code natif est exécuté par le processeur, un code objet est exécuté par le runtime. Le runtime sert alors à exécuter du code objet en mettant le code natif ad hoc à disposition du processeur pour exécution
+
+    ** On peut reparler ici des différences entre JRE et JDK (et JVM) : https://www.digitalocean.com/community/tutorials/difference-jdk-vs-jre-vs-jvm
+        *** *JRE* is the implementation of JVM. It provides *a platform to execute java programs*. JRE consists of JVM, Java binaries, and other classes to execute any program successfully.
+
+    ** ChatGPT : 
+        *** In software development, a runtime (also called runtime environment or runtime system) is a software layer that provides a platform or framework for running and executing code. It is responsible for managing the execution of code, including loading, interpreting, and executing program instructions, as well as providing the necessary support for accessing system resources and external libraries. +
+        A runtime is typically associated with a specific programming language or technology, and provides the necessary environment for executing code written in that language or technology. For example, a Java runtime environment (JRE) provides the platform for running Java applications, while a Node.js runtime provides the environment for running JavaScript code on a server.
+
+
 * *Docker was released for the 1st time the 2013/03/20*
 
 * *Why we built Docker ?* by Solomon Hykes (foundateur de dotCloud à l'époque, puis Docker) : https://www.youtube.com/watch?v=3N3n9FzebAA (2013/06/07, EXCELLENTE conf, toujours d'actualité).
@@ -927,7 +941,7 @@ Using this new architecture we can run “*daemon-less containers*” and we hav
 
 === 2022 - WebAssembly (WASM), modules WASM, containers Javascript et Deno
 
-* Rappel : *Wasm* = WebAssembly
+Rappel : WebAssembly = *WASM*
 
 * 2022/05 : https://javascript.developpez.com/actu/333398/Les-conteneurs-JavaScript-surpasseront-ils-les-conteneurs-Linux-Le-createur-de-Node-js-pense-que-les-conteneurs-JavaScript-pourraient-simplifier-l-ecriture-des-services-Web/
     ** "Selon *Dahl* (créateur de Node.js et de Deno), étant donné que les logiciels de serveur dépendent souvent de nombreuses ressources et configurations système, leur déploiement était difficile par le passé. *Les conteneurs Linux* ont alors résolu ce problème. Cependant, Dahl estime qu'un *environnement hermétique similaire peut être trouvé dans le JavaScript du navigateur*, bien qu'à un niveau d'abstraction plus élevé."
@@ -960,15 +974,23 @@ Using this new architecture we can run “*daemon-less containers*” and we hav
 
         *** Plutôt que de parler de "containers Javascript", il est peut-être préférable de parler de "Wasm modules" (comme dans l'article)
         *** Bon schéma, simple et clair, du lancement par containerD ET de runC et des containers "classiques" ET de WasmEdge et des modules Wasm via les bons shim.
+
     ** Docker fait carrément la promotion de son rapprochement avec Wasm, c'est sur la page d'accueil de leur site : 
 +
 .https://www.docker.com/
 ----    
 WHAT’S NEW
 Docker + Wasm = Awesome!
-Wasm is a new, fast, and light alternative to the Linux/Windows containers you’re using in Docker today — give it a try with the Docker+Wasm Beta.
+Wasm is a new, FAST, and LIGHT alternative to the Linux/Windows containers you’re using in Docker today — give it a try with the Docker+Wasm Beta.
 ----
-    ** Dans cette dernière définition, c'est surtout le "LIGHT" qui est important : *WASM* rime avec *SECURE*, *PERFORMANT* et *LIGHT*
+        *** Dans cette dernière définition, c'est surtout le "LIGHT" qui est important : *WASM* rime avec *SECURE*, *PERFORMANT* et *LIGHT*
+            **** Et ne pas oublier la *portabilité*
+    
+    ** Cf MeetUp TechRocks "A la découverte de WebAssembly", https://www.youtube.com/watch?v=-W2ze6tiTyk, il est indiqué que les 3 principales caractéristiques de WASM sont la *sécurité*, les *performances* et la *portabilité*
+        *** Faire le parallèle entre "light" et portabilité
+        *** *l'idée de base de WebAssembly* : "faire tourner un autre langage que Javascript dans le browser"
+            **** même si Wasm a été initié par la W3C, mais dans la réalité c'est surtout Mozilla qui a participé à l'évolution de Wasm côté browser (avec Firefox)
+                ***** Il y a 2 ans, grosse vague de licenciement chez Mozilla
 
     ** https://www.infoq.com/news/2022/11/cloud-native-wasm-day/
         *** "Wasm was originally developed as a secure sandbox for the web browser. In recent years, it has found many applications on the server-side as a secure, lightweight, fast, and portable alternative to VMs and Linux containers (LXCs)"
@@ -1010,18 +1032,23 @@ Ils nous aideront également à mieux comprendre pourquoi Web Assembly s'annonce
 
 * *Définition de WebAssembly*
     ** https://fr.wikipedia.org/wiki/WebAssembly : 
-        *** WebAssembly, abrégé wasm, est un *standard* du World Wide Web pour le développement d’applications +
+        *** WebAssembly, abrégé wasm, est un *standard* du World Wide Web (W3C) pour le développement d’applications +
         Le standard consiste en un *bytecode*, sa *représentation textuelle* et un *environnement d'exécution* dans un *bac à sable* compatible avec *JavaScript*. Il peut être *exécuté dans un navigateur Web et en dehors*. +
         Comme WebAssembly ne spécifie qu'un langage de bas niveau, le *bytecode est généralement produit en compilant un langage de plus haut niveau*. +
         De nombreux langages de programmation possèdent aujourd'hui un compilateur WebAssembly : Rust, C, C++, C#, Go, Java, Lua, Python, Ruby, Fortran ou Pascal2.+
         Les navigateurs Web compilent le bytecode wasm dans le langage machine de l'hôte sur lequel ils sont utilisés avant de l'exécuter.
 
+    ** https://medium.com/@gear_techs/what-is-the-webassembly-virtual-machine-why-should-you-use-it-5bfa521e7880
+        *** WebAssembly is a way to run programming languages — other than JavaScript — in your web pages. Essentially, *Wasm is just a virtual machine* that runs on all modern browsers.
+
 * *Bytecode Alliance* (BCA) : un partenariat industriel poussant le développement de Wasm, tout particulièrement en dehors du browser
+    ** ChatGPT : Bytecode Alliance : a community-driven organization focused on advancing the use of WebAssembly beyond the web. The alliance includes members like Mozilla, Fastly, Intel, and Red Hat, and is committed to creating a more secure, efficient, and open web.
 
     ** https://bytecodealliance.org/#what-is-the-bytecode-alliance
         *** "The Bytecode Alliance is a nonprofit organization working to provide state-of-the-art foundations for the *development of runtime environments* and language toolchains where security, efficiency, and modularity can all coexist across a wide range of devices and architectures. We enable innovation in compilers, runtimes, and tooling, *focusing on fine-grained sandboxing*, capabilities-based security, modularity, and standards such as WebAssembly and WASI."
 
-    ** 2019/11/12 (ATTENTION ! Cela a donc déjà 3 ans (2023) ) - https://hacks.mozilla.org/2019/11/announcing-the-bytecode-alliance/ : "*Announcing* the Bytecode Alliance: Building a secure by default, composable future for WebAssembly"
+    ** *2019/11/12* - *création de la Bytecode Alliance* +
+    https://hacks.mozilla.org/2019/11/announcing-the-bytecode-alliance/ : "*Announcing* the Bytecode Alliance: Building a secure by default, composable future for WebAssembly"
         *** Le MEME article sur le site de BCA : https://bytecodealliance.org/articles/announcing-the-bytecode-alliance
         *** *EXCELLENTE RESSOURCE*, détaillant très bien les objectifs de WebAssembly, tout particulièrement en matière de sécurité, et expliquant son fonctionnement lui permettant d'atteindre ses objectifs.
         *** The founding members of the Bytecode Alliance are Mozilla, Fastly, Intel, and Red Hat.
@@ -1077,46 +1104,206 @@ Ils nous aideront également à mieux comprendre pourquoi Web Assembly s'annonce
         *** Plusieurs exemples de sociétés et de use cases utilisant les nanoprocess sont données : 
             **** *Fastly* : They’ve come up with an innovative architecture using WebAssembly nanoprocesses which makes it possible to securely host tens of thousands of simultaneously running programs in the same process. Their approach completely isolates the request from previous requests, ensuring full VM isolation.
 
-* Très bon article, récent (2022/08) sur le fonctionnement des WASM nanoprocess : https://blog.jdriven.com/2022/08/wasi-capability-based-networking/
+    ** De bonnes explications du fonctionnement de WASM dans sa *page Wikipedia anglaise* : https://en.wikipedia.org/wiki/WebAssembly
 
-    ** "Namespaces are a feature of the linux kernel providing isolation of global resources. There are different kind of namespaces, like cgroup, mount, process and network namespaces. The *network namespace* is interesting to compare with WASI’s network isolation model because it’s the *standard for containerization technologies*."
-    ** Network namespaces are great for isolating resources for different processes. But *WASI’s nano process model takes isolation a step further*: with WASI you also define the capabilities of guest Wasm modules loaded in as third party libraries. This way you can restrict a module to make a network call to only a certain host, while an other module can only call another host.
+        *** "WebAssembly implementations usually use either ahead-of-time (AOT) or just-in-time (JIT) *compilation*, but *may also use an interpreter*. While the first implementations have landed in web browsers, there are also non-browser implementations for general-purpose use, including Wasmer,[10] Wasmtime[40] or WAMR,[16] wasm3, WAVM, and many others."
+        *** "Because *WebAssembly executables are precompiled*, it is possible to use a variety of programming languages to make them.[42] This is achieved *either through direct compilation to Wasm*, or *through implementation of the corresponding virtual machines in Wasm*. There have been around 40 programming languages reported to support Wasm as a compilation target"
+
+        *** About *WASI* (WebAssembly System Interface) : +
+        "WASI is a simple interface (ABI and API) designed by Mozilla intended to be portable to any platform.[79] It provides POSIX-like features like file I/O constrained by capability-based security."
+
+            **** ChatGPT : WASI provides a standard interface between WebAssembly modules and the host environment, allowing WebAssembly to be used outside of the web, for example in serverless computing or edge computing.
+
+            **** https://twitter.com/solomonstre/status/1111004913222324225 (Solomon Hykes / Lin Clark) : +
+            *2019/03/27* - Announcing WASI : a system interface for running WebAssembly outside the web (and inside it too)
+
+            **** *ABI* : *Application Binary Interface* : https://en.wikipedia.org/wiki/Application_binary_interface +
+            "An application binary interface (ABI) is an *interface between two binary program modules*. Often, one of these modules is a library or operating system facility, and the other is a program that is being run by a user." +
+            "An ABI *defines how data structures or computational routines are accessed in machine code*, which is a low-level, hardware-dependent format. In contrast, an API defines this access in source code, which is a relatively high-level, hardware-independent, often human-readable format."
+        
+        *** 2019 : *Solomon Hykes*, a co-founder of Docker, wrote in 2019, "*If WASM+WASI existed in 2008, we wouldn't have needed to create Docker*. That's how important it is. WebAssembly on the server is the future of computing."[84] Wasmer, out in version 1.0, provides "software containerization, we create universal binaries that work anywhere without modification, including operating systems like Linux, macOS, Windows, and web browsers. Wasm automatically sandboxes applications by default for secure execution".[84]
+
+        *** *Virtual Machine* : +
+        Wasm code (binary code, i.e. bytecode) is intended to be run on a portable virtual stack machine (VM).[85] The VM is designed to be faster to parse and execute than JavaScript and to have a compact code representation.[50] An external functionality (like syscalls) that may be expected by Wasm binary code is not stipulated by the standard. It rather provides a way to deliver interfacing via modules by the host environment that the VM implementation runs in.
+
+        *** *Wasm program* : +
+        A *Wasm program* is designed to be a separate *module* containing collections of various Wasm-defined values and program type definitions. These are expressed in either binary or textual format that both have a common structure.
+
+        *** *Code representation* : +
+        In March 2017, the WebAssembly Community Group reached consensus on the initial (MVP) binary format, JavaScript API, and reference interpreter.[96] It defines a *WebAssembly binary format* (*.wasm*), which is not designed to be used by humans, as well as a human-readable *WebAssembly text format* (*.wat*) that resembles a cross between S-expressions and traditional assembly languages.
+
+    ** TRES BON ARTICLE récent (2022/12) présentant WebAssembly, son fonctionnement, ses liens avec les containers et Docker +
+    https://wasmlabs.dev/articles/docker-without-containers/
+        *** avec en plus des schémas complets et réutilisables
+        *** reprend la fameuse déclaration de Solomon "If WASM+WASI existed in 2008..."
+
+* Très bon article, récent (2022/08) sur le fonctionnement des *WASM nanoprocess* : https://blog.jdriven.com/2022/08/wasi-capability-based-networking/
+
+    ** On commence par une explication du "*secure capability based networking*" de WASI ET une *comparaison* du *network namespace* utilisé par les containers avec le *network isolation model de WASI* : 
+
+        *** "Namespaces are a feature of the linux kernel providing isolation of global resources. There are different kind of *namespaces*, like *cgroup*, mount, process and network namespaces. The *network namespace* is interesting to compare with *WASI’s network isolation model* because it’s the *standard for containerization technologies*."
+
+        *** IMPORTANT : Network namespaces are great for isolating resources for different processes. But *WASI’s nano process model takes isolation a step further*: with WASI you also define the capabilities of guest Wasm modules loaded in as third party libraries. This way you can restrict a module to make a network call to only a certain host, while an other module can only call another host.
+            **** Voici l'explication de la *différence entre isolation par les containers et par WASM / WASI*
 
     ** https://github.com/deislabs/bindle/blob/main/docs/webassembly.md +
     Redonne des définitions issues de BCA (Bytecode Alliance)
         *** Nanoprocesses: We used to refer to this as "tianyan" as well, but have since adopted the language used by BCA. We believe our usage of the term is the same as BCAs: *A nanoprocess is a Wasm module that can execute on its own, but communicate to other Wasm modules via the component architecture* (Module Linking, Interface Types) and *WASI* (IO Streams, IO Arrays). +
         -> Le plus important ici: "*A nanoprocess is a Wasm module* that can execute on its own"            
 
-* *Date de création de WebAssembly* : 
-    ** https://fr.wikipedia.org/wiki/WebAssembly
-        *** présentation officielle : 2015/06/17
-        *** 1ere démonstration : 2016/03/16
-    ** https://en.wikipedia.org/wiki/WebAssembly
-        *** *1st release* : *2017/03/06*
-            **** In March 2017, the design of the minimum viable product (MVP) was declared to be finished and the preview phase ended.
-            **** https://www.infoworld.com/article/3176681/webassembly-is-now-ready-for-browsers-to-use.html +
+* *forces / faiblesses de WASM* : 
+
+    ** https://medium.com/@gear_techs/what-is-the-webassembly-virtual-machine-why-should-you-use-it-5bfa521e7880 +
+    What are the main *benefits of WebAssembly Virtual Machine* ?
+        *** Wasm is extremely fast, efficient and portable. Code can be executed at near-native speed across different platforms.
+        *** It’s also very secure as it’s run in a safe, sandboxed environment and like other web code, it will enforce the browsers same-origin and permissionless security policies.
+
+    ** Google Bard : 
+        *** advantages of WASM : 
+            **** *Speed* : WebAssembly is compiled to machine code, which makes it *faster than containers*, which are typically run in a virtual machine.
+                **** Attention ! Je ne suis pas fan de la formulation, le code WASM étant également exécuté sur une machine virtuelle
+            **** *Portability*: WebAssembly is a cross-platform technology, which means that it can run on different operating systems and hardware architectures. Containers, on the other hand, are typically tied to a specific operating system.
+            **** *Security*: WebAssembly is sandboxed, which means that code running in a WebAssembly container cannot access the host system or other containers. Containers, on the other hand, can potentially access the host system if they are not properly configured.
+            **** *Size* (LIGHT) : WebAssembly is a *binary format*, which means that it can be compressed more efficiently than containers, which are typically based on text formats.
+        *** drawbacks of WASM : 
+            **** *Complexity*: WebAssembly is a complex technology, which can make it difficult to develop and debug applications. Containers, on the other hand, are relatively simple to use.
+            **** *Lack of maturity*: WebAssembly is a relatively new technology, which means that it is not as mature as containers. This can make it more difficult to find support and resources for WebAssembly development.
+            **** *Limited ecosystem*: The WebAssembly ecosystem is still in its early stages, which means that there are fewer tools and libraries available for WebAssembly development than for containers. 
+
+    ** ChatGPT : 
+        *** advantages of WASM
+            **** *Portability* : WebAssembly modules are platform-agnostic and can run in any environment that supports WebAssembly, making it easy to run the same code on multiple platforms.
+            **** *Performance* : WebAssembly code is compiled to machine code, which can result in faster execution compared to interpreted languages like JavaScript.
+            **** *Security* : WebAssembly runs in a sandboxed environment, which makes it more secure compared to running code directly on a host system.
+            **** *Smaller size* : WebAssembly modules are typically smaller in size compared to container images, making them faster to download and requiring less storage space.
+        *** drawbacks of WASM
+            **** *Limited ecosystem* : While the WebAssembly ecosystem is growing, it is still not as mature as the container ecosystem, which has a wide range of tools and services for managing and deploying applications.
+            **** *Limited language support* : While WebAssembly supports multiple programming languages, it is still limited compared to the wide range of languages supported by containers.
+            **** *Limited networking support* : WebAssembly modules currently have limited support for networking and communication with other modules, which can limit their usefulness for complex distributed applications.
+            **** *Limited flexibility* : WebAssembly modules are designed to run within a sandboxed environment, which can limit their flexibility compared to containers, which provide a more complete runtime environment.
+
+        *** advantages of containers
+            **** *Flexibility* : Containers provide a complete runtime environment for applications, including the necessary libraries, dependencies, and configurations, which provides a high degree of flexibility for deploying and managing complex applications.
+            **** *Mature ecosystem* : The container ecosystem is mature and has a wide range of tools and services for managing and deploying applications.
+            **** *Large language support* : Containers support a wide range of programming languages and frameworks, which provides flexibility for building and deploying applications in multiple languages.
+            **** *Distributed applications* : Containers are designed for distributed applications, which can run across multiple hosts and environments.
+        *** drawbacks of containers
+            **** *Larger size* : Container images can be large in size, which can result in slower deployment and require more storage space.
+            **** *Security risks* : Containers can introduce security risks, particularly if they are not properly configured or managed.
+            **** *Performance overhead* : Containers can introduce a performance overhead compared to running code directly on a host system.
+            **** *Limited portability* : While containers are designed to be portable, there can be differences in the underlying host environment that can affect performance and behavior.
+        
+
+* *Comparaison avec les containers*
+
+    ** Bard : 
+        *** WebAssembly is a binary instruction format for a stack-based virtual machine. It is designed to be portable across different platforms and browsers. It is also designed to be fast and efficient.
+        *** Containers, on the other hand, are a way of isolating applications from each other on a shared operating system. They are typically used to deploy and manage microservices. Containers are often used in conjunction with orchestration tools like Kubernetes.
+
+    ** ChatGPT : 
+        *** WebAssembly is not a replacement for containerization, but it is a technology that has the potential to change the way we think about software development and deployment, especially in the context of the web and serverless computing.
+        *** WebAssembly is not a replacement for containerization, which provides a more complete solution for managing and deploying applications across different environments.
+
+        *** WebAssembly is a binary instruction format for a stack-based virtual machine that can run code in a wide variety of environments, including web browsers, serverless computing, edge computing, and even desktop and mobile applications. The goal of WebAssembly is to provide a portable, efficient, and safe way to run code in a sandboxed environment, regardless of the platform or programming language used to write the code.
+        *** On the other hand, containers are a form of operating system virtualization that allow multiple applications or services to run in isolation on a single host machine. Containers provide a complete runtime environment for applications, including the necessary libraries, dependencies, and configurations. Containers are designed to be lightweight, portable, and easy to deploy and manage, and they are commonly used in cloud computing, DevOps, and microservices architectures.
+        *** While WebAssembly and containers can both be used to deploy and run software, they serve different purposes and have different strengths and weaknesses. WebAssembly is best suited for running code in a portable and efficient way, particularly in the context of the web and edge computing. Containers, on the other hand, provide a more complete and flexible solution for managing and deploying complex applications across different environments, particularly in cloud computing and DevOps.
+
+    ** https://blog.jdriven.com/2022/08/wasi-capability-based-networking/
+    "The *network namespace* is interesting to compare with *WASI’s network isolation model* because it’s the *standard for containerization technologies*."
+
+* *Usages de WASM* : 
+
+    ** *Figma* est un des plus gros utilisateurs de WebAssembly
+        *** https://fr.wikipedia.org/wiki/Figma : Figma est un éditeur de graphiques vectoriels, un *outil de prototypage collaboratif* parmi les plus utilisés pour tout ce qui est conception d'interface utilisateur et UX (expérience utilisateur)
+        *** 2022/09/15 - *Figma a été racheté par Adobe pour 20 milliards de dollars*
+            **** https://news.adobe.com/news/news-details/2022/Adobe-to-Acquire-Figma/default.asp
+            **** 2023/02/24 : rachat contesté par les autorités de concurrence américaine et britannique (Adobe étant déjà ultra-dominant dans le secteur du desgin) +
+            https://www.usine-digitale.fr/article/antitrust-le-gouvernement-americain-lance-une-action-en-justice-contre-le-rachat-de-figma-par-adobe.N2105011
+                ***** Figma est utilisé par 4 millions d’utilisateurs, notamment chez Microsoft, Google, Twitter ou encore Uber.
+
+* *Dates importantes de WebAssembly* : 
+
+    * *2015/06/17* : *création de WebAssembly*, https://fr.wikipedia.org/wiki/WebAssembly
+        ** présentation officielle : *2015/06/17*
+        ** 1ere démonstration : 2016/03/16
+    * *2017/03/06* : *1st release*, WebAssembly 1.0 is released, https://en.wikipedia.org/wiki/WebAssembly
+        ** In March 2017, the design of the minimum viable product (MVP) was declared to be finished and the preview phase ended.
+            *** https://www.infoworld.com/article/3176681/webassembly-is-now-ready-for-browsers-to-use.html +
             "WebAssembly, a portable code format that could make for a faster web, has moved to minimum viable product (MVP) status, with browser vendors now able to switch WebAssembly on by default."
-        *** WebAssembly became a *World Wide Web Consortium recommendation* on 2019/12/05
+            *** WebAssembly became a *World Wide Web Consortium recommendation* on 2019/12/05
+    * *2019/11/12* : *création de la Bytecode Alliance*, partenariat industriel poussant le développement de Wasm, tout particulièrement en dehors du browser. Inclut parmis ses membres des sociétés comme Mozilla, Fastly, Intel, Red Hat, etc.
+    * *2019/03/27* : 1st version de WASI (WebAssembly System Interface), https://twitter.com/linclark/status/1110920999061594113
+    * A VERIFIER : 2020 : The Rust programming language adds support for WebAssembly as a compilation target
+    * *2022/10/24* : Docker announces support for WebAssembly, in cooperation with WasmEdge, and joins the Bytecode Alliance as a voting member
 
-* TODO : rechercher les différences entre les module WASM et les containers
-    ** comparatif : avantages / inconvénients ou forces / faiblesses des uns par rapport aux autres
-    ** Bien insister sur ce que ne permettent PAS les modules WASM ou les nanoprocess WASM
+* *Wasmer*
 
-* TODO : regarder en détails la création d'un module WASM
-    ** et la comparer à la structure en "layer" d'un container Docker
-* TODO : rechercher la différence entre un module WASM et un nanoprocess WASM
+    ** standalone runtime environment
+    ** Bard : Wasmer is a fast and secure WebAssembly runtime that enables super lightweight containers to run anywhere: from Desktop to the Cloud, Edge and IoT devices. It is a complete WebAssembly stack, providing a runtime, compiler, and toolchain.
+    ** ChatGPT : Wasmer is an open-source runtime for executing WebAssembly code on various platforms, including desktop and mobile devices, servers, and even in web browsers. It provides a lightweight and secure sandboxed environment for running WebAssembly code, and supports multiple programming languages, including Rust, C, C++, Python, and JavaScript.
 
-* TODO : rechercher la taille et les ressources utilisées par le "plus petit container possible" et les comparer à celles d'un module WASM
+* *Comparison between the size of a WebAssembly module and the one of a container image*
+    ** ChatGPT : 
+        *** The size of a WebAssembly (Wasm) module and a container image can vary widely depending on the specific application, libraries, and dependencies involved. However, in general, WebAssembly modules are typically much smaller than container images. +
+        A typical *container image* might be *several hundred megabytes in size*, although they can range *from a few megabytes* to several gigabytes or more.
+
+        *** Même avec des distroless container image, on restera à hauteur de quelques Mo au minimum, et on montera facilement à 100 ou 200 Mo
+            **** gcr.io/distroless/static: This is a distroless container image that contains only the application binary and its runtime dependencies. It is suitable for running static binaries, such as Go binaries : *size of around 3-5 Mo*
+            **** gcr.io/distroless/java: This is a distroless container image that contains only the Java Virtual Machine (JVM) and the application code. It is suitable for running Java applications : *size of around 100-200 Mo*
+
+        ** Could you please give me the *size of some famous WebAssembly modules* ? +
+        Les exemples donnés ont des tailles variant de *quelques dizaines de Ko à moins d'une dizaine de Mo*
+            *** *ffmpeg.wasm*: This is a WebAssembly port of the popular FFmpeg multimedia framework, which can be used to encode, decode, and process audio and video files. The size of the ffmpeg.wasm module is around *3.3 Mo*
+            *** *protobuf.wasm*: This is a WebAssembly port of the Google Protocol Buffers serialization format, which can be used to encode and decode structured data. The size of the protobuf.wasm module is around *700 Ko*.
+
+        ** Could you now give me the size of some famous container images ? +
+        Les exemples donnés ont des tailles variant de *quelques dizaines de Mo à plusieurs centaines de Mo*
+            *** *nginx:latest*: This is the latest version of the popular Nginx web server, which is commonly used as a reverse proxy, load balancer, or static content server. The size of the nginx:latest image is around *133 Mo*.
+            *** *openjdk:11-jre-slim*: This is a slimmed-down version of the OpenJDK 11 Java runtime environment, which can be used to run Java applications. The size of the openjdk:11-jre-slim image is around *282 Mo*.
+
+    ** Bard : 
+        *** A typical *WebAssembly module* is around *100KB in size*, while a typical container image is around 1GB in size. This is because WebAssembly modules are compiled to machine code, while container images are typically based on text formats.
+
+    ** 2016 : https://stackoverflow.com/questions/38597955/what-docker-image-size-is-considered-too-large +
+    In my previous company, we adopted a micro-service architecture and used Docker to implement it. The average size of our Docker images were ~300MB - ~600MB. However my new company is using Docker mostly for development workflow, and the average image size is ~1.5GB - ~3GB. Some of the larger images (10GB+) are being actively refactored to reduce the image size.
+
+* *Ressources sur WASM* : 
+    ** Le livre écrit par Philippe Charrière (GitLab) "WASM cooking with Golang" https://wasm.cooking/
+        *** Intérêt : package tout l'environnement avec la chaîne de production pour pouvoir être hands-on extrêment rapidement avec Wasm
+        *** MAIS de l'aveu de Philippe est déjà obsolète ("ne l'achetez plus", Philippe pense à une suite)
 
 ==== slides
 
 * Commencer par une définition de WebAssembly
 * Puis présenter les raisons de sa création et ses principaux objectifs : la sécurité, les performances et la légèreté
     ** cf les ressources ci-dessus, c'est vraiment la légèreté qui est la raison de la naissance de WASM par rapport aux VMs et aux containers
+    ** "WebAssembly is a way to run programming languages — other than JavaScript — in your web pages"
 * Expliquer le principe de WebAssembly nanoprocess
+* Citer Solomon Hykes et son talk de 2019 sur "If WASM+WASI existed in 2008, we wouldn't have needed to create Docker"
+    ** Voici son tweet de l'époque : https://twitter.com/solomonstre/status/1111004913222324225
 * Parler ensuite du lien créé en Docker et WASM, de la création de la Bytecode Alliance, puis de l'adhésion de Docker à cette dernière
 
 TO BE COMPLETED
+
+== Distroless container images
+
+* 2023/02/02 : https://bell-sw.com/blog/distroless-containers-for-security-and-size/
+    ** So distroless images (which should be called "almost distroless" but it won’t make a good selling point, will it?) do contain a Linux distribution, albeit an incredibly stripped-down one, without a package manager, shell, or other typical Linux components. This approach is in line with the modern practices of running an application in the immutable container, meaning that we have no need for introducing system changes or utilizing libraries not involved in app’s work
+
+* ChatGPT : 
+    ** Distroless container images are container images that contain only the application and its runtime dependencies, but do not include any additional operating system components or package managers. This means that they are stripped down to the bare essentials needed to run the application, and do not include any unnecessary or potentially insecure software.
+    ** The idea behind distroless containers is to create a more secure and lightweight environment for running applications in containers. By removing the operating system components and package managers, the attack surface of the container is reduced, making it less vulnerable to security threats. Additionally, the smaller size of the container can improve performance and reduce the amount of resources required to run the application.
+
+* Bard : 
+    ** distroless container images do include a Linux operating system, albeit a very stripped-down one. The Linux kernel is included in all distroless container images, as it is necessary for the container to run. However, other components of the Linux operating system, such as the GNU C Library (glibc), are not included. This makes distroless container images smaller and more secure than traditional container images that include a full Linux operating system.
+
+* https://twitter.com/tracymiranda/status/1636778664871313414?s=20 : Met en avant les Distroless container images créées en 2017 par Google
+    ** https://www.trendmicro.com/en_us/research/22/i/enhancing-cloud-security-by-reducing-container-images-through-di.html +
+    "Google created Distroless container images, which are images that contain only the application and its runtime dependencies. Unlike images for standard Linux distributions, Distroless container images do not have package managers, shells, or other programs."
+
+* *2017* - Repo de Google sur les Distroless Container images : https://github.com/GoogleContainerTools/distroless
+    ** "Distroless" images contain only your application and its runtime dependencies. They do not contain package managers, shells or any other programs you would expect to find in a standard Linux distribution.
+    ** Le 1er commit de ce repo date du *2017/04/12* : https://github.com/GoogleContainerTools/distroless/commit/02de2e7f738c27d8811003167355d357a146997a
 
 === 2022 - TO BE COMPLETED
 
@@ -1679,6 +1866,30 @@ Les outils suivants ont l'air bien adaptés :
     * 1 min ne sera pas suffisante pour certaines grandes dates (docker, l'apparition des high et low level container runtimes, etc.) +
     Il faudra passer rapidement certaines dates pour se concentrer sur les plus importantes
 
+TO BE COMPLETED : 
+
+    * dates de WebAssembly à rajouter
+    * dates des distroless container images à rajouter
+
+== Points à aborder durant le talk : 
+
+* expliquer que certaines technos deviennent des superstars et d'autres meurent...
+
+* Bien définir ce qu'est un runtime
+* donner la phrase introductive "Pour comprendre le présent..."
+* Les PC en 1979 (rares, chers, peu puissants) et bien redéfinir ce qu'est un runtime
+* Docker par Solomon et parallèle avec les conteneurs maritimes et le "shipping"
+    ** si les conteneurs avaient tous des tailles différentes, ce serait un fiche lego / tetris que de les charger sur un porte-conteneur (trouver une photo d'un porte-conteneur)
+* Sortie de Docker, insister sur les 1ers problèmes de sécurité
+    ** cycle de hype du Gartner et "présence oppressante" des OPS dans votre dos quand vous avez pensé "il faut qu'on pousse ça en PROD !"
+    ** redonner le bout de code Docker qui permet en 1 ligne une élévation de privilèges, le fameux "Docker root please"
+        *** https://github.com/VonC/blog/blob/201711_docker/PITCHME.md
+        *** https://github.com/chrisfosterelli/dockerrootplease
+            **** https://fosterelli.co/privilege-escalation-via-docker
+            **** "A tous ceux qui sont OPS dans la salle, attention, souvenir douloureux..."
+* création "à la main" d'un conteneur en quelques lignes de codes
+* WASM : la phrase de Solomon sur WASM, "si WASM / WASI avait existé en 2008, il n'y aurait pas eu Docker..."
+
 == Création des slides
 
 1. clone du repo avec récupération du contenu du submodule reveal.js :
@@ -1695,32 +1906,4 @@ Les outils suivants ont l'air bien adaptés :
 
     asciidoctor-revealjs history-of-containerization-slides.adoc -o docs/slides.html
 
-== 2022/11/29 - Point avec Julien Topçu pour discuter de mes propositions pour Devoxx France 2023
-
-La plupart d'entre nous ont découvert le concept de conteneur en **2013** avec l'arrivée de **Docker**.
-Aujourd'hui, avec l'avènement du Cloud et de Kubernetes, les conteneurs sont partout autour de nous.
-
-Toutefois, **l'histoire de la conteneurisation** reste globalement méconnue.
-Qui pour se souvenir que tout a finalement commencé en **1979** avec l'apparition de **chroot** qui marqua le début de l'isolation des process ?
-Qu'il a fallu attendre d'avoir les **cgroups** (2008), puis plus tard les **user namespaces** (2013) pour qu'enfin Docker puisse voir le jour ?
-Que la généralisation des containers, conséquence de **l'adoption de Kubernetes** par tous les Cloud providers (2018), entraîna l'apparition des **sandbox runtimes** et des **daemonless runtimes** ?
-
-Au cours de ce talk, nous allons détailler les **grandes étapes** qui ont marqué l'histoire de la conteneurisation, et expliquer **POURQUOI** elles ont eu lieu.
-L'objectif est qu'en sortant, vous ayez compris **quelle orientation a suivi la conteneurisation** depuis toutes ces années, et ce vers quoi nous allons.
-
-
-En partie centrale, citer les PROBLEMES qui ont amené aux solutions choisis
-
-Changer le titre : La contenairisation des contenairs Linux aux containers javascript, mais garder l'idée de chronologie
-Parler de Deno dans le titre
-
-C'est un talk de curiosité
-
-Comprendre le passé pour comprendre le futur
-
-Waouh effect avec les containers javascript
-
-
-Message au comité : le voir comme une lettre de motivation
-Défendre l'intérêt du sujet, pourquoi il est intéressant
 
