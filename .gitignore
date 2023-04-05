@@ -1,0 +1,5 @@
+# My specific ignore for that project
+
+# Resources that I do NOT want to be saved and pushed on remote
+resources-not-to-be-saved/
+
