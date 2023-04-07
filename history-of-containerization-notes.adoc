@@ -657,7 +657,7 @@ La grande raison de l'époque : *shipping software from A to B, reliably and aut
 
 *OCI* : *Image spec* ET *Runtime spec*
 
-    * https://fr.wikipedia.org/wiki/Open_Container_Initiative : L'Open Container Initiative (OCI) est un projet de la Fondation Linux visant à *concevoir des normes ouvertes* pour la virtualisation au niveau du système d'exploitation, surtout les *conteneurs Linux*. Il existe actuellement deux spécifications en cours de développement et en cours d'utilisation: la spécification d'exécution (runtime-spec) et la spécification d'image (image-spec).
+    * https://fr.wikipedia.org/wiki/Open_Container_Initiative : L'*Open Container Initiative* (OCI) est un projet de la Fondation Linux visant à *concevoir des normes ouvertes* pour la virtualisation au niveau du système d'exploitation, surtout les *conteneurs Linux*. Il existe actuellement deux spécifications en cours de développement et en cours d'utilisation: la spécification d'exécution (runtime-spec) et la spécification d'image (image-spec).
 
     * https://www.docker.com/blog/oci-release-of-v1-0-runtime-and-image-format-specifications/ (TRES BONNE RESSOURCE) : +
     "the *Open Container Project* (OCP) was formed to create a set of container standards and was launched under the auspices of the Linux Foundation in *June 2015 at DockerCon*. It became the Open Container Initiative (*OCI*) as the project evolved that Summer."
@@ -683,6 +683,26 @@ La grande raison de l'époque : *shipping software from A to B, reliably and aut
         ** runC a été publié pour la première fois en 2015/07 (https://fr.wikipedia.org/wiki/Open_Container_Initiative)
     * image-spec (OCI image spec) : https://github.com/opencontainers/image-spec
     * runtime-spec (OCI runtime spec) : https://github.com/opencontainers/runtime-spec
+
+    * NEWS : 2023 ! Now the *OCI now contains 3 specifications* : runtime-spec, image-spec AND NOW *distribution-spec*
+        ** https://opencontainers.org/
+        ** https://opencontainers.org/about/overview/ : pour plusieurs définitions récentes, concises et claires, pour les 3 spécifications.
+            *** *Runtime Specification* : The Runtime Specification outlines how to run a “filesystem bundle” that is unpacked on disk. At a high-level an OCI implementation would download an OCI Image then unpack that image into an OCI Runtime filesystem bundle. At this point the OCI Runtime Bundle would be run by an OCI Runtime.
+            *** *image-spec* : The OCI Image Format contains sufficient information to launch the application on the target platform (e.g. command, arguments, environment variables, etc). This specification defines how to create an OCI Image, which will generally be done by a build system, and output an image manifest, a filesystem (layer) serialization, and an image configuration. +
+            At a high level the image manifest contains metadata about the contents and dependencies of the image including the content-addressable identity of one or more filesystem serialization archives that will be unpacked to make up the final runnable filesystem. The image configuration includes information such as application arguments, environments, etc. The combination of the image manifest, image configuration, and one or more filesystem serializations is called the OCI Image.
+            *** *distribution specification* : The distribution specification reached v1.0 in May 2020 (2020/05) and was introduced to OCI as an effort to standardize the API to distribute container images. However, the specification is designed generically enough to be leveraged as a distribution mechanism for any type of content.
+                **** ERREUR DE DATE DANS LA DOC OFFICIELLE !!!! +
+                La v1.0.0 de la 3e spec n'a été rajoutée en 2020/05 mais en 2021/05 ! +
+                Cf l'announcement de l'OCI : https://opencontainers.org/posts/announcements/2021-05-04-oci-dist-spec-v1/ +
+                L'annoucement tout comme le commit date du *2021/05/05*.
+                "*Reaching v1.0 means the OCI Distribution Spec is stable* and ready to serve as the baseline for the distribution of container images across platforms"
+                    ***** https://github.com/opencontainers/distribution-spec/releases
+                **** ChatGPT : This specification defines how container images are transferred and stored. It specifies the format of the image manifest, the metadata about the image, and the protocol for distributing and fetching images from a registry. It also defines the API for interacting with container registries. +
+                The Distribution Specification of the OCI provides a common format for container image metadata and a standard protocol for interacting with container registries. This makes it easier for developers to create and share container images that can be run on any OCI-compliant runtime, while also improving the security and reliability of container image distribution.
+
+        ** *2021/05* : The distribution specification reached v1.0 in May 2021 and was introduced to OCI as an effort to standardize the API to distribute container images. However, the specification is designed generically enough to be leveraged as a *distribution mechanism* for any type of content.
+        ** https://github.com/opencontainers/distribution-spec : +
+        The OCI Distribution Spec project defines an API protocol to facilitate and standardize the distribution of content.
 
 * Attention ! Fin 2020 (décembre) *deprecation de docker/docker-shim* (dockershim)
     ** oui, c'est bien confirmé : "the Kubernetes community announced it is deprecating Docker as a container runtime after v1.20". +
@@ -939,7 +959,7 @@ Using this new architecture we can run “*daemon-less containers*” and we hav
         *** Pour un autre *très bon schéma de l'architecture actuelle de Docker* : https://iximiuz.com/en/posts/implementing-container-runtime-shim/ (2021/08/24)
             **** L'article également très bien le fonctionnement du shim containerd-shim
 
-=== 2022 - WebAssembly (WASM), modules WASM, containers Javascript et Deno
+=== 2022 - WebAssembly (WASM), modules WASM, containers Javascript
 
 Rappel : WebAssembly = *WASM*
 
@@ -985,12 +1005,25 @@ Wasm is a new, FAST, and LIGHT alternative to the Linux/Windows containers you�
 ----
         *** Dans cette dernière définition, c'est surtout le "LIGHT" qui est important : *WASM* rime avec *SECURE*, *PERFORMANT* et *LIGHT*
             **** Et ne pas oublier la *portabilité*
+
+    ** https://wasmlabs.dev/articles/docker-without-containers/ : Recently Docker announced support for WebAssembly in cooperation with WasmEdge (Wasm runtime)
     
     ** Cf MeetUp TechRocks "A la découverte de WebAssembly", https://www.youtube.com/watch?v=-W2ze6tiTyk, il est indiqué que les 3 principales caractéristiques de WASM sont la *sécurité*, les *performances* et la *portabilité*
         *** Faire le parallèle entre "light" et portabilité
         *** *l'idée de base de WebAssembly* : "faire tourner un autre langage que Javascript dans le browser"
             **** même si Wasm a été initié par la W3C, mais dans la réalité c'est surtout Mozilla qui a participé à l'évolution de Wasm côté browser (avec Firefox)
-                ***** Il y a 2 ans, grosse vague de licenciement chez Mozilla
+                ***** Il y a 2 ans, grosse vague de licenciement chez *Mozilla*, toute l'équipe WASM a pris la porte, MAIS a été reprise telle quelle chez *Fastly*
+                ***** Mozilla poussait surtout WASM sur le navigateur, et Fastly sur le edge computing (donc côté backend)
+                ***** Fastly - https://en.wikipedia.org/wiki/Fastly : Fastly is an American cloud computing services provider. It describes its network as an edge cloud platform, which is designed to help developers extend their core cloud infrastructure to the edge of the network, closer to users. +
+                -> Donc fonction de CDN côté Fastly.
+                ***** ChatGPT : Fastly is a content delivery network (CDN) that has developed an edge computing platform called Compute@Edge that uses WebAssembly as a runtime for executing custom code at the edge of the network.
+
+        *** Le rôle de *WASI* est un peu d'ouvrir la sandbox WASM aux appels I/O, car à la base WASM ne peut PAS faire d'appels I/O
+        *** https://youtu.be/-W2ze6tiTyk?t=2060 : *WASI va permettre de sandboxer WASM* : "quand toi WASM tu vas essayer dans ton langage de faire un file descriptor .open, ça va en fait appeler telle external function qui va appeler le runtime"
+            **** le principe est que le module WASM va demander au runtime de faire quelque chose qu'il ne sait pas faire lui-même / ne connaît pas ("j'ai cet appel de fonction là, je ne sais pas ce que c'est, merci de t'en occuper toi runtime")
+
+        *** Philippe Charrière : le langage le plus adapté pour faire du WASM doit actuellement être RUST
+        *** super explication du fonctionnement interne de WASM via sa stack à ~52:10 (https://youtu.be/-W2ze6tiTyk?t=3130)
 
     ** https://www.infoq.com/news/2022/11/cloud-native-wasm-day/
         *** "Wasm was originally developed as a secure sandbox for the web browser. In recent years, it has found many applications on the server-side as a secure, lightweight, fast, and portable alternative to VMs and Linux containers (LXCs)"
@@ -1040,6 +1073,7 @@ Ils nous aideront également à mieux comprendre pourquoi Web Assembly s'annonce
 
     ** https://medium.com/@gear_techs/what-is-the-webassembly-virtual-machine-why-should-you-use-it-5bfa521e7880
         *** WebAssembly is a way to run programming languages — other than JavaScript — in your web pages. Essentially, *Wasm is just a virtual machine* that runs on all modern browsers.
+            *** https://wasmlabs.dev/articles/docker-without-containers/ : "Browser engines integrate a *Wasm virtual machine*, usually called *a Wasm runtime*, which can run the Wasm binary instructions."
 
 * *Bytecode Alliance* (BCA) : un partenariat industriel poussant le développement de Wasm, tout particulièrement en dehors du browser
     ** ChatGPT : Bytecode Alliance : a community-driven organization focused on advancing the use of WebAssembly beyond the web. The alliance includes members like Mozilla, Fastly, Intel, and Red Hat, and is committed to creating a more secure, efficient, and open web.
@@ -1120,24 +1154,40 @@ Ils nous aideront également à mieux comprendre pourquoi Web Assembly s'annonce
             **** *ABI* : *Application Binary Interface* : https://en.wikipedia.org/wiki/Application_binary_interface +
             "An application binary interface (ABI) is an *interface between two binary program modules*. Often, one of these modules is a library or operating system facility, and the other is a program that is being run by a user." +
             "An ABI *defines how data structures or computational routines are accessed in machine code*, which is a low-level, hardware-dependent format. In contrast, an API defines this access in source code, which is a relatively high-level, hardware-independent, often human-readable format."
+
+            **** https://blog.jdriven.com/2022/08/wasi-capability-based-networking/ : très bon article sur le fonctionnement de WASI, avec de bons schémas pouvant être réutilisés
         
         *** 2019 : *Solomon Hykes*, a co-founder of Docker, wrote in 2019, "*If WASM+WASI existed in 2008, we wouldn't have needed to create Docker*. That's how important it is. WebAssembly on the server is the future of computing."[84] Wasmer, out in version 1.0, provides "software containerization, we create universal binaries that work anywhere without modification, including operating systems like Linux, macOS, Windows, and web browsers. Wasm automatically sandboxes applications by default for secure execution".[84]
 
         *** *Virtual Machine* : +
         Wasm code (binary code, i.e. bytecode) is intended to be run on a portable virtual stack machine (VM).[85] The VM is designed to be faster to parse and execute than JavaScript and to have a compact code representation.[50] An external functionality (like syscalls) that may be expected by Wasm binary code is not stipulated by the standard. It rather provides a way to deliver interfacing via modules by the host environment that the VM implementation runs in.
+            **** https://wasmlabs.dev/articles/docker-without-containers/ : Browser engines integrate a Wasm virtual machine, usually called a Wasm runtime, which can run the Wasm binary instructions.
 
         *** *Wasm program* : +
         A *Wasm program* is designed to be a separate *module* containing collections of various Wasm-defined values and program type definitions. These are expressed in either binary or textual format that both have a common structure.
 
         *** *Code representation* : +
         In March 2017, the WebAssembly Community Group reached consensus on the initial (MVP) binary format, JavaScript API, and reference interpreter.[96] It defines a *WebAssembly binary format* (*.wasm*), which is not designed to be used by humans, as well as a human-readable *WebAssembly text format* (*.wat*) that resembles a cross between S-expressions and traditional assembly languages.
+            **** Philippe Charrière : il faut voir le .wasm comme un .jar avec Java
 
     ** TRES BON ARTICLE récent (2022/12) présentant WebAssembly, son fonctionnement, ses liens avec les containers et Docker +
     https://wasmlabs.dev/articles/docker-without-containers/
+        *** Quelques infos sur Wasm Labs @ VMWare OCTO (https://wasmlabs.dev/) : +
+        "Wasm Labs is a team inside VMware's Office of the CTO. We create and contribute to projects that showcase the possibilities of WebAssembly, and help developers adopt this new and exciting technology."
+            **** Attention ! OCTO veut ici dire "Office of the CTO" chez VMWare
+
         *** avec en plus des schémas complets et réutilisables
         *** reprend la fameuse déclaration de Solomon "If WASM+WASI existed in 2008..."
+        *** L'article explique aussi l'usage par Docker de WASM à la place des containers Linux
+            **** Pour les SLIDES, reprendre le très bon schéma de https://www.docker.com/blog/docker-wasm-technical-preview/ faisant apparaître le containerd-wasm-shim
+        *** L'article retrace, très rapidement, l'évolution de la conteneurisation avec son "future" que serait WASM (le successeur des containers)
+        *** Pour l'usage d'un langage interprété avec WASM, inclure le très schéma à la section "What about interpreted languages?"
+        *** et des comparaisons de taille entre modules WASM et containers Docker
+        *** Donne l'exemple de WordPress tournant dans le navigateur avec Wasm : https://wordpress.wasmlabs.dev/
 
-* Très bon article, récent (2022/08) sur le fonctionnement des *WASM nanoprocess* : https://blog.jdriven.com/2022/08/wasi-capability-based-networking/
+    ** Autre article récent (2023/01/21) donnant avec des demo de WASM (Hello World, appel de WASM depuis Javascript, etc.)
+
+* Très bon article, récent (2022/08) sur le fonctionnement des *WASM nanoprocess* et sur WASI : https://blog.jdriven.com/2022/08/wasi-capability-based-networking/
 
     ** On commence par une explication du "*secure capability based networking*" de WASI ET une *comparaison* du *network namespace* utilisé par les containers avec le *network isolation model de WASI* : 
 
@@ -1193,6 +1243,25 @@ Ils nous aideront également à mieux comprendre pourquoi Web Assembly s'annonce
             **** *Performance overhead* : Containers can introduce a performance overhead compared to running code directly on a host system.
             **** *Limited portability* : While containers are designed to be portable, there can be differences in the underlying host environment that can affect performance and behavior.
         
+    ** Forces : 
+        *** Philippe Charrière - léger / *LIGHT* : +
+        Dans le cadre de FaaS (Function as a Service), WASM est vraiment tout petit : tu peux créer une fonction hôte / host, comme un petit exécutable en Go, qui va le loader, l'appeler et le servir comme un microservice. + 
+        Tu vas pouvoir le mettre dans une image Docker "from scratch" (https://codeburst.io/docker-from-scratch-2a84552470c8) qui va peser 20 Mo à tout casser (contre plusieurs centaines de Mo ou Go avec les images habituelles). +
+        Du coup, quand on va déployer l'application dans du Kube, déjà ça va se faire vite (l'image étant petite), et en plus quand tu vas la scaller et passer à plusieurs dizaines de pod d'un coup, ça va se faire très rapidement. Et LA on gagne en efficacité.
+
+            **** *Host function* : In the context of WebAssembly, a host function is a function that is implemented in the environment where the WebAssembly module is running, typically outside of the WebAssembly module itself. Host functions can be used to provide access to system resources and services that are not available within the WebAssembly sandbox, such as file I/O, network access, or user input.
+
+        *** Philippe Charrière - *performance* : plus que les perf, c'est surtout l'*efficacité* de WASM qui est intéressante : ce qu'on arrive à faire avec peu de ressources
+
+        *** https://wasmlabs.dev/articles/docker-without-containers/ *portability* : +
+        One of the best things about Wasm is its portability. Docker has made traditional containers the way to go when one wants a portable application. However, on top of the big image size, traditional containers are also bound to the architecture of the platform on which they run. Many of us have been through the ups and downs of having to build versions of our software that support different architectures and packaging those in different images for each architecture. +
+        -> WebAssembly brings true portability to the picture. You can *build a binary once and run it everywhere*.
+            **** Ce qui n'est pas sans rappeler l'une des promesses de Java
+
+    ** Faiblesse importante : jeunesse du projet
+        *** nombre de types limité : on ne peut globalement passer que des chiffres à une fonction, ele ne peut te retourner qu'une seule valeur qui sera un chiffre. Si tu veux faire un Hello World en passant ton nom (donc une String) dedans, ce n'est pas évident.
+        *** pas de debugging possible actuellement
+        *** tout est à faire côté gestion des exceptions
 
 * *Comparaison avec les containers*
 
@@ -1215,26 +1284,72 @@ Ils nous aideront également à mieux comprendre pourquoi Web Assembly s'annonce
 
     ** *Figma* est un des plus gros utilisateurs de WebAssembly
         *** https://fr.wikipedia.org/wiki/Figma : Figma est un éditeur de graphiques vectoriels, un *outil de prototypage collaboratif* parmi les plus utilisés pour tout ce qui est conception d'interface utilisateur et UX (expérience utilisateur)
+        *** ChatGPT : Figma is a web-based collaborative design tool that allows teams to create and share designs in real-time. The company uses WebAssembly to improve the performance of its design editor, particularly for computationally-intensive tasks such as rendering complex vector graphics.
+            **** Figma announced its use of WebAssembly in 2018/06
         *** 2022/09/15 - *Figma a été racheté par Adobe pour 20 milliards de dollars*
             **** https://news.adobe.com/news/news-details/2022/Adobe-to-Acquire-Figma/default.asp
             **** 2023/02/24 : rachat contesté par les autorités de concurrence américaine et britannique (Adobe étant déjà ultra-dominant dans le secteur du desgin) +
             https://www.usine-digitale.fr/article/antitrust-le-gouvernement-americain-lance-une-action-en-justice-contre-le-rachat-de-figma-par-adobe.N2105011
                 ***** Figma est utilisé par 4 millions d’utilisateurs, notamment chez Microsoft, Google, Twitter ou encore Uber.
 
+    ** *Google Earth* maintenant présent sur tous les navigateurs grâce à WebAssembly
+        *** 2020/02/26 : https://medium.com/google-earth/google-earth-comes-to-more-browsers-thanks-to-webassembly-1877d95810d6+
+        After six months of a public beta, we are now making Google Earth accessible on Firefox, Edge and Opera browsers. This was made possible by *moving Google Earth for Chrome onto WebAssembly* (Wasm), the W3C web standard for bringing native code to the web.
+
+    ** *Fastly* : Fastly is a content delivery network (CDN) that has developed an edge computing platform called Compute@Edge that uses WebAssembly as a runtime for executing custom code at the edge of the network.
+
+    ** *Dropbox* : Dropbox has been exploring the use of WebAssembly as a way to improve the performance of its web-based file viewer, particularly for large files that can take a long time to load and render.
+        *** Dropbox announced its use of WebAssembly in 2019/09
+    
+    ** https://youtu.be/-W2ze6tiTyk?t=1881 +
+    *Shopify* : on peut embarquer un interprèteur javascript dans un module WASM, afin de pouvoir dire à tes clients "fournissez moi des fonctions javascript, moi j'ai la garantie qu'elles sont sandboxées, qu'elles s'exécutent dans mon module WASM, et je vous les lance comme ça" -> tu perds en rapidité, mais c'est plus secure
+        *** ChatGPT :  the company uses WebAssembly to improve the performance of its online store editor, particularly for computationally-intensive tasks such as rendering product images. +
+        In addition to its use of WebAssembly, Shopify has also been actively contributing to the development of the WebAssembly ecosystem, including through its involvement in the WebAssembly Interface Types (WIT) working group and its development of the Wasm-bindgen tool for creating WebAssembly bindings in Rust.
+
+    ** *Adobe*: Adobe has been experimenting with using WebAssembly to improve the performance of its Creative Cloud suite of products.
+        *** Adobe announced its use of WebAssembly in 2019/11
+
+    ** *Slack*: Slack has used WebAssembly to improve the performance of its desktop application, particularly for computationally-intensive tasks such as encryption and compression.
+        *** Slack announced its use of WebAssembly in 2020/09
+
+    ** *GitHub*: GitHub has been exploring the use of WebAssembly as a way to enable high-performance code execution in its Actions platform for building and testing software.
+        *** GitHub announced its support for WebAssembly in 2021/04
+    
+    ** https://youtu.be/-W2ze6tiTyk?t=1908 +
+    Projet de *R&D Azure* : *Kruslet* +
+    Dans Kubernetes, au lieu de lancer un container Docker, on va lancer un module WASM
+        *** https://cloudblogs.microsoft.com/opensource/2020/04/07/announcing-krustlet-kubernetes-rust-kubelet-webassembly-wasm/
+        *** 2020/04/07 : v0.1.0 de Kruslet
+        *** C'est en devenir, mais cela montre dans quelle direction sont actuellement en train de creuser les plus grands.
+    ** De manière générale, Microsoft travaille énormément sur WebAssembly
+
+    ** Business : gagner des sous en dépensant moins de ressources (WASM est très fort à ce niveau)
+    ** Philippe Charrière : la spec n'est pas encore prête, mais, surtout pour tout ce qui est FaaS (Function as a Service) on sent bien qu'il y a un intérêt.
+
 * *Dates importantes de WebAssembly* : 
 
-    * *2015/06/17* : *création de WebAssembly*, https://fr.wikipedia.org/wiki/WebAssembly
-        ** présentation officielle : *2015/06/17*
-        ** 1ere démonstration : 2016/03/16
-    * *2017/03/06* : *1st release*, WebAssembly 1.0 is released, https://en.wikipedia.org/wiki/WebAssembly
-        ** In March 2017, the design of the minimum viable product (MVP) was declared to be finished and the preview phase ended.
-            *** https://www.infoworld.com/article/3176681/webassembly-is-now-ready-for-browsers-to-use.html +
+    ** *2015/06/17* : *création de WebAssembly*, https://fr.wikipedia.org/wiki/WebAssembly
+        *** présentation officielle : *2015/06/17*
+        *** 1ere démonstration : 2016/03/16
+    ** *2017/03/06* : *1st release*, WebAssembly 1.0 is released, https://en.wikipedia.org/wiki/WebAssembly
+        *** In March 2017, the design of the minimum viable product (MVP) was declared to be finished and the preview phase ended.
+            **** https://www.infoworld.com/article/3176681/webassembly-is-now-ready-for-browsers-to-use.html +
             "WebAssembly, a portable code format that could make for a faster web, has moved to minimum viable product (MVP) status, with browser vendors now able to switch WebAssembly on by default."
-            *** WebAssembly became a *World Wide Web Consortium recommendation* on 2019/12/05
-    * *2019/11/12* : *création de la Bytecode Alliance*, partenariat industriel poussant le développement de Wasm, tout particulièrement en dehors du browser. Inclut parmis ses membres des sociétés comme Mozilla, Fastly, Intel, Red Hat, etc.
-    * *2019/03/27* : 1st version de WASI (WebAssembly System Interface), https://twitter.com/linclark/status/1110920999061594113
-    * A VERIFIER : 2020 : The Rust programming language adds support for WebAssembly as a compilation target
-    * *2022/10/24* : Docker announces support for WebAssembly, in cooperation with WasmEdge, and joins the Bytecode Alliance as a voting member
+            **** WebAssembly became a *World Wide Web Consortium recommendation* on 2019/12/05
+    ** *2018/03/06* : The Rust programming language adds support for WebAssembly as a compilation target
+        *** Rust added support for compiling to WebAssembly (WASM) as a compilation target with the release of wasm-bindgen. The *wasm-bindgen* project is designed to generate WASM binaries and target the wasm32-unknown-unknown target in Rust so as to build WebAssembly applications.
+        *** https://rustwasm.github.io/wasm-bindgen/reference/rust-targets.html +
+        The *wasm-bindgen* project is designed to target the wasm32-unknown-unknown target in Rust.
+        *** Wasm-bindgen is a tool for creating WebAssembly bindings in Rust. 
+            **** *WebAssembly bindings* are a mechanism for allowing programming languages to interoperate with WebAssembly modules. The idea is to provide a way for code written in one language to call functions defined in a WebAssembly module, and vice versa.
+
+    ** *2019/03/27* : 1st version de WASI (WebAssembly System Interface), https://twitter.com/linclark/status/1110920999061594113
+    ** *2019/11/12* : *création de la Bytecode Alliance*, partenariat industriel poussant le développement de Wasm, tout particulièrement en dehors du browser. Inclut parmis ses membres des sociétés comme Mozilla, Fastly, Intel, Red Hat, etc.
+    ** *2019/12/05* : WebAssembly became a *World Wide Web Consortium recommendation*
+    ** *2022/10/24* : Docker announces support for WebAssembly, in cooperation with WasmEdge, and joins the Bytecode Alliance as a voting member
+        *** 2022 : l'année ou WASM pousse très fort
+
+    -> A partir de 2019, cf les usages à venir, Wasm pousse très fort et est de plus en plus adopté, jusqu'à "l'apothéose" avec le support par Docker en coopération avec WasmEdge.
 
 * *Wasmer*
 
@@ -1261,6 +1376,11 @@ Ils nous aideront également à mieux comprendre pourquoi Web Assembly s'annonce
             *** *nginx:latest*: This is the latest version of the popular Nginx web server, which is commonly used as a reverse proxy, load balancer, or static content server. The size of the nginx:latest image is around *133 Mo*.
             *** *openjdk:11-jre-slim*: This is a slimmed-down version of the OpenJDK 11 Java runtime environment, which can be used to run Java applications. The size of the openjdk:11-jre-slim image is around *282 Mo*.
 
+        ** https://wasmlabs.dev/articles/docker-without-containers/
+            ** image Docker "classique" pour PHP : 166 Mo
+            ** image Docker pour PHP avec une Alpine : 30 Mo
+            ** container "from scratch" contenant uniquement le module Wasm avec l'interprêteur PHP : 5.35 Mo
+
     ** Bard : 
         *** A typical *WebAssembly module* is around *100KB in size*, while a typical container image is around 1GB in size. This is because WebAssembly modules are compiled to machine code, while container images are typically based on text formats.
 
@@ -1285,14 +1405,34 @@ Ils nous aideront également à mieux comprendre pourquoi Web Assembly s'annonce
 
 TO BE COMPLETED
 
-== Distroless container images
+== Distroless container images et "scratch" images
 
 * 2023/02/02 : https://bell-sw.com/blog/distroless-containers-for-security-and-size/
-    ** So distroless images (which should be called "almost distroless" but it won’t make a good selling point, will it?) do contain a Linux distribution, albeit an incredibly stripped-down one, without a package manager, shell, or other typical Linux components. This approach is in line with the modern practices of running an application in the immutable container, meaning that we have no need for introducing system changes or utilizing libraries not involved in app’s work
+    ** So distroless images (which should be called *"almost distroless"* but it won’t make a good selling point, will it?) do contain a Linux distribution, albeit an incredibly stripped-down one, without a package manager, shell, or other typical Linux components. This approach is in line with the modern practices of running an application in the immutable container, meaning that we have no need for introducing system changes or utilizing libraries not involved in app’s work
+        *** Bonne image pour comparer les tailles des images distroless qui peuvent quand même vite monter...
+
+    ** Mais les images distroless ont leurs inconvénients : 
+        *** Distroless containers are hard to debug due to the absence of shell access.
+        *** Configuration of distroless images is anything but simple. To adjust Google's images, you need to know bazel, and adding new packages is complicated without a package manager. +
+        A limited range of out-of-the-box distroless images increases the risk of the image being incompatible with your app.
 
 * ChatGPT : 
     ** Distroless container images are container images that contain only the application and its runtime dependencies, but do not include any additional operating system components or package managers. This means that they are stripped down to the bare essentials needed to run the application, and do not include any unnecessary or potentially insecure software.
     ** The idea behind distroless containers is to create a more secure and lightweight environment for running applications in containers. By removing the operating system components and package managers, the attack surface of the container is reduced, making it less vulnerable to security threats. Additionally, the smaller size of the container can improve performance and reduce the amount of resources required to run the application.
+
+    ** Strictly speaking, distroless container images do not exclude a Linux operating system entirely. Instead, they exclude the distribution-specific userland and package manager components that are traditionally included in container images. +
+    In a distroless container image, only the essential libraries and dependencies required to run the application are included, rather than a full operating system with its own set of tools and utilities. This approach reduces the size of the image and limits the attack surface of the application. +
+    So while distroless container images do still rely on a Linux operating system, they do not include the distribution-specific components that are often unnecessary and can introduce security risks or compatibility issues.
+
+    ** Intérêts des images distroless : 
+        *** *Microservices*: Distroless container images are a good fit for microservices architecture, where each microservice is packaged in its own container. By using distroless containers, the size and complexity of each microservice can be reduced, making it easier to deploy and manage.
+        *** *Cloud-native applications*: Distroless containers are well-suited for cloud-native applications that are designed to run on distributed, dynamic infrastructure. These types of applications require containers that are lightweight, portable, and secure, and that can be quickly and easily deployed and scaled up or down as needed.
+        *** *Security-conscious applications*: Applications that require a high level of security can benefit from using distroless containers because they reduce the attack surface of the application by eliminating unnecessary components and packages.
+        *** *Kubernetes deployments*: Distroless containers are a good choice for running with Kubernetes because they are designed to be minimal and self-contained. This makes it easier to manage and scale containerized applications on a Kubernetes cluster.
+        *** *Cross-platform compatibility*: Distroless containers are also a good choice for applications that need to run across different platforms or environments. Since they don't rely on distribution-specific packages or tools, they are more compatible with a wider range of systems and environments.
+
+    ** Explication claire et concise : +
+    Distroless container images are designed to provide a minimalistic and secure environment for running containerized applications, by excluding distribution-specific components that are often unnecessary and can introduce security risks or compatibility issues. They contain only the essential libraries and dependencies required to run the application, resulting in smaller images and improved performance. This approach also simplifies deployment and ensures compatibility across different systems and environments.
 
 * Bard : 
     ** distroless container images do include a Linux operating system, albeit a very stripped-down one. The Linux kernel is included in all distroless container images, as it is necessary for the container to run. However, other components of the Linux operating system, such as the GNU C Library (glibc), are not included. This makes distroless container images smaller and more secure than traditional container images that include a full Linux operating system.
@@ -1301,16 +1441,32 @@ TO BE COMPLETED
     ** https://www.trendmicro.com/en_us/research/22/i/enhancing-cloud-security-by-reducing-container-images-through-di.html +
     "Google created Distroless container images, which are images that contain only the application and its runtime dependencies. Unlike images for standard Linux distributions, Distroless container images do not have package managers, shells, or other programs."
 
-* *2017* - Repo de Google sur les Distroless Container images : https://github.com/GoogleContainerTools/distroless
-    ** "Distroless" images contain only your application and its runtime dependencies. They do not contain package managers, shells or any other programs you would expect to find in a standard Linux distribution.
+* *2017* - *Repo de Google sur les "Distroless" Container images* : https://github.com/GoogleContainerTools/distroless
+    ** (almost) "Distroless" images contain only your application and its runtime dependencies. They do not contain package managers, shells or any other programs you would expect to find in a standard Linux distribution.
+    ** To be precise, distroless container images do include a Linux operating system, albeit a very stripped-down one.
     ** Le 1er commit de ce repo date du *2017/04/12* : https://github.com/GoogleContainerTools/distroless/commit/02de2e7f738c27d8811003167355d357a146997a
 
-=== 2022 - TO BE COMPLETED
+* *"Scratch" images* : https://blog.baeke.info/2021/03/28/distroless-or-scratch-for-go-apps/
+    ** Official "scratch" image from Docker : https://hub.docker.com/_/scratch
+        *** "This image is most useful in the context of building base images (such as debian and busybox) or super minimal images (that contain only a single binary and whatever it requires, such as hello-world). +
+        As of Docker 1.5.0 (specifically, docker/docker#8827), FROM scratch is a no-op in the Dockerfile, and will not create an extra layer in your image (so a previously 2-layer image will be a 1-layer image instead)."
+    ** https://docs.docker.com/engine/userguide/eng-image/baseimages/
+        *** "You can use Docker’s reserved, minimal image, scratch, as a starting point for building containers. Using the scratch “image” signals to the build process that you want the next command in the Dockerfile to be the first filesystem layer in your image. +
+        While scratch appears in Docker’s repository on the hub, you can’t pull it, run it, or tag any image with the name scratch. Instead, you can refer to it in your Dockerfile. For example, to create a minimal container using scratch:"
++
+[source, docker]
+----
+FROM scratch
+COPY hello /
+CMD ["/hello"]
+----
+
+=== 2022 - TO BE COMPLETED (TODO)
 
 * 2023/03/17 : anniversaire, les 10 ans de Docker
 * A brief history of minimal, secure container images : https://twitter.com/tracymiranda/status/1636778664871313414?s=20
-* Regarder le Wolfi Community call du 2023/03/08 : https://www.youtube.com/watch?v=T6rOdF3ZeRs
-    ** Wolfi is a lightweight GNU software distribution designed around minimalism
+    ** Regarder le Wolfi Community call du 2023/03/08 : https://www.youtube.com/watch?v=T6rOdF3ZeRs
+        *** Wolfi is a lightweight GNU software distribution designed around minimalism
 
 == Plan du talk
 
@@ -1666,6 +1822,12 @@ Les étapes majeures à présenter plus en détails :
 
 * *2017/04* : Microsoft enabled organizations to run Linux containers on Windows Server. This was a major development for Microsoft shops that wanted to containerize applications and stay compatible with their existing systems.
 
+* *2017/04/12* - apparition des "Distroless" container images chez Google
+    ** repo Google : https://github.com/GoogleContainerTools/distroless
+    ** 1er commit : https://github.com/GoogleContainerTools/distroless/commit/02de2e7f738c27d8811003167355d357a146997a
+    ** (almost) Distroless container images are designed to provide a minimalistic and secure environment for running containerized applications, by excluding distribution-specific components that are often unnecessary and can introduce security risks or compatibility issues. They contain only the essential libraries and dependencies required to run the application, resulting in smaller images and improved performance. This approach also simplifies deployment and ensures compatibility across different systems and environments.
+    ** To be precise, distroless container images do include a Linux operating system, albeit a very stripped-down one.
+
 * *2017/07/19* : Release of the OCI v1.0 runtime and image specifications
 
 * *2017/10* : DockerCon 2017, Docker announced they will support the Kubernetes container orchestrator, and Azure and AWS fell in line, with AKS (Azure Kubernetes Service) and Amazon EKS (Amazon Elastic Kubernetes Service)
@@ -1762,7 +1924,7 @@ Ce besoin accrue de sécurisation a amené à l'apparition de nouveaux types de 
     Of the 1,250 IT leaders surveyed, just under 50% said they use containers in production to at least some degree. A further 37% use containers for development only, while just 16% are still evaluating or researching container adoption, according to Red Hat. +
     Voir https://www.computerweekly.com/feature/Containers-for-a-post-pandemic-IT-architecture
 
-* 2022/10 : Poussée des modules Wasm ("containers Javascript") et technical preview Docker PLUS Wasm
+* *2022/10* : Poussée des modules Wasm ("containers Javascript") et technical preview Docker PLUS Wasm
 
 *Informations globales à donner* : 
 
@@ -1832,6 +1994,7 @@ Les outils suivants ont l'air bien adaptés :
 * *2014/02/20* : release de la 1ere version 1.0 de LXC
 * *2014/06/07* : GRANDE ETAPE - toute première release de *Kubernetes* par Google (1er commit GitHub)
 * *2014/11* : 1ere release de rkt (prononcer "rocket"), le container runtime créé par les équipes de CoreOS.
+* *2015/06/17* : création de *WebAssembly*
 * *2015/06* : GRANDE ETAPE - *Docker Inc donne la codebase du projet Docker à l'OCI*, projet de la Linux Fondation, *créé pour cette occasion*.
 * *2015/07* : GRANDE ETAPE - *runc* est publié pour la 1ere fois, et son code a *tout de suite donné par Docker à l'OCI* (runc est l'implémentation de référence de la runtime-spec)
 * *2015/07/21* : ETAPE MAJEURE - *release de la 1ere version de Kubernetes* par Google, et *création de la CNCF*, comme umbrella projet de la Linux Foundation, à laquelle Kubernetes sera donné comme élément fondateur.
@@ -1839,8 +2002,10 @@ Les outils suivants ont l'air bien adaptés :
 * *2016/03/14* : 1ere apparition des cgroups v2 dans le Linux Kernel 4.5
 * *2016/04/13* : ETAPE MAJEURE - sortie de la *version 1.11 de Docker* : 1ere release de Docker basée sur containerd et runC (OCI) +
 -> cette étape marque l'apparition des low-level et des high-level containers runtimes
+* *2017/03/06* : GRANDE ETAPE - release de la v1.0 de WebAssembly 1.0 (MVP)
 * *2017/03/15* : GRANDE ETAPE - *Docker's donation of containerd project to the CNCF*, and *CoreOS's donation of rkt to the CNCF*
 * *2017/04* : Microsoft enabled organizations to run Linux containers on Windows Server.
+* *2017/04/12* : apparition des "Distroless" container images chez Google
 * *2017/07/19* : Release of the OCI v1.0 runtime and image specifications
 * *2017/10* : DockerCon 2017, Docker announced they will support the Kubernetes container orchestrator, same thing for Azure and Amazon.
 * *2018* : ETAPE MAJEURE - *L'avènement de Kubernetes*, où tous les Cloud providers propose leur offre de Kubernetes managé +
@@ -1852,32 +2017,44 @@ Les outils suivants ont l'air bien adaptés :
     ** ainsi que celles des *daemonless runtimes* et du *rootless* : *podman* (avec *buildah* et *Skopeo*)
         *** *2018/04* : 1ere release de Podman
 * *2019* : GRANDE ETAPE - les conséquences de l'essor de Kubernetes (le déclin de Docker et d'autres container runtimes)
+* *2019/03/27* : 1st version de WASI (WebAssembly System Interface)
 * *2019/04* : la CNCF archive le projet rkt, suite à une adoption utilisateur en forte baisse
+* *2019/11/12* : GRANDE ETAPE - *création de la Bytecode Alliance*, partenariat industriel poussant le développement de Wasm, tout particulièrement en dehors du browser (va marquer le début de l'essort rapide de WebAssembly)
 * *2019/11/13* : Docker se scinde en 2 : Mirantis rachète Docker Enterprise, et Docker Inc se recentre autour de Docker Desktop (et Docker Hub) 
 * *2020/02* : le project rkt est arrêté (https://github.com/rkt/rkt/issues/4024)
 * *2020/12* : le daemon docker (dockerd) est déprécié pour Kubernetes 1.20 (2020/12), et est remplacé par containerd
 * *2021* : les containers sont maintenant partout, et le constat suivent tiré des études de Gartner : +
 "Gartner predicted in 2020 that, by 2022, more than 75% of global organisations will be running containerised applications in production, against 30% in 2020."
-* *2022/10* : Poussée des modules Wasm ("containers Javascript") et technical preview Docker PLUS Wasm
+* *2021/05/05* : release de la v1.0.0 (version stable) de la distribution-spec de l'OCI
+* *2022/10/24* : Technical Preview de Docker, announces support for WebAssembly, in cooperation with WasmEdge, and joins the Bytecode Alliance as a voting member
 
-~39 dates à présenter dans les 45 min de ce format conférence.
+~46 dates à présenter dans les 45 min de ce format conférence.
 
-    * si l'on veut garder 5 min pour les questions, cela laisse 40 min pour le talk, soit ~1 min par date
-    * 1 min ne sera pas suffisante pour certaines grandes dates (docker, l'apparition des high et low level container runtimes, etc.) +
+    * si l'on veut garder 5 min pour les questions, cela laisse 40 min pour le talk, soit ~52 par date
+    * 52 sec ne seront pas suffisante pour certaines grandes dates (docker, l'apparition des high et low level container runtimes, WebAssembly, etc.) +
     Il faudra passer rapidement certaines dates pour se concentrer sur les plus importantes
-
-TO BE COMPLETED : 
-
-    * dates de WebAssembly à rajouter
-    * dates des distroless container images à rajouter
 
 == Points à aborder durant le talk : 
 
-* expliquer que certaines technos deviennent des superstars et d'autres meurent...
+* Intro : se présenter LinkedIn et GitHub
+    ** et redonner l'article dans le blog de Devoxx France depuis 2022 pour la préparation du salon ET la base de connaissance.
+    ** et reparler rapidement du talk de veille donné à Devoxx (à la base DevFest Nantes)
+    ** dire que je donnerai l'URL vers mes notes au final, car on ne pourra pas tout aborder
+
+* Commencer par un disclaimer de ce que sera et ne sera pas le talk
+    ** on ne va PAS vous apprendre ici à utiliser tous les outils et techno citées
+    ** et je ne suis pas un expert de toutes les techno citées...
+
+* expliquer que certaines technos deviennent des superstars et d'autres meurent...(cf Rocket)
+* insérer la courbe de hype du Gartner pour certaines dates importantes de la conteneurisation (release de Docker par exemple)
 
 * Bien définir ce qu'est un runtime
-* donner la phrase introductive "Pour comprendre le présent..."
+* Donner la phrase introductive "Pour comprendre le présent..."
 * Les PC en 1979 (rares, chers, peu puissants) et bien redéfinir ce qu'est un runtime
+
+* bien réexpliqer cgroups et namespaces
+    ** et redonner les docs de Julia Evans
+
 * Docker par Solomon et parallèle avec les conteneurs maritimes et le "shipping"
     ** si les conteneurs avaient tous des tailles différentes, ce serait un fiche lego / tetris que de les charger sur un porte-conteneur (trouver une photo d'un porte-conteneur)
 * Sortie de Docker, insister sur les 1ers problèmes de sécurité
@@ -1887,8 +2064,20 @@ TO BE COMPLETED :
         *** https://github.com/chrisfosterelli/dockerrootplease
             **** https://fosterelli.co/privilege-escalation-via-docker
             **** "A tous ceux qui sont OPS dans la salle, attention, souvenir douloureux..."
+            **** "s'il y a des OPS dans la salle, pardonnez-moi, je vais rappeler un souvenir douloureux..." +
+            "Ca rappelle des souvenirs à certains ?" et slide avec "Docker Root Please"
+
 * création "à la main" d'un conteneur en quelques lignes de codes
+
+* donner des détails sur les différents low and high level container runtimes
+* bien réexpliquer ce qu'est un shim
+
+* reprendre le très bon schéma de https://www.docker.com/blog/docker-wasm-technical-preview/ faisant apparaître le containerd-wasm-shim
 * WASM : la phrase de Solomon sur WASM, "si WASM / WASI avait existé en 2008, il n'y aurait pas eu Docker..."
+* Donner la ressource https://wasmlabs.dev/articles/docker-without-containers/ et les infos sur Wasm Labs
+    ** et donner l'exemple de Wordpress qui tourne dans le browser : https://wordpress.wasmlabs.dev/
+
+* Remerciements : bien indiquer que j'ai utilisé un très grand nombre de doc pour ma curation de contenus, et que j'en remercie tous les auteurs, même si je ne les ai pas tous cités.
 
 == Création des slides
 
@@ -1905,5 +2094,16 @@ TO BE COMPLETED :
 3. génération des slides :
 
     asciidoctor-revealjs history-of-containerization-slides.adoc -o docs/slides.html
+
+[NOTE]
+====
+Le template de slides pour ce devoxx est disponible sur le repo : https://github.com/quantixx/template-presentation
+====
+
+== Lexique
+
+[glossary]
+ghcr:: GitHub Container registry
+
 
 
