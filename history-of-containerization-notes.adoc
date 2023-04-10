@@ -298,6 +298,14 @@ Je suis preneur de toutes vos questions et retours pour approfondir le sujet �
 
 
 
+
+
+
+
+
+
+
+
 == RESSOURCES
 
 * A : https://www.tutorialworks.com/difference-docker-containerd-runc-crio-oci/ : excellente ressource
@@ -401,7 +409,7 @@ Docker Engine acts as a client-server application with:
 
 * pour une explication de ce qui a amené aux containers, avec les *namespaces*, les *cgroups* (control groups), l'isolation des appels (*seccomp-bpf*), et finalement les "containers Docker", voir l'excellent article https://jvns.ca/blog/2016/10/10/what-even-is-a-container/
     ** Docker a fourni un wrapping simple et facile d'utilisation de ces fonctionnalités du kernel Linux (et en a également apporté d'autres également)
-    ** Regarder absolument le super Zine "How Containers work" de *Julia Evans* (2020) : https://wizardzines.gumroad.com/l/containers-zine/buyonegiveone / https://jvns.ca/blog/2020/04/27/new-zine-how-containers-work/
+    ** Regarder absolument le super Zine "How Containers work" de *Julia Evans* (2020) : https://wizardzines.com/zines/containers/ / https://jvns.ca/blog/2020/04/27/new-zine-how-containers-work/
         *** Ce Zine contient une description sympa des *container Kernel features* : 
             **** *pivot_root* : set a process's root directory to a directory with the contents of the container image
                 ***** difference between pivot_root and *chroot* : chroot is easy to escape from if you're root and pivot root isn't +
@@ -415,7 +423,19 @@ Docker Engine acts as a client-server application with:
             Capabilities allow to reduce the privileges of an active process
             **** *overlay filesystems* : optimization to reduce disk space used by containers which are using the same image
             **** quand on utilise *toutes les fonctionnalités précédentes*, on a un *container*
-            **** Et un GROS reminder : *A container is a group of processes*
+
+
+            **** Et un GROS reminder de la définition d'un CONTAINER / CONTENEUR : *A container is a group of processes* (cf julia-evans_containers-vs-VMs.jpg)
+                ***** Cette définition est donnée dans le zine de Julia : julia-evans_containers-vs-VMs.jpg +
+                Une très bonne ressource, très synthétique et claire sur les différences containers vs VMs
+                ***** voir également ce site pour une définition similaire d'un container : https://jessicagreben.medium.com/what-is-the-difference-between-a-process-a-container-and-a-vm-f36ba0f8a8f7
+                ***** d'où la définition : *a container is a "just" a group of processes that are isolated from the system (the host) by some means*.
+                ***** J'aime bien la définition donné par Jessica : +
+                "My personal definition of a container is a group of processes with some cool kernel features sprinkled on top that allow the processes to pretend that they’re running on their own separate machine. While the host machine knows that the container is actually a process, the container thinks that it is a separate machine. These awesome kernel features that make this possible are: namespaces / cgroups and capabilities"
+
+
+                ***** le site précédent redonne également la définition d'un PROCESS : +
+                "*A process represents a running program; it is an instance of an executing program*. A process consists of memory and a set of data structures. The kernel uses these data structures to store important information about the state of the program."
 
     ** LCC (Les Cast Codeurs) 270 : interview de *Nicolas De Loof* sur Docker et Docker Compose 
         *** Définition de Docker : "Docker est un moyen de lancer des applications, des process, mais on va prendre le process Linux, celui que tu veux faire tourner sur ta machine de PROD, et on va te donner un moyen simple de le faire tourner chez toi tout pareil"
@@ -470,19 +490,55 @@ Une bonne définition d'un *container runtime* : +
 A container runtime is a library or software which has the ability to create, deploy and manage containers on its own. Basically, container runtimes are responsible for container lifecycle. It provides simple API layer to create, deploy and manage containers.
 ----
 
-* *Définition d'un runtime "classique" :* 
+* *Définition d'un runtime "classique" (ou exécution d'environnement ou Runtime Environment (RTE) ) :* 
 
     ** https://fr.wikipedia.org/wiki/Environnement_d%27ex%C3%A9cution +
     Un *environnement d'exécution* ou *runtime* est un *logiciel responsable de l'exécution des programmes informatiques* écrits dans un langage de programmation donné. Un runtime offre des services d'exécution de programmes tels que les entrées-sorties, l'arrêt des processus, l'utilisation des services du système d'exploitation, le traitement des erreurs de calcul, la génération d'événements, l'utilisation de services offerts dans un autre langage de programmation, le débogage, le profilage et le ramasse-miette. +
-    Contrairement à un logiciel de développement permettant de programmer et développer son application, *un runtime ne permet QUE l'exécution d'un programme*. Un runtime peut être vu comme une machine virtuelle : de la même manière qu'un code natif est exécuté par le processeur, un code objet est exécuté par le runtime. Le runtime sert alors à exécuter du code objet en mettant le code natif ad hoc à disposition du processeur pour exécution
+    Contrairement à un logiciel de développement permettant de programmer et développer son application, *un runtime ne permet QUE l'exécution d'un programme*. Un runtime *peut être vu comme une machine virtuelle* : de la même manière qu'un code natif est exécuté par le processeur, un code objet est exécuté par le runtime. Le runtime sert alors à exécuter du code objet en mettant le code natif ad hoc à disposition du processeur pour exécution
+
+    ** *BONNE DEFINITION d'un RUNTIME* : https://www.ionos.fr/digitalguide/sites-internet/developpement-web/definition-environnement-dexecution/
+        *** "Dans un environnement d'exécution (Runtime Environment), les logiciels sont exécutés indépendamment du système d'exploitation."
+        *** "Un environnement d’exécution charge les applications et leur permet d’être exécutées sur une plateforme. Cette plateforme dispose de toutes les ressources nécessaires pour permettre au programme de fonctionner indépendamment du système d’exploitation."
+        *** "Un environnement d’exécution met à la disposition un certain nombre de fonctions de base au service de la mémoire, du réseau ou du matériel. Le runtime environment exécute ces fonctions à la place de l’application, et indépendamment du système d’exploitation."
+
+        *** l'article donne également des EXEMPLES de runtimes bien connus : 
+            **** un comble, l'article ne parle pas du plus connu de tous, le *JRE* ! +
+            un environnement d’exécution virtuel pour des applications Java, capable d’interpréter le bytecode Java.
+            **** *Node.js* : l’environnement d’exécution de JavaScript qui permet d’interpréter le script de programmation sur un serveur. Le concepteur lui-même a émis quelques réserves sur Node.js, et a décidé de créer Deno, un nouvel environnement d’exécution Javascript plus moderne et sécurisé.
+
+            **** *Javascript runtime environment*
+            **** *Cygwin* : un environnement d’exécution pour les applications Linux leur permettant de fonctionner aussi sur Windows, macOS et d’autres systèmes d’exploitation.
 
     ** On peut reparler ici des différences entre JRE et JDK (et JVM) : https://www.digitalocean.com/community/tutorials/difference-jdk-vs-jre-vs-jvm
         *** *JRE* is the implementation of JVM. It provides *a platform to execute java programs*. JRE consists of JVM, Java binaries, and other classes to execute any program successfully.
+            **** *JRE = JVM + Java Class Library (JCL)*
+            **** JCL : https://en.wikipedia.org/wiki/Java_Class_Library +
+            "A comprehensive set of standard class libraries, containing the functions common to modern operating systems" +
+            "Almost all of JCL is stored in a single Java archive file called "rt.jar" which is provided with JRE and JDK distributions."
+        *** un schéma simple et clair montrant les différences entre JDK, JRE et JVM : https://www.boardinfinity.com/blog/understanding-the-difference-between-jdk-jre-and-jvm/
+
+    ** *Google* parlant de l'*environnement d'exécution Node.js* : https://cloud.google.com/appengine/docs/standard/nodejs/runtime?hl=fr
+        *** "L'environnement d'exécution Node.js est la *pile logicielle* chargée d'installer le code de votre service Web et ses dépendances, et d'exécuter votre service."
+        *** "Pendant le déploiement, l'environnement d'exécution installe vos dépendances à l'aide de la commande npm install ou, si un fichier yarn.lock existe, de la commande yarn install."
+    ** Du même genre : https://www.infoworld.com/article/3210589/what-is-nodejs-javascript-runtime-explained.html
+        *** "*Node.js* is a lean, fast, cross-platform JavaScript runtime environment that is useful for both servers and desktop applications."
+    ** https://fr.quora.com/Qu%E2%80%99est-ce-que-Node-js-Je-souhaite-une-explication-claire-%C3%A0-ce-sujet
+        *** "Node.js lui-même n’est qu’un programme (écrit essentiellement en C/C++) qui est capable de lire du code JavaScript, de le compiler en JIT et d’exécuter les instructions correspondantes. Un tel programme s’appelle techniquement un environnement d’exécution."
+    ** *V8 JavaScript engine* pour le Node.js et parallèle avec la JVM pour le JRE : https://www.geeksforgeeks.org/explain-v8-engine-in-node-js/
+        *** Bon schéma à reprendre
+        *** "V8 is a C++-based open-source JavaScript engine developed by Google. It was originally designed for Google Chrome and Chromium-based browsers (such as Brave) in 2008, but it was later utilized to create Node.js for server-side coding." +
+        "V8 is known to be a JavaScript engine because it takes JavaScript code and executes it while browsing in Chrome."
+        *** https://www.geeksforgeeks.org/explain-v8-engine-in-node-js/ : *Node.js is referred to as a runtime environment* since it contains everything you need to run a JavaScript program.
+        *** https://nodejs.dev/en/learn/the-v8-javascript-engine/ : V8 is the name of the JavaScript engine that powers Google Chrome. It's the thing that takes our JavaScript and executes it while browsing with Chrome. V8 provides the runtime environment in which JavaScript executes. The DOM and the other Web Platform APIs are provided by the browser.
 
     ** ChatGPT : 
-        *** In software development, a runtime (also called runtime environment or runtime system) is a software layer that provides a platform or framework for running and executing code. It is responsible for managing the execution of code, including loading, interpreting, and executing program instructions, as well as providing the necessary support for accessing system resources and external libraries. +
+        *** In software development, a runtime (also called runtime environment or runtime system) is a *software layer that provides a platform or framework for running and executing code*. It is responsible for managing the execution of code, including loading, interpreting, and executing program instructions, as well as providing the necessary support for accessing system resources and external libraries. +
         A runtime is typically associated with a specific programming language or technology, and provides the necessary environment for executing code written in that language or technology. For example, a Java runtime environment (JRE) provides the platform for running Java applications, while a Node.js runtime provides the environment for running JavaScript code on a server.
 
+    ** Mes propositions de *DÉFINITION D'UN RUNTIME* : 
+        *** un runtime est une couche logicielle permettant l'exécution de programmes (UNIQUEMENT l'exécution)
+        *** un runtime est une pile logicielle offrant les services nécessaires à l'exécution d'applications (et UNIQUEMENT l'exécution) indépendamment du système d'exploitation.
+            **** le runtime met à la disposition un certain nombre de fonctions de base au service de la *mémoire*, du *réseau* ou du *matériel* ET exécute ces fonctions à la place de l’application, indépendamment du système d’exploitation (le runtime fait donc le lien entre l’application et le système d’exploitation)
 
 * *Docker was released for the 1st time the 2013/03/20*
 
@@ -800,6 +856,22 @@ En fait, on trouve plus d'infos que je ne le pensais via les recherches Google "
         "The *original idea* of a container has been around since the 1970s, when the concept was first employed on *Unix systems* to *better isolate application code*. While useful in certain application development and deployment scenarios, the *biggest drawback* to containers in those early days was the simple fact that they were *anything but portable*." +
         "Back in the 1970s, *early containers created an isolated environment where services and applications could run without interfering with other processes* – producing something akin to a sandbox to test applications, services, and other processes. The original idea was to isolate the container's workload from production systems in way that *enabled developers to test their applications and processes on production hardware without risking disruption to other services*."
 
+    ** *1970s* : Voir également cet EXCELLENT article sur les débuts d'Unix (Unics à l'époque, pour "Uniplexed Information and Computing Service") : +
+    https://www.spiria.com/fr/blogue/breves-technos/unix-a-50-ans/
+        ** L'article inclut la fameuse photo de *Ken Thompson* et *Dennis Ritchie* à côté d'un PDP-11 chez Bell Labs (vers 1972).
+        Pour rappel, ce sont les créateurs respectifs d'Unix et du langage C, et Ken Thompson est également le créateur du premier shell Unix en 1971, sur la 1ere version d'Unix.
+            *** https://en.wikipedia.org/wiki/Unix_shell : The first Unix shell was the Thompson shell, sh, written by Ken Thompson at Bell Labs and distributed with Versions 1 through 6 of Unix, from 1971 to 1975.
+
+        ** "Dans les années 60, les Laboratoires Bell participaient à un projet avec le MIT et General Electric ayant pour objectif de mettre au point un *système de temps partagé*. Les ordinateurs de l’époque étant *très coûteux*, il s’agissait *de partager les ressources entre différents utilisateurs*. Insatisfaite de l’avancement du projet, appelé Multiplexed Information and Computing Service (Multics), la direction des Laboratoires Bell s’est finalement retirée en mars 1969. Ken Thompson, un programmeur de Bell qui avait travaillé sur Multics, a alors décidé d’écrire son propre système. Assisté de Dennis Ritchie, le futur créateur du langage C, il imagine un système de hiérarchie de fichiers, les concepts de processus et de fichiers de périphérique, une interface en ligne de commande et de petits utilitaires aux fonctionnalités correspondant à celles de Multics."
+            *** *time-sharing* operating system : In computing, time-sharing is the sharing of a computing resource among many users at the same time by means of multiprogramming and multi-tasking
+
+        ** Voir également https://en.wikipedia.org/wiki/Unix, section "History" pour les raisons et le comment de la création d'Unix
+            *** "The origins of Unix date back to the mid-1960s when the Massachusetts Institute of Technology, Bell Labs, and General Electric were developing Multics, a time-sharing operating system for the GE-645 mainframe computer.[15] Multics featured several innovations, but also presented severe problems. *Frustrated by the size and complexity of Multics*, but *not by its goals*, individual researchers at Bell Labs started withdrawing from the project. The last to leave were Ken Thompson, Dennis Ritchie, Douglas McIlroy, and Joe Ossanna,[11] who decided to *reimplement their experiences in a new project of smaller scale*. This new operating system was initially without organizational backing, and also without a name." +
+            "The new operating system was a single-tasking system"
+
+                *** ChatGPT : À partir des années 1970, Unix a évolué pour permettre l'exécution simultanée de plusieurs programmes par différents utilisateurs, grâce à l'introduction du "time sharing system" (ou système de partage de temps). +
+                Le time sharing a été rendu possible grâce à l'utilisation de terminaux, qui permettaient à plusieurs utilisateurs de se connecter à un même ordinateur et d'interagir avec lui en temps réel. Chaque utilisateur avait accès à une "tranche" de temps d'utilisation du processeur et de la mémoire, qui était partagée de manière équitable entre tous les utilisateurs connectés.
+
     ** https://blog.aquasec.com/a-brief-history-of-containers-from-1970s-chroot-to-docker-2016 (2020/01) (TRES BIEN)
 
         *** *1979* : "During the development of Unix version 7 in 1979, the *chroot* system call was introduced, changing the root directory of a process and its children to a new location in the filesystem." +
@@ -1004,7 +1076,7 @@ Docker + Wasm = Awesome!
 Wasm is a new, FAST, and LIGHT alternative to the Linux/Windows containers you’re using in Docker today — give it a try with the Docker+Wasm Beta.
 ----
         *** Dans cette dernière définition, c'est surtout le "LIGHT" qui est important : *WASM* rime avec *SECURE*, *PERFORMANT* et *LIGHT*
-            **** Et ne pas oublier la *portabilité*
+            **** Et ne pas oublier la *portabilité* (polyglotte)
 
     ** https://wasmlabs.dev/articles/docker-without-containers/ : Recently Docker announced support for WebAssembly in cooperation with WasmEdge (Wasm runtime)
     
@@ -1148,8 +1220,11 @@ Ils nous aideront également à mieux comprendre pourquoi Web Assembly s'annonce
 
             **** ChatGPT : WASI provides a standard interface between WebAssembly modules and the host environment, allowing WebAssembly to be used outside of the web, for example in serverless computing or edge computing.
 
-            **** https://twitter.com/solomonstre/status/1111004913222324225 (Solomon Hykes / Lin Clark) : +
-            *2019/03/27* - Announcing WASI : a system interface for running WebAssembly outside the web (and inside it too)
+
+            **** *2019/03/27* - Lin Clark Announcing WASI : https://twitter.com/linclark/status/1110920999061594113 +
+            A system interface for running WebAssembly outside the web (and inside it too)
+            **** En réaction à ce Tweet, Solomon Hykes répondit (https://twitter.com/solomonstre/status/1111004913222324225) : +
+            "If WASM+WASI existed in 2008, *we wouldn't have needed to created Docker*. That's how important it is. *Webassembly on the server is the future of computing*. A standardized system interface was the missing link. Let's hope WASI is up to the task!"
 
             **** *ABI* : *Application Binary Interface* : https://en.wikipedia.org/wiki/Application_binary_interface +
             "An application binary interface (ABI) is an *interface between two binary program modules*. Often, one of these modules is a library or operating system facility, and the other is a program that is being run by a user." +
@@ -1349,7 +1424,8 @@ Ils nous aideront également à mieux comprendre pourquoi Web Assembly s'annonce
     ** *2022/10/24* : Docker announces support for WebAssembly, in cooperation with WasmEdge, and joins the Bytecode Alliance as a voting member
         *** 2022 : l'année ou WASM pousse très fort
 
-    -> A partir de 2019, cf les usages à venir, Wasm pousse très fort et est de plus en plus adopté, jusqu'à "l'apothéose" avec le support par Docker en coopération avec WasmEdge.
+    -> *A partir de 2019*, cf les usages à venir, Wasm pousse très fort et est de plus en plus adopté, jusqu'à "l'apothéose" avec le support par Docker en coopération avec WasmEdge. +
+    La déclaration de Solomon Hykes sur Wasm / WASI comme étant le "future of computing" date de 2019
 
 * *Wasmer*
 
@@ -1480,9 +1556,9 @@ Commencez par un petit disclaimer pour le public ? "ce que ce talk n'est pas ?" 
 Julia EVANS en dit la chose suivante (https://jvns.ca/blog/2016/10/10/what-even-is-a-container/) : +
 "The word “container” doesn’t mean anything super precise. Basically there are a few *new Linux kernel features* (“namespaces” and “cgroups”) that let you isolate processes from each other. When you use those features, you call it “containers”." +
 
-On trouve également le rappel "tout bête" suivant : *A container is a group of processes*
+On trouve également le rappel, la définition "toute bête" suivante : *A container is a group of processes*
 
--> D'où : a container is a "just" a group of processes that are isolated from each other by some means.
+-> D'où : a container is a "just" a group of processes that are isolated from the system (the host) by some means.
 
 [start=2]
 2. L'histoire de la containerisation d'hier à aujourd'hui : La frise chronologique
@@ -1559,13 +1635,17 @@ Les étapes majeures à présenter plus en détails :
 * *1970s* : Le concept d'isolation émerge du côté des systèmes Unix. +
 
     "The *original idea* of a container has been around since the 1970s, when the concept was first employed on *Unix systems* to *better isolate application code*. While useful in certain application development and deployment scenarios, the *biggest drawback* to containers in those early days was the simple fact that they were *anything but portable*." +
-    "Back in the 1970s, *early containers created an isolated environment where services and applications could run without interfering with other processes* – producing something akin to a sandbox to test applications, services, and other processes. The original idea was to *isolate the container's workload from production systems* in way that *enabled developers to test their applications and processes on production hardware without risking disruption to other services*."
+    "Back in the 1970s, *early containers created an isolated environment where services and applications could run without interfering with other processes* – producing something akin to a *sandbox to test applications*, services, and other processes. The original idea was to *isolate the container's workload from production systems* in way that *enabled developers to test their applications and processes on production hardware without risking disruption to other services*."
 
     "During the development of Unix version 7 in 1979, the *chroot* system call was introduced, changing the root directory of a process and its children to a new location in the filesystem." +
         "This advance was *the beginning process isolation*: segregating file access for each process. Chroot was added to BSD in 1982."
 
-    ** Voir également cet excellent article sur les débuts d'Unix (Unics à l'époque, pour "Uniplexed Information and Computing Service") : +
+    ** Voir également cet EXCELLENT article sur les débuts d'Unix (Unics à l'époque, pour "Uniplexed Information and Computing Service") : +
     https://www.spiria.com/fr/blogue/breves-technos/unix-a-50-ans/
+        ** L'article inclut la fameuse photo de Ken Thompson et Dennis Ritchie à côté d'un PDP-11 chez Bell Labs (vers 1972).
+        Pour rappel, ce sont les créateurs respectifs d'Unix et du langage C, et Ken Thompson est également le créateur du premier shell Unix en 1971, sur la 1ere version d'Unix.
+        ** "Dans les années 60, les Laboratoires Bell participaient à un projet avec le MIT et General Electric ayant pour objectif de mettre au point un système de temps partagé. Les ordinateurs de l’époque étant *très coûteux*, il s’agissait *de partager les ressources entre différents utilisateurs*. 
+        ** C'est dans ce contexte que Ken Thompson, assisté de Dennis Ritchie ont créé le système d'exploitation Unix (à l'époque appelé Unics "Uniplexed Information and Computing Service")
 
 * *1979* : GRANDE ETAPE - *chroot* +
 
@@ -2017,7 +2097,7 @@ Les outils suivants ont l'air bien adaptés :
     ** ainsi que celles des *daemonless runtimes* et du *rootless* : *podman* (avec *buildah* et *Skopeo*)
         *** *2018/04* : 1ere release de Podman
 * *2019* : GRANDE ETAPE - les conséquences de l'essor de Kubernetes (le déclin de Docker et d'autres container runtimes)
-* *2019/03/27* : 1st version de WASI (WebAssembly System Interface)
+* *2019/03/27* : ETAPE MAJEURE - 1st version de WASI (WebAssembly System Interface) qui marge l'essor de WebAssembly
 * *2019/04* : la CNCF archive le projet rkt, suite à une adoption utilisateur en forte baisse
 * *2019/11/12* : GRANDE ETAPE - *création de la Bytecode Alliance*, partenariat industriel poussant le développement de Wasm, tout particulièrement en dehors du browser (va marquer le début de l'essort rapide de WebAssembly)
 * *2019/11/13* : Docker se scinde en 2 : Mirantis rachète Docker Enterprise, et Docker Inc se recentre autour de Docker Desktop (et Docker Hub) 
@@ -2025,8 +2105,8 @@ Les outils suivants ont l'air bien adaptés :
 * *2020/12* : le daemon docker (dockerd) est déprécié pour Kubernetes 1.20 (2020/12), et est remplacé par containerd
 * *2021* : les containers sont maintenant partout, et le constat suivent tiré des études de Gartner : +
 "Gartner predicted in 2020 that, by 2022, more than 75% of global organisations will be running containerised applications in production, against 30% in 2020."
-* *2021/05/05* : release de la v1.0.0 (version stable) de la distribution-spec de l'OCI
-* *2022/10/24* : Technical Preview de Docker, announces support for WebAssembly, in cooperation with WasmEdge, and joins the Bytecode Alliance as a voting member
+* *2021/05/05* : release de la v1.0.0 (version stable) de la distribution-spec de l'OCI (3e spécification de l'OCI)
+* *2022/10/24* : ETAPE MAJEURE - Technical Preview de Docker, announces support for WebAssembly, in cooperation with WasmEdge, and joins the Bytecode Alliance as a voting member
 
 ~46 dates à présenter dans les 45 min de ce format conférence.
 
@@ -2041,6 +2121,12 @@ Les outils suivants ont l'air bien adaptés :
     ** et reparler rapidement du talk de veille donné à Devoxx (à la base DevFest Nantes)
     ** dire que je donnerai l'URL vers mes notes au final, car on ne pourra pas tout aborder
 
+* placer le "moto" du talk : "Pour comprendre le présent, et pouvoir envisager sereinement le futur, il est bon de connaître / pas avoir oublié le passé / d'où l'on vient"
+    ** ou "Pour comprendre où l'on est, pouvoir envisager sereinement où l'on va, il est bon de savoir d'où l'on vient"
+
+* A chaque date (certaines dates ?), redonner des éléments de l'époque
+* Présenter chaque changement de date en gros plan
+    
 * Commencer par un disclaimer de ce que sera et ne sera pas le talk
     ** on ne va PAS vous apprendre ici à utiliser tous les outils et techno citées
     ** et je ne suis pas un expert de toutes les techno citées...
@@ -2049,14 +2135,18 @@ Les outils suivants ont l'air bien adaptés :
 * insérer la courbe de hype du Gartner pour certaines dates importantes de la conteneurisation (release de Docker par exemple)
 
 * Bien définir ce qu'est un runtime
+* Et bien définir également ce qu'est un container
 * Donner la phrase introductive "Pour comprendre le présent..."
+
 * Les PC en 1979 (rares, chers, peu puissants) et bien redéfinir ce qu'est un runtime
+    ** "Bon, on va commencer par un temps que les moins de 20 ans, ne peuvent pas connaîtreeeuuuuuuuu"
 
 * bien réexpliqer cgroups et namespaces
     ** et redonner les docs de Julia Evans
 
 * Docker par Solomon et parallèle avec les conteneurs maritimes et le "shipping"
     ** si les conteneurs avaient tous des tailles différentes, ce serait un fiche lego / tetris que de les charger sur un porte-conteneur (trouver une photo d'un porte-conteneur)
+    ** mettre une image de Solomon à cette conf
 * Sortie de Docker, insister sur les 1ers problèmes de sécurité
     ** cycle de hype du Gartner et "présence oppressante" des OPS dans votre dos quand vous avez pensé "il faut qu'on pousse ça en PROD !"
     ** redonner le bout de code Docker qui permet en 1 ligne une élévation de privilèges, le fameux "Docker root please"
@@ -2078,6 +2168,115 @@ Les outils suivants ont l'air bien adaptés :
     ** et donner l'exemple de Wordpress qui tourne dans le browser : https://wordpress.wasmlabs.dev/
 
 * Remerciements : bien indiquer que j'ai utilisé un très grand nombre de doc pour ma curation de contenus, et que j'en remercie tous les auteurs, même si je ne les ai pas tous cités.
+
+-> La tendance : l'industrialisation (normalisation, cf la 3e spec de l'OCI, la bytecode alliance) et donc la sécurité
+
+== Accompagnement des slides
+
+=== SLIDE 1 : INTRODUCTION
+
+Wahou, cela fait vraiment plaisir de voir que vous êtes aussi nombreux à avoir été intéressés par ce sujet 👍 
+Quand j'ai vu le nombre de like sur l'application, je vous garantis que cela fait chaud au coeur.
+
+Donc bonjour à toutes et à tous,
+
+Et bienvenue à ce talk où il va être question de *conteneurisation*, et plus particulièrement de *l'histoire et l'évolution de cette dernière depuis ses débuts*, il y a bieeennnnnnn longtemps, jusqu'à aujourd'hui.
+
+=== SLIDE 2 : PRESENTATION
+
+Alors, je me présente, je m'appelle Thomas SCHWENDER, je suis architecte au sein de la société *Softeam*, qui est depuis 2020 une entité du groupe *Docaposte*, qui lui-même appartient au groupe *La Poste* que tout le monde connaît bien. +
+Les 2 sociétés ont cette année *un stand sur le salon*, n'hésitez pas à y faire un tour pour découvrir nos projets. On ne s'en doute peut-être pas de prime abord, mais de la *confiance numérique* à l'*eSanté* en passant par l'*IA*, on travaille vraiment sur des *enjeux de société très actuels*.
+
+Depuis 2 ans, je mets également à jour un *article sur le blog de Devoxx France* qui explique *comment tirer profit au maximum de sa présence à un salon comme Devoxx*.
+Entre autres conseils pratiques, j'y explique comment *créer sa propre base de connaissances* pour persister sa veille techno et la rendre facilement accessible et exploitable tout au long de sa carrière.
+
+D'ailleurs, sur ce même thème, je vous conseille vraiment d'aller *assister vendredi à la conférence "Apprendre en continu avec sa veille technologique"* de Fabien Hiegel et David Franck.
+Ils ont déjà donné ce talk au dernier DevFest Nantes, je l'ai trouvé top, et ils vont plus loin que moi sur ce concept de base de connaissance ou de "2nd cerveau" comme ils l'appellent.
+Vraiment, pour vous, la veille que vous faites en salon, ou par d'autres moyens, faites en sorte qu'elle vous serve le plus longtemps possible, et qu'elle ne soit pas oubliée dans quelques jours ou semaines.
+
+Sur ce revenons au *sujet qui va nous intéresser jusqu'à la fin du talk*, à savoir *comprendre par quoi l'informatique est passée* pour arriver jusqu'aux conteneurs tels qu'on les connaît aujourd'hui, et *pourquoi* ça s'est passé comme ça.
+L'idée de ce talk est que, pour mieux comprendre le présent, et pouvoir envisager sereinement le futur, il est bon de connaître le passé et savoir d'où l'on vient.
+
+-> C'est également l'idée d'une citation de Nicolas Machiavel (Philosophe (1469 - 1527)) : 
+Pour prévoir l'avenir, il faut connaître le passé, car les événements de ce monde ont en tout temps des liens aux temps qui les ont précédés. Créés par les hommes animés des mêmes passions, ces événements doivent nécessairement avoir les mêmes résultats.
+
+=== SLIDE 3 : DISCLAIMER
+
+Petit disclaimer avant d'aller plus loin : on ne va *PAS expliquer comment se servir de Docker, Kubernetes ou WebAssembly* durant ce talk.
+Le but est vraiment de se concentrer sur *l'enchaînement des progrès technologiques* au cours des années.
+
+=== SLIDE 4 : PLAN
+
+Donc en termes de plan, les choses sont simples : dans ce talk, il sera question de dates. +
+Et dans l'histoire de la conteneurisation depuis les années 70s, des dates il y en a eu beaucoup... VRAIMENT beaucoup...
+
+En fait, des dates, il y en a trop, on ne pourra pas entrer dans les détails de chacune, on va *se concentrer sur les plus importantes*.
+
+PAR CONTRE, en *fin de talk*, je vous mettrai à disposition la *version complète de la chronologie* sur laquelle j'ai travaillé 😉 
+
+=== SLIDE 5 : DEFINTION : CONTENEUR
+
+Avant de débuter notre voyage dans le temps, il est important de revoir 2 concepts qui reviendront tout au long du talk.
+
+Commençons par le 1er : mais au fait, *qu'est-ce donc qu'un conteneur ?*
+Aussi surprenant que cela puisse paraître, il n'y a pas de réelle définition "officielle" de ce qu'est un "container"
+
+Mais ce sur quoi tout le monde s'accorde est qu'à minima un conteneur est un *groupe de process isolés du reste du système (du host) par certains moyens techniques*.
+Dans la suite du talk, nous allons justement préciser de quels moyens il est question.
+
+=== SLIDE 6 : DEFINTION : RUNTIME
+
+L'autre concept dont il est question est celui de *runtime*, ou environnement d'exécution.
+
+Alors, runtime, runtime environment, RTE, environnement d'exécution, toutes ces expressions sont *synonymes*.
+
+Et la définition que l'on peut en donner est qu'un runtime est la pile logicielle offrant les services nécessaires à l'exécution d'applications, et *UNIQUEMENT l’exécution*, PAS la compilation, et cela, *indépendamment du système d'exploitation*.
+
+Le runtime met à disposition un certain nombre de fonctions de base au service de la *mémoire*, du *réseau* ou du *matériel* ET *exécute ces fonctions à la place de l’application*, indépendamment du système d’exploitation. C'est en fait le runtime qui fait donc le lien entre l’application et le système d’exploitation.
+
+=== SLIDE 7 - RUNTIME : JRE vs JDK vs JVM
+
+Un exemple bien connu de runtime est tout simplement le *JRE de Java*. +
+Ce dernier englobe la *JVM* et la *JCL*, la *Java Class Library*, un ensemble de classes procurant à la JVM tout ce dont elle a besoin pour exécuter une application Java d'un point de vue *mémoire*, *réseau*, système de *fichiers*, spécificités *matérielles*.
+
+On peut également donner d'autres exemples : 
+
+* *Node.js* : qui est un environnement d'exécution permettant d'exécuter du *code Javascript* côté serveur.
+* On y pense moins, mais il y a également le bon vieux *Cygwin* qui est un environnement d’exécution permettant aux *applications Linux* de fonctionner sur d'autres OS comme Windows ou macOS.
+
+=== SLIDE 8 - RUNTIME : comparaison JRE vs Node.js
+
+D'ailleurs si on compare le JRE à Node.js, on voit tout de suite les similitudes : 
+
+    * En lieu et place de la JVM, Node.js utilise *V8*, le *moteur Javascript de Google*, initialement développé pour Chrome.
+    * Et les classes de la JCL sont remplacées par des *modules équivalents* côté Node.js
+
+=== SLIDE 9 - 1970s
+
+Bon, nous sommes maintenant parés pour notre voyage dans le temps, et pour débuter ce dernier, nous allons remonter jusqu'aux années 1970 !
+
+=== SLIDE 10 - 1972
+
+* L’idée originale de conteneur a germé dans les années 70s sur les systèmes *Unix*, quand l’on a eu besoin de mieux *isoler le code applicatif*.
+    
+* A cette époque les *ordinateurs* étaient très *chers* et donc très *rares*, aussi fallait-il pouvoir *les exploiter au maximum*. +
+On a donc cherché à *partager leurs ressources entre différents utilisateurs*, sans que le travail de l'un n'ait d'impact sur celui de l'autre.
+    
+* L'autre problématique concernait *les tests*. On l'a dit les ordinateurs étaient très chers, on ne disposait donc souvent que d'*une seule machine* qui devait faire tourner ET les *systèmes de production* ET permettre aux développeurs de *tester leurs applications*. +
+Il fallait donc que ces tests puissent se faire sans impacter les traitements de PROD, aussi c'est à cette époque que sont apparus *les 1eres "sandbox"*, des environnements isolés permettant de tester applications, services et process ; en d'autres termes : les 1ers conteneurs.
+
+Concernant la photo, il s'agit de *Ken Thompson* et *Dennis Ritchie* à côté d'un PDP-11 chez Bell Labs, vers 1972. +
+Pour rappel, ce sont vraiment 2 des plus grands pionniers de l'informatique ; les créateurs d'Unix et du langage C. +
+Ken Thompson est également le créateur du premier shell Unix en 1971, sur la 1ere version d'Unix. +
+
+Personnellement, c'est une photo qui me touche, c'est l'alter ego informatique de "Trois hommes dans un salon" avec Brel, Brassens et Ferré en 1969, c'est un moment d'histoire...
+
+
+
+
+
+
+=== SLIDE XXX - RESSOURCES
 
 == Création des slides
 
