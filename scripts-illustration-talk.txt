@@ -1,0 +1,15 @@
+# SCRIPTS D'ILLUSTRATION DES CONCEPTS DU TALK
+
+$ ls /
+bin/ /home usr/ var/
+
+# chroot permet de lancer un shell fils avec pour 
+# répertoire racine "/home/me/test" au lieu de "/"
+$ sudo chroot /home/me/test /bin/bash
+
+# Vous avez roulé ls ! 
+# Pour la durée du bash, il utilise votre nouvelle racine
+$ ls /
+bin/ usr/ var/
+
+
