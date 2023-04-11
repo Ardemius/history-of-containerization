@@ -1273,9 +1273,10 @@ COPY hello /
 CMD ["/hello"]
 ----
 
-=== 2022 - TO BE COMPLETED (TODO)
+=== 2022+ - Autres éléments à regarder
 
 * 2023/03/17 : anniversaire, les 10 ans de Docker
+
 * A brief history of minimal, secure container images : https://twitter.com/tracymiranda/status/1636778664871313414?s=20
     ** Regarder le Wolfi Community call du 2023/03/08 : https://www.youtube.com/watch?v=T6rOdF3ZeRs
         *** Wolfi is a lightweight GNU software distribution designed around minimalism
@@ -1314,6 +1315,8 @@ On trouve également le rappel, la définition "toute bête" suivante : *A conta
     On commence par une *frise temporelle complète* du début des containers à nos jours, puis on en propose *une 2nd* avec (opinionated point of view) uniquement les plus grandes étapes que je compte détailler.
 
     A chaque début de nouvelle section, reprendre où nous en sommes dans la frise temporelle
+
+    -> NON, la frise temporelle est trop grande, ce sera impossible à afficher
 
 Les étapes majeures à présenter plus en détails : 
 
@@ -1395,6 +1398,17 @@ Les étapes majeures à présenter plus en détails :
 
     ** Pour des exemples de chroot "breakouts", voir https://securityqueens.co.uk/im-in-chroot-jail-get-me-out-of-here/ +
     L'article contient également un bon schéma illustrant le résultat d'un chroot
+
+    ** Pour des bien expliqués de l'usage de chroot, voir https://www.ibm.com/docs/en/zos/2.1.0?topic=descriptions-chroot-change-root-directory-execution-command
+        *** To run a child shell with another file system as the root file system (assuming that /tmp is the mount point of a file system), enter: +
+            mkdir /tmp/bin
+            cp /bin/sh /tmp/bin
+            chroot /tmp /bin/sh
+        *** This makes the directory name / (slash) refer to the /tmp for the duration of the /bin/sh command. *It also makes the original root file system inaccessible*. The file system on the /tmp file must contain the standard directories of a root file system. +
+        Running the sh command creates a child shell that runs as a separate process from your original shell.
+
+    ** Rappel côté sécurité : chroot is easy to escape from if you're root and pivot_root isn't +
+    -> so containers use pivot_root instead of chroot
 
 * *2000/03* : *FreeBSD Jails* +
 
@@ -2007,16 +2021,36 @@ Ken Thompson est également le créateur du premier shell Unix en 1971, sur la 1
 
 Personnellement, c'est une photo qui me touche, c'est l'alter ego informatique de "Trois hommes dans un salon" avec Brel, Brassens et Ferré en 1969, c'est un moment d'histoire...
 
+=== SlIDE 11 - 1979 chroot
 
+Dans cet exemple, "ls" ne peut pas accéder au répertoire racine initial, il est restreint à l'environnement isolé qu'on lui a donné.
 
+Attention, chroot a plusieurs *problèmes de sécurité* connus. +
+En l'occurrence, il est *facile de "s'échapper de l'environnement isolé"*
 
+Raison pour laquelle les outils de conteneurisation actuels, comme Docker, utilisent à la place *pivot_root* pour lequel s'est bien moins facile.
 
+=== SLIDE 12 - 2000s
 
-=== SLIDE XXX - RESSOURCES
+Et là, gros gap, on va d
+
+=== SLIDE XXX - RESSOURCES et REMERCIEMENTS
+
+Un immense merci à tous les auteur(e)s des articles de blog, ebooks et vidéos que j'ai lus et vues pour préparer ce sujet. +
+
+J'ai consulté des dizaines et des dizaines de publications, je ne peux pas nommer toutes les personnes à remercier, mais je vous garantis que le coeur y est.
+
+Remerciements particuliers à *Julia Evans* (@b0rk), dont je trouve le travail fantastique 👍 
+Pour celles et ceux qui ne la connaissent pas, Julia vulgarise des concepts compliqués en BD.
+C'est concis et limpide, je ne saurais que trop vous conseiller d'aller jeter un oeil à son travail.
+Elle publie régulièrement sur Twitter et pour la soutenir vous pouvez également acheter ses "zines" pour quelques euros sur son site https://wizardzines.com/
+(Et dans le cas de ce talk, tout particulièrement le zine *"How containers work"*)
 
 === SLIDE FIN
 
+Voilà, notre voyage dans le temps est terminé.
 
+Je vous remercie et j'espère que vous avez pu découvrir des choses que vous ne saviez pas sur l'histoire de la conteneurisation depuis ses lointains débuts jusqu'à aujourd'hui.
 
 
 
