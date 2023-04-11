@@ -1436,7 +1436,7 @@ Les étapes majeures à présenter plus en détails :
 
     ** The Linux-VServer solution was the *first effort on Linux* to "separate the user-space environment into distinct units (Virtual Private Servers) in such a way that each VPS looks and feels like a real server to the processes contained within." +
     Linux-VServer is a virtual private server implementation that was created by *adding operating system-level virtualization capabilities to the Linux kernel*. +
-    Ce projet permet d'exécuter un ou plusieurs environnements d'exploitation (systèmes d'exploitation *sans le noyau*) ; autrement dit, il *permet d'exécuter une ou plusieurs distributions sur une distribution*.
+    Ce projet permet d'exécuter un ou plusieurs environnements d'exploitation (systèmes d'exploitation "*sans le noyau*") ; autrement dit, il *permet d'exécuter une ou plusieurs distributions sur une distribution*.
 
     ** https://www.malekal.com/quest-ce-que-le-noyau-linux-kernel-role-versions-et-comment-ca-marche/ +
     "Les distributions Linux sont un ensemble de logiciels libres autour du noyau Linux"
@@ -1511,7 +1511,8 @@ Last stable patch was released in 2006
 
 * *2004* : *Solaris Containers* +
 
-    "In 2004, the first public beta of Solaris Containers was released that combines system resource controls and boundary separation provided by zones, which were able to leverage features like snapshots and cloning from ZFS."
+    * "In 2004, the first public beta of Solaris Containers was released that combines system resource controls and boundary separation provided by zones, which were able to leverage features like snapshots and cloning from ZFS."
+    * Solaris Containers (including Solaris Zones) is an implementation of operating system-level virtualization technology for x86 and SPARC systems, first released publicly in February 2004 in build 51 beta of Solaris 10, and subsequently in the first full release of Solaris 10, 2005.
 
     ** https://en.wikipedia.org/wiki/Solaris_Containers : +
     A Solaris Container is the combination of system resource controls and the boundary separation provided by zones. Zones act as completely isolated virtual servers within a single operating system instance.
@@ -1519,6 +1520,10 @@ Last stable patch was released in 2006
     ** *ZFS* (https://fr.wikipedia.org/wiki/ZFS) : +
     Les caractéristiques de ce système de fichiers sont sa *très haute capacité de stockage*, l'intégration de beaucoup de concepts que l'on trouve sur d'autres systèmes de fichiers, et la *gestion de volume*. Il utilise pour cela des structures de données comme les B-tree "On-Disk", et un adressage des secteurs disque logique au lieu d'un adressage physique. +
     Produit par Sun Microsystems (société rachetée par Oracle en 2009) pour *Solaris 10* et au-delà, il a été conçu par l'équipe de Jeff Bonwick (en). Annoncé pour septembre 2004, il a été intégré à Solaris le 31 octobre 2005 et le 16 novembre 2005 en tant que caractéristique du build 27 d'OpenSolaris. Sun a annoncé que ZFS était intégré dans la mise à jour de Solaris datée de juin 2006, soit un an après l'ouverture de la communauté OpenSolaris.
+
+    ** Rappel : en 2017, Oracle, propriétaire de Solaris suite au rachat de Sun, a annoncé qu'*il n'y aurait pas de Solaris 2012*. +
+    Le support étendu de Solaris 11 est toujours prévu pour 2034, mais les licenciements côté Solaris sont nombreux, soyons clairs, c'est la fin pour Solaris...
+        *** https://www.zdnet.fr/actualites/suppressions-d-emploi-chez-oracle-solaris-va-s-eteindre-39856916.htm
 
 * *2005* : *Open VZ* +
 
@@ -1528,6 +1533,28 @@ Last stable patch was released in 2006
     OpenVZ permet à un serveur physique d'exécuter de multiples instances de systèmes d'exploitation isolés, qualifiées de serveurs privés virtuels (VPS) ou environnements virtuels (VE).
 
     ** pour un bon schéma de l'architecture d'OpenVZ, voir http://www.virtualizationsoftwares.com/openvz-open-virtualization/
+        *** Lien mort ! Lui préférer https://www.markus-gattol.name/ws/openvz.html, section "Hardware Node"
+
+    ** OpenVZ et Linux-VServer sont souvent comparés (regarder le schéma d'architecture, on retrouve les Virtual Private Servers de Linux-VServer)
+        ** tous les 2 utilisent une technologie de virtualisation de niveau système d’exploitation pour Linux, basé sur une version modifiée de son noyau.
+            *** OSLV : Operating System Level Virtualization
+
+    ** Bonne définition d'OpenVZ : https://sitevalley.com/blog/xen-and-openvz-technology-insight-and-comparison/, section "OpenVZ"
+        *** OpenVZ, itself, is built on top of Linux.
+        *** OpenVZ uses *Operating System Level Virtualization* (OSLV). +
+        With OSLV virtualization *the operating environment (OS) is virtualized instead of the hardware*. Thus, while there is only one operating system kernel, multiple programs run in isolation from each other within the single OS instance.
+
+    ** Pour une bonne explication du principe de base d'OpenVZ, voir https://cesar.resinfo.org/IMG/pdf/jtsiars-openvz_1_.pdf
+        *** surtout slide 3 "principe de base" : +
+            **** OpenVZ (comme Vserver) = Virtualisation au niveau Kernel : 
+            **** Il s'agit d'un partitionnement logique au niveau des ressourcessystèmes : processus, réseau et « file system »
+            **** C'est le noyau du système d'exploitation qui fait une isolation entre des machines logiques, tout comme il isole déjà les processus entre eux.
+                ***** isolation des « processus » et
+                ***** mise en cage (chroot) des différents « file system » des machines virtuelles.
+            **** Dans ce cas, il n'y a pas d'« émulation » à proprement parler comment dans d'autres système de virtualisation. 
+
+    ** "This is an operating system-level virtualization technology for Linux which uses a patched Linux kernel for virtualization, isolation, resource management and checkpointing. The code was not released as part of the official Linux kernel."
+        
 
 * *2006* : début des travaux sur les *Process Containers* chez Google (later renamed *cgroups* / Control Groups)
 
@@ -2091,8 +2118,19 @@ Les mount namespaces sont utilisés pour isoler les points de montage du systèm
 
 Borg est bien toujours utilisé aujourd'hui (2022) dans les datacenters de Google, et PAS Kubernetes, qui est utilisé pour des services Cloud et est surtout destiné à des utilisateurs externes.
 
+=== SLIDE - 2004 - Solaris Containers (Zones Solaris)
 
+=== SLIDE - 2005 - OpenVZ
 
+https://www.youtube.com/watch?v=sK5i-N34im8[cgroups, namespaces, and beyond: what are containers made from?] de Jérôme PETAZZONI
+
+Container runtimes qui ne sont PAS basés sur les namespaces et les cgroups (fonctionnalités du noyau Linux) : 
+
+    * *Jails*
+    * *Solaris Containers*
+    * *OpenVZ* 
+
+-> Logique, ces 3 OS, même s'ils sont de type Unix, utilisent des noyaux différents, et les namespaces et les cgroups sont des fonctionnalités du noyau LINUX.
 
 
 
