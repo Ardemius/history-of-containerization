@@ -1,0 +1,276 @@
+= Bien préparer un salon technologique : préparation pour le CFP de Devoxx France 2022
+Thomas SCHWENDER <https://github.com/ardemius[@ardemius]>
+// Handling GitHub admonition blocks icons
+ifndef::env-github[:icons: font]
+ifdef::env-github[]
+:status:
+:outfilesuffix: .adoc
+:caution-caption: :fire:
+:important-caption: :exclamation:
+:note-caption: :paperclip:
+:tip-caption: :bulb:
+:warning-caption: :warning:
+endif::[]
+:imagesdir: ./images
+:source-highlighter: highlightjs
+// Next 2 ones are to handle line breaks in some particular elements (list, footnotes, etc.)
+:lb: pass:[<br> +]
+:sb: pass:[<br>]
+// check https://github.com/Ardemius/personal-wiki/wiki/AsciiDoctor-tips for tips on table of content in GitHub
+:toc: macro
+:toclevels: 4
+// To number the sections of the table of contents
+:sectnums:
+// To turn off figure caption labels and numbers
+:figure-caption!:
+// Same for examples
+//:example-caption!:
+// To turn off ALL captions
+// :caption:
+
+toc::[]
+
+== Overview
+
+Proposition de sujet (conference) pour Devoxx France 2022 et 2023
+
+Talk ayant pour but de retracer l'histoire de la conteneurisation, de donner ses grandes dates depuis ses débuts jusqu'à nos jours, et d'expliquer les raisons derrière chaque grande évolution.
+
+L'autre idée derrière ce talk : "mais POURQUOI on a fait tout ça ?"
+
+Ce talk ne va pas rentrer dans le détail de toutes les étapes
+
+*Thème principal* : Cloud, Containers et Infrastructure, DevOps
+
+*Niveau de la présentation* : Ouvert à tout niveau d'audience, débutant comme expert
+
+*Tags* : 
+
+    * Containers
+    * history
+    * container characteristics
+
+== Recherche du nom de la conférence
+
+=== Devoxx France 2022 CFP
+
+* A Brief History of Containers
+* A brief history of containerization, from yesterday to today
+
+* Petite histoire de la conteneurisation, d'hier à nos jours
+* *L'évolution de la conteneurisation, de 1979 à aujourd'hui* : on va garder ce titre
+
+=== Devoxx France 2023 CFP
+
+* De chroot à Docker, Podman, et maintenant les modules Wasm, histoire accélérée de plus de 40 ans d'évolution de la conteneurisation.
+* chroot, Docker, Podman et maintenant modules Wasm, 40 ans d'évolution de la conteneurisation
+* *De chroot à Docker, Podman, et maintenant les modules Wasm, 40 ans d'évolution de la conteneurisation*
+
+== Abstract
+
+=== Devoxx France 2022 CFP
+
+* Expliquer le "pourquoi ces changements, ces évolutions ?" afin de comprendre comment nous en sommes arrivés à la situation actuelle
+
+.idées de formulation
+----
+La plupart d'entre nous ont découvert le concept de conteneur en 2013 avec l'arrivée de Docker.
+2013 avait marqué l'arrivée de Docker, et fait connaître le concept de conteneur au plus grand nombre.
+
+Aujourd'hui, avec l'avènement du Cloud et de Kubernetes, les conteneurs sont partout autour de nous.
+
+
+Mais en fait, l'histoire de ces derniers / des conteneurs est bien plus étendue que cela, et il faut remonter à la fin des années 70s pour en trouver le véritable début / commencement avec l'apparition de chroot.
+Mais l'histoire de ces derniers / des conteneurs est en fait bien plus étendue que cela, et il faut remonter à la fin des années 70s pour en trouver le véritable début / commencement avec l'apparition de chroot.
+Mais l'histoire de la conteneurisation a en fait débuté il y a bien longtemps, dès la fin des années 70s avec l'apparition de chroot, et depuis
+
+Toutefois, l'histoire de la conteneurisation reste globalement méconnue.
+Qui pour se souvenir que tout a finalement commencé en 1979 avec l'apparition de chroot, qui marqua le début de l'isolation des process ?
+Qu'il a fallu attendre d'avoir les cgroups (2008), puis plus tard les user namespaces (2013) pour qu'enfin Docker puisse voir le jour ?
+Que la généralisation des containers, conséquence de l'adoption de Kubernetes par tous les Cloud providers (2018), entraîna l'apparition des sandbox runtimes et des daemonless runtimes ?
+
+Au cours de ce talk, nous allons détailler les grandes étapes qui ont marqué l'histoire de la conteneurisation, et expliquer ce qui les a déclenchées / POURQUOI elles ont eu lieu.
+L'objectif est qu'en fin de séance, vous ayez compris quelle orientation a suivi la conteneurisation depuis toutes ces années, et ce vers quoi nous allons.
+
+Le but de ce talk est de vous expliquer POURQUOI les choses ont changés, afin de vous permettre de comprendre l'orientation qu'a suivi la conteneurisaiton depuis toutes ses années.
+Pourquoi a-t-il 
+
+
+Après ce sont suivis les Linux namespaces, les cgroups, Docker, l'arrivée des low-level et high-level runtimes avec runc et containerd, jusqu'aux derniers sandbox runtimes et daemonless runtimes.
+
+Au cours de ce talk, nous allons détailler les étapes majeures de la conteneurisation, et vous permettre de comprendre POURQUOI <nous> sommes passés de l'une à l'autre, et quelles orientations ont suivies / suivent les containers <aujourd'hui>
+
+et il faut remonter à la fin des années 70 pour voir apparaître chroot, le point de départ / l'ancêtre de la containerisation
+
+et a été marquée par de
+et de nombreux évènements et shift technologiques ont été vécus pour arriver aux conteneurs que nous conaissons aujourd'hui
+
+Au cours de ce talk, nous allons détailler
+
+cgroups et namespaces, arrivée de docker, split et arrivée des low-level et high-level runtimes avec runc et containerd, etc.
+Nous allons détailler dans ce talk les grandes étapes de la conteneurisation, et vous permettre de comprendre POURQUOI nous 
+
+Avec l'avènement du Cloud et de Kubernetes, les containers sont aujourd'hui partout autour de nous.
+2013 avait 
+
+Chaque 
+Plus Docker, il y a maintenant runc et containerd
+----
+
+.version finale
+----
+La plupart d'entre nous ont découvert le concept de conteneur en 2013 avec l'arrivée de Docker.
+Aujourd'hui, avec l'avènement du Cloud et de Kubernetes, les conteneurs sont partout autour de nous.
+
+Toutefois, l'histoire de la conteneurisation reste globalement méconnue.
+Qui pour se souvenir que tout a finalement commencé en 1979 avec l'apparition de chroot, qui marqua le début de l'isolation des process ?
+Qu'il a fallu attendre d'avoir les cgroups (2008), puis plus tard les user namespaces (2013) pour qu'enfin Docker puisse voir le jour ?
+Que la généralisation des containers, conséquence de l'adoption de Kubernetes par tous les Cloud providers (2018), entraîna l'apparition des sandbox runtimes et des daemonless runtimes ?
+
+Au cours de ce talk, nous allons détailler les grandes étapes qui ont marqué l'histoire de la conteneurisation, et expliquer POURQUOI elles ont eu lieu.
+L'objectif est qu'en sortant, vous ayez compris quelles orientations a suivi la conteneurisation depuis toutes ces années, et ce vers quoi nous allons.
+----
+
+.version finale au format markdown (pour le CFP de Devoxx France)
+----
+La plupart d'entre nous ont découvert le concept de conteneur en **2013** avec l'arrivée de **Docker**.  
+Aujourd'hui, avec l'avènement du Cloud et de Kubernetes, les conteneurs sont partout autour de nous.
+
+Toutefois, **l'histoire de la conteneurisation** reste globalement méconnue.  
+Qui pour se souvenir que tout a finalement commencé en **1979** avec l'apparition de **chroot**, qui marqua le début de l'isolation des process ?  
+Qu'il a fallu attendre d'avoir les **cgroups** (2008), puis plus tard les **user namespaces** (2013) pour qu'enfin Docker puisse voir le jour ?  
+Que la généralisation des containers, conséquence de **l'adoption de Kubernetes** par tous les Cloud providers (2018), entraîna l'apparition des **sandbox runtimes** et des **daemonless runtimes** ?
+
+Au cours de ce talk, nous allons détailler les **grandes étapes** qui ont marqué l'histoire de la conteneurisation, et expliquer **POURQUOI** elles ont eu lieu.  
+L'objectif est qu'en sortant, vous ayez compris **quelles orientations a suivi la conteneurisation** depuis toutes ces années, et ce vers quoi nous allons.
+----
+
+=== Devoxx France 2023 CFP
+
+.version finale
+----
+La plupart d'entre nous ont découvert le concept de conteneur en 2013 avec l'arrivée de Docker.
+Aujourd'hui, avec l'avènement du Cloud et de Kubernetes, les conteneurs sont partout autour de nous.
+
+Toutefois, l'histoire de la conteneurisation reste globalement méconnue.
+Qui pour se souvenir que tout a commencé en 1979 avec l'apparition de chroot, qui marqua le début de l'isolation des process ?
+Qu'il a fallu attendre d'avoir les cgroups (2008), puis les user namespaces (2013) pour qu'enfin Docker puisse voir le jour ?
+Que la généralisation des containers, conséquence de l'adoption de Kubernetes par tous les Cloud providers (2018), entraîna l'apparition des sandbox runtimes et des daemonless runtimes ?
+Sans oublier la récente poussée de WebAssembly et de ses modules (2022), nos nouveaux "containers Javascript".
+
+Au cours de ce talk, nous allons détailler les grandes étapes qui ont marqué l'histoire de la conteneurisation, et expliquer POURQUOI elles ont eu lieu.
+L'objectif est qu'en sortant, vous ayez compris quelles orientations a suivi la conteneurisation depuis toutes ces années, et ce vers quoi nous allons.
+----
+
+.version finale au format markdown (pour le CFP de Devoxx France)
+----
+La plupart d'entre nous ont découvert le concept de conteneur en **2013** avec l'arrivée de **Docker**.  
+Aujourd'hui, avec l'avènement du Cloud et de Kubernetes, les conteneurs sont partout autour de nous.
+
+Toutefois, **l'histoire de la conteneurisation** reste globalement méconnue.  
+Qui pour se souvenir que tout a commencé en **1979** avec l'apparition de **chroot**, qui marqua le début de l'isolation des process ?  
+Qu'il a fallu attendre d'avoir les **cgroups** (2008), puis les **user namespaces** (2013) pour que Docker puisse voir le jour ?  
+Que la généralisation des containers, conséquence de **l'adoption de Kubernetes** par tous les Cloud providers (2018), entraîna l'apparition des **sandbox runtimes** et des **daemonless runtimes** ?  
+Sans oublier la récente poussée de **WebAssembly** et de ses **modules** (2022), nos nouveaux "containers Javascript".
+
+Au cours de ce talk, nous allons détailler les **grandes étapes** qui ont marqué l'histoire de la conteneurisation, et expliquer **POURQUOI** elles ont eu lieu.  
+L'objectif est qu'en sortant, vous ayez compris **quelles orientations a suivi la conteneurisation** depuis toutes ces années, et ce vers quoi nous allons.
+----
+
+== Message pour le comité
+
+* Donner le lien vers le repo GitHub, pour montrer la recherche documentaire
+* Expliquer que l'idée du talk est venue de la prez à la StarTECH sur les low-level et high-level containers : quelques personnes connaissaient ces concepts, mais personne ne savaient d'où ils venaient.
+
+----
+Bonjour,
+
+Mi-2021 j'ai fait une présentation à la communauté technique de ma société sur les low-level et les high-level container runtimes (ex : runc et containerd). Il est apparu que, si certains en avaient déjà entendu parler, **aucun ne savait réellement comment ni pourquoi les conteneurs en étaient arrivés là**.
+
+C'est de là d'où m'est venue l'idée de ce talk : **détailler la chronologie des grandes étapes de la conteneurisation**, de ses débuts à nos jours, et surtout **expliquer POURQUOI ces étapes ont eu lieu**.  
+J'ai demandé aux membres de la communauté s'ils trouvaient le sujet intéressant, et les retours ont été très enthousiastes.
+
+J'ai déjà terminé ma recherche documentaire, ainsi que l'étude associée en très grande partie.  
+Ceux qui le souhaitent peuvent déjà jeter un oeil à la chronologie que je compte présenter dans mes notes sur GitHub :  
+[https://github.com/Ardemius/history-of-containerization/blob/main/history-of-containerization-notes.adoc#8-frise-temporelle-r%C3%A9duite](https://github.com/Ardemius/history-of-containerization/blob/main/history-of-containerization-notes.adoc#8-frise-temporelle-r%C3%A9duite)  
+J'ai dans l'idée de la passer dans un outil comme [https://www.timetoast.com/](https://www.timetoast.com/) pour la rendre plus dynamique.
+
+**Je suis preneur de toutes vos questions et retours** pour approfondir le sujet.  
+Il est déjà prévu avec ma communauté technique que je fasse plusieurs présentations blanches début d'année pour aider ma préparation.
+----
+
+=== Devoxx France 2022 CFP
+
+.version markdown pour le CFP de Devoxx France 2022
+----
+Bonjour,
+
+Mi-2021 j'ai fait une présentation à la communauté technique de ma société sur les low-level et les high-level container runtimes (ex : runc et containerd). Il est apparu que, si certains en avaient déjà entendu parler, aucun ne savait réellement comment ni pourquoi les conteneurs en étaient arrivés là.
+
+C'est de là d'où m'est venue l'idée de ce talk : détailler la chronologie des grandes étapes de la conteneurisation, de ses débuts à nos jours, et surtout expliquer POURQUOI ces étapes ont eu lieu.
+J'ai demandé aux membres de la communauté s'ils trouvaient le sujet intéressant, et les retours ont été très enthousiastes.
+
+J'ai déjà terminé ma recherche documentaire, ainsi que l'étude associée en très grande partie. Ceux qui le souhaitent peuvent déjà jeter un oeil à la chronologie que je compte présenter dans mes notes sur GitHub :  
+https://github.com/Ardemius/history-of-containerization/blob/main/history-of-containerization-notes.adoc#8-frise-temporelle-r%C3%A9duite  
+J'ai dans l'idée de la passer dans un outil comme https://www.timetoast.com/ pour la rendre plus dynamique.
+
+Je suis preneur de toutes vos questions et retours pour approfondir le sujet.  
+Il est déjà prévu avec ma communauté technique que je fasse plusieurs présentations blanches début d'année pour aider ma préparation.
+----
+
+=== DevFest Nantes 2022 CFP
+
+.version markdown pour le CFP de DevFest Nantes 2022 (section "références du talk")
+----
+Bonjour,
+
+Mi-2021 j'ai fait une présentation à la communauté technique de ma société sur les low-level et les high-level container runtimes (ex : runc et containerd). Il est apparu que, si certains en avaient déjà entendu parler, aucun ne savait réellement comment ni pourquoi les conteneurs en étaient arrivés là.
+
+C'est de là d'où m'est venue l'idée de ce talk : détailler la chronologie des grandes étapes de la conteneurisation, de ses débuts à nos jours, et surtout expliquer **POURQUOI** ces étapes ont eu lieu.
+J'ai demandé aux membres de la communauté s'ils trouvaient le sujet intéressant, et les retours ont été très enthousiastes.
+
+J'ai terminé ma recherche documentaire, ainsi que l'étude associée en très grande partie. Ceux qui le souhaitent peuvent déjà jeter un oeil à la **chronologie** que je compte présenter dans mes notes sur GitHub :  
+https://github.com/Ardemius/history-of-containerization/blob/main/history-of-containerization-notes.adoc#8-frise-temporelle-r%C3%A9duite  
+J'ai dans l'idée de la passer dans un outil comme https://www.timetoast.com/ pour la rendre plus dynamique.
+
+J'ai déjà fait de 1eres présentations de ce talk à mon JUG (https://github.com/startechsofteam) et dans notre équivalent des BBL, et ai eu de très bon retours (même si le talk n'était pas encore totalement terminé).  
+Je compte faire une (ou plusieurs) présentations blanches complètes dans les quelques mois à venir.
+
+Je suis **preneur de toutes vos questions et retours** pour approfondir le sujet 🙂
+----
+
+.version markdown pour le CFP de DevFest Nantes 2022 (section "message pour le comité")
+----
+Bonjour,
+
+Comme expliqué dans la partie "références" du talk, l'idée de ce dernier m'est venu lors d'une présentation plus spécifique des container runtimes.  
+Durant celle-ci, j'ai constaté que l'histoire de la conteneurisation était peu connue, d'où l'idée d'en présenter une chronologie.
+
+Un résumé de celle-ci est disponible sur le GitHub du talk (https://github.com/Ardemius/history-of-containerization/blob/main/history-of-containerization-notes.adoc#8-frise-temporelle-r%C3%A9duite).  
+**Je suis preneur de tous retours et questions dessus**, tout particulièrement **si vous souhaitez que je mette davantage l'accent sur certaines parties**.  
+Le sujet est vaste, et j'ai effectué beaucoup de recherches si chaque partie, dont je propose une synthèse tenant en 45 min.  
+Dans ce temps, je peux insister davantage sur certains points, n'hésitez pas à me faire part de vos préférences 🙂
+----
+
+=== Devoxx France 2023 CFP
+
+.version markdown pour le CFP de Devoxx France 2023
+----
+Bonjour,
+
+Mi-2021 j'ai fait une présentation à la communauté technique de ma société sur les low-level et les high-level container runtimes (ex : runc et containerd). Il est apparu que, si certains en avaient déjà entendu parler, aucun ne savait réellement comment ni pourquoi les conteneurs en étaient arrivés là.
+
+C'est de là d'où m'est venue l'idée de ce talk : détailler la chronologie des grandes étapes de la conteneurisation, de ses débuts à nos jours, et surtout expliquer POURQUOI ces étapes ont eu lieu.
+J'ai demandé aux membres de la communauté s'ils trouvaient le sujet intéressant, et les retours ont été très enthousiastes.
+
+J'ai déjà en grande partie terminé ma recherche documentaire, ainsi que l'étude associée.  
+J'ai également déjà donné un talk à ma société sur une première partie de la chronologie, et ai obtenu de bons retours (le sujet a réellement intéressé les personnes présentes).
+
+Celles et ceux qui le souhaitent peuvent déjà jeter un oeil à la chronologie que je compte présenter dans mes notes sur GitHub :  
+https://github.com/Ardemius/history-of-containerization/blob/main/history-of-containerization-notes.adoc#8-frise-temporelle-r%C3%A9duite  
+
+J'ai dernièrement complété la chronologie avec les modules WebAssembly, et ai des présentations blanches de prévues début 2023 pour peaufiner le tout.
+
+Ma préparation du talk est accessible sur GitHub : https://github.com/Ardemius/history-of-containerization  
+Je suis preneur de toutes vos questions et retours pour approfondir le sujet 🙂 
+----
