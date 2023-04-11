@@ -2257,13 +2257,13 @@ Bon, nous sommes maintenant parés pour notre voyage dans le temps, et pour déb
 
 === SLIDE 10 - 1972
 
-* L’idée originale de conteneur a germé dans les années 70s sur les systèmes *Unix*, quand l’on a eu besoin de mieux *isoler le code applicatif*.
+* L’idée originale de conteneur a germé dans les années 70s sur les systèmes *Unix*, lorsqu'on a eu besoin de mieux *isoler le code applicatif*.
     
 * A cette époque les *ordinateurs* étaient très *chers* et donc très *rares*, aussi fallait-il pouvoir *les exploiter au maximum*. +
 On a donc cherché à *partager leurs ressources entre différents utilisateurs*, sans que le travail de l'un n'ait d'impact sur celui de l'autre.
     
 * L'autre problématique concernait *les tests*. On l'a dit les ordinateurs étaient très chers, on ne disposait donc souvent que d'*une seule machine* qui devait faire tourner ET les *systèmes de production* ET permettre aux développeurs de *tester leurs applications*. +
-Il fallait donc que ces tests puissent se faire sans impacter les traitements de PROD, aussi c'est à cette époque que sont apparus *les 1eres "sandbox"*, des environnements isolés permettant de tester applications, services et process ; en d'autres termes : les 1ers conteneurs.
+Il fallait donc que ces tests puissent se faire sans impacter les traitements de PROD, aussi c'est à cette époque que sont apparus *les 1eres "sandboxes"*, des environnements isolés permettant de tester applications, services et process ; en d'autres termes : les 1ers conteneurs.
 
 Concernant la photo, il s'agit de *Ken Thompson* et *Dennis Ritchie* à côté d'un PDP-11 chez Bell Labs, vers 1972. +
 Pour rappel, ce sont vraiment 2 des plus grands pionniers de l'informatique ; les créateurs d'Unix et du langage C. +
