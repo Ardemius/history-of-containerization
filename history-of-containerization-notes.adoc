@@ -289,7 +289,7 @@ La grande raison de l'époque : *shipping software from A to B, reliably and aut
     This "ugly box" allows *separation of concerns* : je crée un outil / soft, je veux le shipper, je le mets dans le container, et ma responsabilité pour le shipping s'arrête là. Je ne m'intéresse QU'A mon produit, et PAS au container. +
     De la même façon, pour les personnes en charge du shipping, elles n'ont pas besoin de s'intéresser à ce qu'il y a dans le container : elles savent que le container a une taille, un poids, des dimensions données, et que TOUS ces containers peuvent être utilisés via les mêmes moyens standards.
         *** ces "boîtes" ont réellement changé le monde à cette époque : AVANT, c'était une galère de livrer du fait de toutes les combinaisons possibles de packaging des produits à livrer.
-            **** pour info, article sur l'histoire des shipping containers : https://mccontainers.com/blog/the-history-of-containers/ +
+            **** pour info, article sur *l'histoire des shipping containers* (conteneurs maritimes) : https://mccontainers.com/blog/the-history-of-containers/ +
             "A couple of ISO standards were set to determine terminology, dimensions, classifications, identifiers and so on. Thanks to these standards we nowadays have the 20’ and 40’ containers, the 20’ container (Twenty-foot Equivalent Unit, or TEU) being the standard volume."
             **** la standardisation des containers dans il est fait mention ci-dessus arriva en 1967 (https://fr.wikipedia.org/wiki/Conteneur)
         *** We finally wanted to do the same in our IT world for our own shipping needs.
@@ -1649,11 +1649,14 @@ Last stable patch was released in 2006
 * *2013/03/20* : ETAPE MAJEURE - *1ere release de Docker*
 
     ** "When Docker emerged in 2013, containers exploded in popularity. It’s no coincidence the growth of Docker and container use goes hand-in-hand." +
-    "Just as Warden did, Docker also used LXC in its initial stages and later replaced that container manager with its own library, libcontainer. But there’s no doubt that Docker separated itself from the pack by offering an entire ecosystem for container management."
+    "Just *as Warden did*, Docker also used LXC in its initial stages and later replaced that container manager with its own library, libcontainer. But there’s no doubt that Docker separated itself from the pack by offering an entire ecosystem for container management."
+
     ** Docker floated onto the scene in 2013 with an easy-to-use GUI, and the ability to package, provision and run container technology. Because Docker enabled multiple applications with different OS requirements to run on the same OS kernel in containers, IT admins and organizations saw opportunity for simplification and resource savings. +
-    *Unlike VMs*, containers have a significantly smaller resource footprint, are faster to spin up and down, and require less overhead to manage. VMs must also each encapsulate a fully independent OS and other resources, while *containers share the same OS kernel* and use a proxy system to connect to the resources they need, depending upon where those resources are located. +
-    *Concern and hesitation* arose in the IT community regarding the *security of a shared OS kernel*. A vulnerable container could result in a vulnerable ecosystem without the right precautions baked into the container technology. Additional complaints early in the modern evolution of containers bemoaned the lack of  data persistence, which is important to the vast majority of enterprise applications. Efficient networking also posed problems, as well as the logistics of regulatory compliance and distributed application management.
-    ** "Docker was introduced in 2013 by an San Francisco company that offers PaaS cloud services named dotCloud as an open-source project, and its founder is Solomon Hykes. When it first came out, *it aimed to convert monolitich applications into image and container structure by using LXC* (Linux containers). ater on, it started to develop his own container runtime, *libcontainer*, and after this stage, libcontainer was started to be used."
+    *Unlike VMs*, containers have a significantly smaller resource footprint, are faster to spin up and down, and require less overhead to manage. VMs must also each encapsulate a fully independent OS and other resources, while *containers share the same OS kernel* and use a proxy system to connect to the resources they need, depending upon where those resources are located.
+
+    ** *Concern and hesitation* arose in the IT community regarding the *security of a shared OS kernel*. A vulnerable container could result in a vulnerable ecosystem without the right precautions baked into the container technology. Additional complaints early in the modern evolution of containers bemoaned the lack of data persistence, which is important to the vast majority of enterprise applications. Efficient networking also posed problems, as well as the logistics of regulatory compliance and distributed application management.
+
+    ** "Docker was introduced in 2013 by an San Francisco company that offers PaaS cloud services named dotCloud as an open-source project, and its founder is Solomon Hykes. When it first came out, *it aimed to convert monolitich applications into image and container structure by using LXC* (Linux containers). Later on, it started to develop his own container runtime, *libcontainer*, and after this stage, libcontainer was started to be used."
 
 * *2013/10* : LMCTFY +
 
@@ -2156,13 +2159,25 @@ Le plus important pour Warden était de rendre possible la gestion d’environne
     * *pivot_root* : set a process's root directory to a directory with the contents of the container image
         ** difference between pivot_root and *chroot* : chroot is easy to escape from if you're root and pivot root isn't +
         -> so containers use pivot_root instead of chroot
+        ** l'héritier de chroot en version plus sécurisée
     * *cgroups* : limit memory / CPU usage for a group of processes
+        ** limiter COMBIEN on peut utiliser (mémoire, CPU)
     * *namespaces* : allow processes to have their own network / PIDs / users / hostname / mounts / and more !
+        ** limiter ce que l'on peut voir
+
     * *seccomp-bpf* : security: prevent dangerous system calls
         ** seccomp means "secure computing"
         ** bpf, pour Berkeley Packet Filter, est une extension de seccomp
-    * *capabilities* : security: avoid giving root access
+        ** vise à éviter les appels système dangereux
 
+    * *capabilities* : security: avoid giving root access
+        ** évite de donner les droits root
+        ** Capabilities allow to reduce the privileges of an active process
+
+Rappel : *System call* : a request for the operating system to do something on behalf of the user's program. The system calls are functions used in the kernel itself. +
+Un appel système permet au programme utilisateur d'accéder aux fonctionnalités du noyau telles que la gestion des fichiers, des processus et des périphériques.
+
+=== SLIDE exemple de Julia Evans de création de conteneur à la main
 
 
 
