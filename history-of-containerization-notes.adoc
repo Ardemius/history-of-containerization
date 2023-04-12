@@ -1217,7 +1217,7 @@ Ils nous aideront également à mieux comprendre pourquoi Web Assembly s'annonce
 
 TO BE COMPLETED
 
-== Distroless container images et "scratch" images
+=== Distroless container images et "scratch" images
 
 * 2023/02/02 : https://bell-sw.com/blog/distroless-containers-for-security-and-size/
     ** So distroless images (which should be called *"almost distroless"* but it won’t make a good selling point, will it?) do contain a Linux distribution, albeit an incredibly stripped-down one, without a package manager, shell, or other typical Linux components. This approach is in line with the modern practices of running an application in the immutable container, meaning that we have no need for introducing system changes or utilizing libraries not involved in app’s work
@@ -1273,7 +1273,7 @@ COPY hello /
 CMD ["/hello"]
 ----
 
-=== 2022+ - Autres éléments à regarder
+=== 2022 et + : Autres éléments à regarder
 
 * 2023/03/17 : anniversaire, les 10 ans de Docker
 
@@ -1298,7 +1298,7 @@ On trouve également le rappel, la définition "toute bête" suivante : *A conta
 -> D'où : a container is a "just" a group of processes that are isolated from the system (the host) by some means.
 
 [start=2]
-2. L'histoire de la containerisation d'hier à aujourd'hui : La frise chronologique
+2. L'histoire de la containerisation d'hier à aujourd'hui : La chronologie
 
     * cgroups et namespaces : les premisses des containers
     * Puis Docker
@@ -1312,11 +1312,11 @@ On trouve également le rappel, la définition "toute bête" suivante : *A conta
         ** pour les alternatives, voir https://linoxide.com/docker-alternative-container-tools/
         ** Podman (grâce à Kubernetes) est devenu un incontournable
 
-    On commence par une *frise temporelle complète* du début des containers à nos jours, puis on en propose *une 2nd* avec (opinionated point of view) uniquement les plus grandes étapes que je compte détailler.
+    On commence par une *Chronologie complète* du début des containers à nos jours, puis on en propose *une 2nd* avec (opinionated point of view) uniquement les plus grandes étapes que je compte détailler.
 
-    A chaque début de nouvelle section, reprendre où nous en sommes dans la frise temporelle
+    A chaque début de nouvelle section, reprendre où nous en sommes dans la chronologie temporelle
 
-    -> NON, la frise temporelle est trop grande, ce sera impossible à afficher
+    -> NON, la chronologie temporelle est trop grande, ce sera impossible à afficher
 
 Les étapes majeures à présenter plus en détails : 
 
@@ -1369,7 +1369,7 @@ Les étapes majeures à présenter plus en détails :
 
     * Parler des confusions possible entre les différents "shim" : le deprecated docker-shim, et containerd-shim
 
-== Frise temporelle complète v1
+== Chronologie complète
 
 * *1970s* : Le concept d'isolation émerge du côté des systèmes Unix. +
 
@@ -1624,19 +1624,27 @@ Last stable patch was released in 2006
 
 * *2011* : Warden +
 
-    "CloudFoundry started Warden in 2011, using LXC in the early stages and later replacing it with its own implementation. Warden can isolate environments on any operating system, running as a daemon and providing an API for container management. It developed a client-server model to manage a collection of containers across multiple hosts, and Warden includes a service to manage cgroups, namespaces and the process life cycle."
+    "CloudFoundry started Warden in 2011, *using LXC in the early stages* and later replacing it with its own implementation. Warden can isolate environments on any operating system, *running as a daemon* and *providing an API for container management*. It developed a *client-server model* to manage a collection of containers across multiple hosts, and Warden includes a service to manage *cgroups*, *namespaces* and the *process life cycle*."
 
     ** Voir également https://github.com/cloudfoundry-attic/warden
     The project's primary goal is to provide a simple API for managing isolated environments. These isolated environments -- or containers -- can be limited in terms of CPU usage, memory usage, disk usage, and network access. As of writing, the only supported OS is Linux.
 
     ** Autre très bonne explication sur Warden : http://underlap.blogspot.com/2014/06/warden-meets-libcontainer.html
-    ** Voir également https://tanzu.vmware.com/content/blog/cloud-foundrys-container-technology-a-garden-overview
-        *** Warden creates a root process, called "wshd" for Warden shell daemon, in each container.
-        *** The Warden protocol is defined using Google protocol buffer definitions
+    ** Voir également https://tanzu.vmware.com/content/blog/cloud-foundrys-container-technology-a-garden-overview (très bonnes explications)
+        *** Warden creates a root process, called "wshd" for Warden shell *daemon*, in each container.
+        *** warden shell daemon (wshd) which is responsible for managing applications and performing other functions inside the container.
+        *** (The Warden protocol is defined using Google protocol buffer definitions)
+
+    ** CloundFoundry a plus tard remplacé les Containers Linux par leur propre implémentation, utilisant toujours les cgroups et les namespaces
+    
+    ** Warden avait avait pour but de fournir moyen simple de gérer des environnements isolés (des conteneurs 😉)
 
 * *2013/02* : GRANDE ETAPE - ajout des *user namespaces* au kernel Linux 3.8
 
     ** A ce moment, on a les cgroups et les namespaces (que Solomon HYKES présente comme si importants), mais il y a également d'autres Linux Kernel features utilisés par les containers que l'on va présenter rapidement.
+
+    ** Solomon Hykes l’a affirmé lors de son tout premier talk de présentation Docker, c’est la sortie de ces user namespaces "qui marchent maintenant", qui a rendu Docker possible.
+        *** "Why we built Docker ?" https://www.youtube.com/watch?v=3N3n9FzebAA dotScale 2013, le 2013/06/07, juste après la 1ere publication de Docker
 
 * *2013/03/20* : ETAPE MAJEURE - *1ere release de Docker*
 
@@ -1848,7 +1856,7 @@ S'inspirer par exemple de https://iximiuz.com/en/posts/implementing-container-ru
     ** faire un mix avec le schéma du docker engine disponible ici : https://kubernetes.io/blog/2018/05/24/kubernetes-containerd-integration-goes-ga/ (qui fait apparaître dockerd)
     ** Voici un schéma faisant apparaître tous les éléments de Docker, avec dockershim et dockerd (faire juste attention au schéma indiquant le docker engine, on a l'impression que ce dernier utilise PLUTOT QUE contient dockerd, la CLI et l'API)
 
-=== Outils à tester pour créer un chronologie en ligne 
+=== Outils à tester pour créer un chronologie en ligne ?
 
 Voir le https://elearningindustry.com/top-10-free-timeline-creation-tools-for-teachers. +
 Les outils suivants ont l'air bien adaptés : 
@@ -1856,7 +1864,12 @@ Les outils suivants ont l'air bien adaptés :
     * https://timeline.knightlab.com/
     * https://www.timetoast.com/ : je trouve cet outil très bien, à tester
 
-== Frise temporelle réduite
+-> Pas forcément le rendu le plus ergonomique qui soit : 
+
+    * trop d'infos et de détails à donner en chronologie complète
+    * et pour la chronologie condensée, une format texte Asciidoctor est finalement très lisible
+
+== Chronologie temporelle condensée
 
 * *1979* : développement de *chroot*, dans la version 7 d'Unix, Le concept d'isolation émerge. +
 -> "le point de départ, les prémices de la conteneurisation"
@@ -1918,7 +1931,7 @@ Les outils suivants ont l'air bien adaptés :
     * 52 sec ne seront pas suffisante pour certaines grandes dates (docker, l'apparition des high et low level container runtimes, WebAssembly, etc.) +
     Il faudra passer rapidement certaines dates pour se concentrer sur les plus importantes
 
-== Points à aborder durant le talk : 
+== Points à aborder durant le talk
 
 * Intro : se présenter LinkedIn et GitHub
     ** et redonner l'article dans le blog de Devoxx France depuis 2022 pour la préparation du salon ET la base de connaissance.
@@ -2132,7 +2145,32 @@ Container runtimes qui ne sont PAS basés sur les namespaces et les cgroups (fon
 
 -> Logique, ces 3 OS, même s'ils sont de type Unix, utilisent des noyaux différents, et les namespaces et les cgroups sont des fonctionnalités du noyau LINUX.
 
+=== SLIDE - Warden
 
+Clound Foundry a plus tard remplacé les Containers Linux par leur propre implémentation, utilisant toujours les cgroups et les namespaces
+
+Le plus important pour Warden était de rendre possible la gestion d’environnements isolés par un moyen simple : une API.
+
+=== SLIDE cgroups + namespaces -> création de conteneurs
+
+    * *pivot_root* : set a process's root directory to a directory with the contents of the container image
+        ** difference between pivot_root and *chroot* : chroot is easy to escape from if you're root and pivot root isn't +
+        -> so containers use pivot_root instead of chroot
+    * *cgroups* : limit memory / CPU usage for a group of processes
+    * *namespaces* : allow processes to have their own network / PIDs / users / hostname / mounts / and more !
+    * *seccomp-bpf* : security: prevent dangerous system calls
+        ** seccomp means "secure computing"
+        ** bpf, pour Berkeley Packet Filter, est une extension de seccomp
+    * *capabilities* : security: avoid giving root access
+
+
+
+
+=== SLIDE - DOCKER
+
+* Donc, pour résumer, on a fait Docker dans le but de *shipper*. +
+Il fallait donc que Docker ne soit pas "trop infâme" à utiliser.
+    ** on avait déjà les Linux Containers (LXC) avant, mais ce type de Operating System (OS) Containers n'est pas des plus simples à utiliser. Ces derniers sont plutôt à destination des sysadmin, pas des équipes qui "ship"
 
 
 
