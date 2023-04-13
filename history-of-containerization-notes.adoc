@@ -569,6 +569,8 @@ A VOIR / FACULTATIF :
 
 * https://podman.io/ : What is Podman? Podman is a *daemonless* container engine for developing, managing, and running OCI Containers on your Linux System. Containers can either be run as root or in *rootless* mode.
 
+* Pour un bon schéma de l'architecture de Podman : https://ios.dz/from-docker-to-podman/
+
 === Les tests containers
 
 * Regarder ce que les containers peuvent faire pour les tests d'intégration (*Testcontaineurs*)
@@ -756,6 +758,8 @@ En fait, on trouve plus d'infos que je ne le pensais via les recherches Google "
             With Podman you can run, build (it calls Buildah under the covers for this), modify and troubleshoot containers in your Kubernetes cluster. With the two projects together, you have a well rounded solution for your OCI container image and container needs."
 
             **** *Skopeo* : gestion d'image, au sens de téléchargement, push et signature (principalement)
+
+            **** https://www.redhat.com/en/blog/say-hello-buildah-podman-and-skopeo : Buildah builds, Podman runs, and Skopeo transfers container images.
 
     ** vidéos sympas détaillant les débuts de l'histoire des  containers (jusqu'à Docker), et résumant bien l'usage des namespaces et cgroups : https://www.youtube.com/watch?v=9Egk9Tnc28E&list=PL5JFPVMx5WzXB-NlH13_G8R8dgfz564uo&index=2
         *** les vidéos 2 et 3 de la série présentent (rapidement) l'histoire de la containerisation, et l'écosystème Docker avec l'OCI et CRI (de plus, le speaker explique très rapidement comment installer correctement Docker sur Ubuntu en 2021)
