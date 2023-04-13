@@ -1,4 +1,4 @@
-= Histoire de la conteneurisation : chronologie
+= Histoire de la conteneurisation : préparation de la prise de parole
 Thomas SCHWENDER <icon:github[] https://github.com/Ardemius/[GitHub] / icon:twitter[role="aqua"] https://twitter.com/thomasschwender[@thomasschwender]>
 // Handling GitHub admonition blocks icons
 ifndef::env-github[:icons: font]
@@ -36,21 +36,18 @@ endif::[]
 
 // toc::[]
 
-== Aide à la préparation des slides
-== Accompagnement des slides
-
-=== SLIDE : TITRE
+== SLIDE : TITRE
 
 Wahou, cela fait vraiment plaisir de voir que vous êtes aussi nombreux à avoir été intéressés par ce sujet 👍 
 Quand j'ai vu le nombre de like sur l'application, je vous garantis que cela fait chaud au coeur.
 
-=== SLIDE : Je vous parle d'un temps que les moins de 20 ans, NON de 40 ans !, ne peuvent pas connaître
+== SLIDE : Je vous parle d'un temps que les moins de 20 ans, NON de 40 ans !, ne peuvent pas connaître
 
 Donc bonjour à toutes et à tous,
 
 Et bienvenue à ce talk où il va être question de *conteneurisation*, et plus particulièrement de *l'histoire et l'évolution de cette dernière depuis ses débuts*, il y a bieeennnnnnn longtemps, jusqu'à aujourd'hui.
 
-=== SLIDE : PRESENTATION
+== SLIDE : PRESENTATION
 
 Alors, je me présente, je m'appelle Thomas SCHWENDER, je suis architecte au sein de la société *Softeam*, qui est depuis 2020 une entité du groupe *Docaposte*, qui lui-même appartient au groupe *La Poste* que tout le monde connaît bien. +
 Les 2 sociétés ont cette année *un stand sur le salon*, n'hésitez pas à y faire un tour pour découvrir nos projets. On ne s'en doute peut-être pas de prime abord, mais de la *confiance numérique* à l'*eSanté* en passant par l'*IA*, on travaille vraiment sur des *enjeux de société très actuels*.
@@ -68,7 +65,7 @@ L'idée de ce talk est que, pour mieux comprendre le présent, et pouvoir envisa
 -> C'est également l'idée d'une citation de Nicolas Machiavel (Philosophe (1469 - 1527)) : 
 Pour prévoir l'avenir, il faut connaître le passé, car les événements de ce monde ont en tout temps des liens aux temps qui les ont précédés. Créés par les hommes animés des mêmes passions, ces événements doivent nécessairement avoir les mêmes résultats.
 
-=== SLIDE : DISCLAIMER
+== SLIDE : DISCLAIMER
 
 Petit disclaimer avant d'aller plus loin : on ne va *PAS expliquer comment se servir de Docker, Kubernetes ou WebAssembly* durant ce talk.
 Le but est vraiment de se concentrer sur *l'enchaînement des progrès technologiques* au cours des années.
@@ -76,7 +73,7 @@ Le but est vraiment de se concentrer sur *l'enchaînement des progrès technolog
 Autre point : n'allez surtout pas croire que je suis un spécialiste de chaque technologie présentée.
 Il y aura donc des slides verbeux, car je ne suis tout simplement pas capable de tout retenir.
 
-=== SLIDE : PLAN
+== SLIDE : PLAN
 
 Donc en termes de plan, les choses sont simples : dans ce talk, il sera question de dates. +
 Et dans l'histoire de la conteneurisation depuis les années 70s, des dates il y en a eu beaucoup... VRAIMENT beaucoup...
@@ -85,7 +82,7 @@ En fait, des dates, il y en a trop, on ne pourra pas entrer dans les détails de
 
 PAR CONTRE, en *fin de talk*, je vous mettrai à disposition la *version complète de la chronologie* sur laquelle j'ai travaillé 😉 
 
-=== SLIDE : DEFINTION : CONTENEUR
+== SLIDE : DEFINTION : CONTENEUR
 
 Avant de débuter notre voyage dans le temps, il est important de revoir 2 concepts qui reviendront tout au long du talk.
 
@@ -95,7 +92,7 @@ Aussi surprenant que cela puisse paraître, il n'y a pas de réelle définition 
 Mais ce sur quoi tout le monde s'accorde est qu'à minima un conteneur est un *groupe de process isolés du reste du système (du host) par certains moyens techniques*.
 Dans la suite du talk, nous allons justement préciser de quels moyens il est question.
 
-=== SLIDE : DEFINTION : RUNTIME
+== SLIDE : DEFINTION : RUNTIME
 
 L'autre concept dont il est question est celui de *runtime*, ou environnement d'exécution.
 
@@ -105,7 +102,7 @@ Et la définition que l'on peut en donner est qu'un runtime est la pile logiciel
 
 Le runtime met à disposition un certain nombre de fonctions de base au service de la *mémoire*, du *réseau* ou du *matériel* ET *exécute ces fonctions à la place de l’application*, indépendamment du système d’exploitation. C'est en fait le runtime qui fait donc le lien entre l’application et le système d’exploitation.
 
-=== SLIDE - RUNTIME : JRE vs JDK vs JVM
+== SLIDE - RUNTIME : JRE vs JDK vs JVM
 
 Un exemple bien connu de runtime est tout simplement le *JRE de Java*. +
 Ce dernier englobe la *JVM* et la *JCL*, la *Java Class Library*, un ensemble de classes procurant à la JVM tout ce dont elle a besoin pour exécuter une application Java d'un point de vue *mémoire*, *réseau*, système de *fichiers*, spécificités *matérielles*.
@@ -115,18 +112,18 @@ On peut également donner d'autres exemples :
 * *Node.js* : qui est un environnement d'exécution permettant d'exécuter du *code Javascript* côté serveur.
 * On y pense moins, mais il y a également le bon vieux *Cygwin* qui est un environnement d’exécution permettant aux *applications Linux* de fonctionner sur d'autres OS comme Windows ou macOS.
 
-=== SLIDE - RUNTIME : comparaison JRE vs Node.js
+== SLIDE - RUNTIME : comparaison JRE vs Node.js
 
 D'ailleurs si on compare le JRE à Node.js, on voit tout de suite les similitudes : 
 
     * En lieu et place de la JVM, Node.js utilise *V8*, le *moteur Javascript de Google*, initialement développé pour Chrome.
     * Et les classes de la JCL sont remplacées par des *modules équivalents* côté Node.js
 
-=== SLIDE 9 - 1970s
+== SLIDE 9 - 1970s
 
 Bon, nous sommes maintenant parés pour notre voyage dans le temps, et pour débuter ce dernier, nous allons remonter jusqu'aux années 1970 !
 
-=== SLIDE - 1972
+== SLIDE - 1972
 
 * L’idée originale de conteneur a germé dans les années 70s sur les systèmes *Unix*, lorsqu'on a eu besoin de mieux *isoler le code applicatif*.
     
@@ -142,7 +139,7 @@ Ken Thompson est également le créateur du premier shell Unix en 1971, sur la 1
 
 Personnellement, c'est une photo qui me touche, c'est l'alter ego informatique de "Trois hommes dans un salon" avec Brel, Brassens et Ferré en 1969, c'est un moment d'histoire...
 
-=== SlIDE - 1979 chroot
+== SlIDE - 1979 chroot
 
 Dans cet exemple, "ls" ne peut pas accéder au répertoire racine initial, il est restreint à l'environnement isolé qu'on lui a donné.
 
@@ -151,13 +148,13 @@ En l'occurrence, il est *facile de "s'échapper de l'environnement isolé"*
 
 Raison pour laquelle les outils de conteneurisation actuels, comme Docker, utilisent à la place *pivot_root* pour lequel s'est bien moins facile.
 
-=== SLIDE - 2000s
+== SLIDE - 2000s
 
 Et là, gros gap, on va directement sauter aux années 2000, où vont apparaître les 1eres réelles implémentations d'outils de conteneurisation.
 
-=== SLIDE - FreeBSD Jails
+== SLIDE - FreeBSD Jails
 
-=== SLIDE - Linux VServer
+== SLIDE - Linux VServer
 
 Impossible de trouver un schéma d'architecture global de Linux VServer.
 J'ai donc mis le schéma d'architecture du VServer Control Daemon, mais cela n'apporte vraiment rien dans notre cas.
@@ -166,25 +163,25 @@ Ce projet permet d'*exécuter une ou plusieurs distributions sur une distributio
 
 Patcher le kernel Linux : une *charge en plus* pour les distributeurs et les sysadmin.
 
-=== SLIDE - 2002 - 1er LINUX NAMESPACE
+== SLIDE - 2002 - 1er LINUX NAMESPACE
 
-=== SLIDE - Julia EVANS "HOW TO MAKE A NAMESPACE"
+== SLIDE - Julia EVANS "HOW TO MAKE A NAMESPACE"
 
 J'en reparlerai en fin de talk, mais voici une planche créée par Julia EVANS pour vulgariser la création d'un namespace.
 Je voulais vous la montrer car je trouve cela super bien fait, mais on ne va pas tout regarder.
 Jetez juste un oeil au nom de la commande (unshare) permettant la création d'un namespace : "tu ne partageras point"
 
-=== SLIDE - 2002 - MOUNT NAMESPACES
+== SLIDE - 2002 - MOUNT NAMESPACES
 
 Les mount namespaces sont utilisés pour isoler les points de montage du système de fichiers entre les différents processus, ce qui permet à chaque processus de disposer de son propre point de montage racine. Cela permet d'isoler les systèmes de fichiers et les processus entre eux, ce qui est essentiel pour la conteneurisation.
 
-=== SLIDE - 2003 - BORG 
+== SLIDE - 2003 - BORG 
 
 Borg est bien toujours utilisé aujourd'hui (2022) dans les datacenters de Google, et PAS Kubernetes, qui est utilisé pour des services Cloud et est surtout destiné à des utilisateurs externes.
 
-=== SLIDE - 2004 - Solaris Containers (Zones Solaris)
+== SLIDE - 2004 - Solaris Containers (Zones Solaris)
 
-=== SLIDE - 2005 - OpenVZ
+== SLIDE - 2005 - OpenVZ
 
 https://www.youtube.com/watch?v=sK5i-N34im8[cgroups, namespaces, and beyond: what are containers made from?] de Jérôme PETAZZONI
 
@@ -196,13 +193,13 @@ Container runtimes qui ne sont PAS basés sur les namespaces et les cgroups (fon
 
 -> Logique, ces 3 OS, même s'ils sont de type Unix, utilisent des noyaux différents, et les namespaces et les cgroups sont des fonctionnalités du noyau LINUX.
 
-=== SLIDE - Warden
+== SLIDE - Warden
 
-Clound Foundry a plus tard remplacé les Containers Linux par leur propre implémentation, utilisant toujours les cgroups et les namespaces
+Cloud Foundry a plus tard remplacé les Containers Linux par leur propre implémentation, utilisant toujours les cgroups et les namespaces
 
 Le plus important pour Warden était de rendre possible la gestion d’environnements isolés par un moyen simple : une API.
 
-=== SLIDE cgroups + namespaces -> création de conteneurs
+== SLIDE cgroups + namespaces -> création de conteneurs
 
     * *pivot_root* : set a process's root directory to a directory with the contents of the container image
         ** difference between pivot_root and *chroot* : chroot is easy to escape from if you're root and pivot root isn't +
@@ -225,11 +222,11 @@ Le plus important pour Warden était de rendre possible la gestion d’environne
 Rappel : *System call* : a request for the operating system to do something on behalf of the user's program. The system calls are functions used in the kernel itself. +
 Un appel système permet au programme utilisateur d'accéder aux fonctionnalités du noyau telles que la gestion des fichiers, des processus et des périphériques.
 
-=== SLIDE exemple de Julia Evans de création de conteneur à la main
+== SLIDE exemple de Julia Evans de création de conteneur à la main
 
 
 
-=== SLIDE - DOCKER 1ere release
+== SLIDE - DOCKER 1ere release
 
 * Libcontainer était une bibliothèque open source développée par Docker pour fournir une interface standardisée pour les fonctionnalités de conteneurisation du noyau Linux.
 * Libcontainer a permis à Docker de devenir indépendant de la bibliothèque LXC et de fournir une interface *plus flexible* et plus sûre pour la *création*, la *gestion* et l'*orchestration* de conteneurs.
@@ -238,7 +235,7 @@ Un appel système permet au programme utilisateur d'accéder aux fonctionnalité
 * *LXC* (Linux Containers) : easy for sysadmins / OPS, hard for devs (requires significant elbow grease)
 * Solomon : on avait déjà les Linux Containers (LXC) avant, mais ce type de Operating System (OS) Containers n'est pas des plus simples à utiliser. Ces derniers sont plutôt à destination des sysadmin, pas des équipes qui "ship"
 
-=== SLIDE - RAISON D'ETRE DOCKER, POURQUOI ?
+== SLIDE - RAISON D'ETRE DOCKER, POURQUOI ?
 
 * Donc, pour résumer, on a fait Docker dans le but de *shipper*. +
 Il fallait donc que Docker ne soit pas "trop infâme" à utiliser.
@@ -246,7 +243,7 @@ Il fallait donc que Docker ne soit pas "trop infâme" à utiliser.
 
 * Que faisait Dotcloud à la base ?
 
-=== SLIDE - PROBLEME DE SECURITE
+== SLIDE - PROBLEME DE SECURITE
 
 * "*Concern and hesitation* arose in the IT community regarding the *security of a shared OS kernel*" (https://searchitoperations.techtarget.com/feature/Dive-into-the-decades-long-history-of-container-technology)
 
@@ -258,7 +255,7 @@ Ce qui a conduit à l'émergence des daemonless et autre rootless comme Podman e
     ** une partie des résultats de l'étude est disponible ici : https://sysdig.com/blog/2022-cloud-native-security-usage-report/
         *** chercher Container Security le chiffre de 76% précédent qui nous intéresse
 
-=== SLIDE DOCKER ROOT PLEASE !
+== SLIDE DOCKER ROOT PLEASE !
 
 Y a-t-il des OPS dans la salle ?
 Y a-t-il des OPS qui ont vécu l'arrivée de Docker vers 2013 à 2015 ?
@@ -272,17 +269,11 @@ DOCKER ROOT PLEASE ! (2015)
 * https://sysdig.com/blog/2022-cloud-native-security-usage-report/ : pour les 76% de containers en root toujours en 2022
 
 
-=== SLIDE WASM
-
-
+== SLIDE WASM
 
 * Au final : donner l'exemple de Wordpress qui tourne dans le browser : https://wordpress.wasmlabs.dev/
 
-
-
-
-
-=== SLIDE XXX - RESSOURCES et REMERCIEMENTS
+== SLIDE XXX - RESSOURCES et REMERCIEMENTS
 
 Un immense merci à tous les auteur(e)s des articles de blog, ebooks et vidéos que j'ai lus et vues pour préparer ce sujet. +
 
@@ -294,7 +285,7 @@ C'est concis et limpide, je ne saurais que trop vous conseiller d'aller jeter un
 Elle publie régulièrement sur Twitter et pour la soutenir vous pouvez également acheter ses "zines" pour quelques euros sur son site https://wizardzines.com/
 (Et dans le cas de ce talk, tout particulièrement le zine *"How containers work"*)
 
-=== SLIDE FIN
+== SLIDE FIN
 
 Voilà, notre voyage dans le temps est terminé.
 
