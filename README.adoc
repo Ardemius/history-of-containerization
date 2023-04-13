@@ -1,9 +1,10 @@
 = Histoire de la conteneurisation logicielle
 
-Conférence présentée à Devoxx France 2023, sous le titre "De chroot à Docker, Podman, et maintenant les modules Wasm, 40 ans d'évolution de la conteneurisation" et visant à présenter l'histoire de la conteneurisation logicielle, depuis ses débuts sur les systèmes Unix dans les années 1970, et jusqu'à aujourd'hui avec les modules Wasm.
+Conférence présentée à Devoxx France 2023, sous le titre *"De chroot à Docker, Podman, et maintenant les modules Wasm, 40 ans d'évolution de la conteneurisation"*. +
+Présente *l'histoire de la conteneurisation logicielle*, depuis ses débuts sur les systèmes Unix dans les années 1970, et jusqu'à aujourd'hui avec les modules Wasm.
 
-La dernière version des slides est disponible via le Powerpoint à la racine du repo. +
-Une ancienne version est également disponible en Asciidoctor / reveal.js, et peut-être http://ardemius.github.io/history-of-containerization/slides.html[vue en ligne] à l'aide des GitHub pages du repo.
+    * La dernière version des slides, *présentée à Devoxx France*, est disponible via le *Powerpoint* dans le répertoire link:docs[]. +
+    * Une ancienne version est également disponible en Asciidoctor / reveal.js, et peut-être http://ardemius.github.io/history-of-containerization/slides.html[vue en ligne] à l'aide des GitHub pages du repo.
 
 Pour plus d'informations sur la génération des slides avec http://asciidoctor.org/[*Asciidoctor*] et le backend https://github.com/asciidoctor/asciidoctor-reveal.js[*reveal.js*], se référer à ma https://github.com/Ardemius/asciidoctor-presentation#slides-rendering-with-revealjs[présentation] sur le sujet.
 
