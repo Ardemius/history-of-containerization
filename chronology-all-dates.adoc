@@ -1,5 +1,5 @@
 = Histoire de la conteneurisation : chronologie
-Thomas SCHWENDER <https://github.com/ardemius[@ardemius]>
+Thomas SCHWENDER <icon:github[] https://github.com/Ardemius/[GitHub] / icon:twitter[role="aqua"] https://twitter.com/thomasschwender[@thomasschwender]>
 // Handling GitHub admonition blocks icons
 ifndef::env-github[:icons: font]
 ifdef::env-github[]
@@ -12,7 +12,11 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 :imagesdir: ./images
+:resourcesdir: ./resources
 :source-highlighter: highlightjs
+:highlightjs-languages: asciidoc
+// We must enable experimental attribute to display Keyboard, button, and menu macros
+:experimental:
 // Next 2 ones are to handle line breaks in some particular elements (list, footnotes, etc.)
 :lb: pass:[<br> +]
 :sb: pass:[<br>]
@@ -21,6 +25,8 @@ endif::[]
 :toclevels: 4
 // To number the sections of the table of contents
 //:sectnums:
+// Add an anchor with hyperlink before the section title
+:sectanchors:
 // To turn off figure caption labels and numbers
 :figure-caption!:
 // Same for examples

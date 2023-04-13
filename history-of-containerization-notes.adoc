@@ -278,22 +278,35 @@ A container runtime is a library or software which has the ability to create, de
 
 * *Docker was released for the 1st time the 2013/03/20*
 
-* *Why we built Docker ?* by Solomon Hykes (foundateur de dotCloud à l'époque, puis Docker) : https://www.youtube.com/watch?v=3N3n9FzebAA (2013/06/07, EXCELLENTE conf, toujours d'actualité).
+* *Why we built Docker ?* by Solomon Hykes (foundateur de dotCloud à l'époque, puis Docker) : https://www.youtube.com/watch?v=3N3n9FzebAA (2013/06/07, EXCELLENTE conf, toujours d'actualité). +
 Le talk a été donné à la conférence dotScale 2013, juste après la 1ere publication de Docker.
+    ** "The automation for carrying coffee beans across the world is better and more reliable than the kind of tools that we use to ship software between computers. That’s pretty embarrassing." +
+    -> En résumé : *Livrer est galère, il faut industrialiser les choses*
+        *** https://www.linkedin.com/pulse/why-docker-container-built-ankit-utekar/
+
 * Pour d'autres explications par Solomon sur la création de Docker et ses débuts, voir : https://www.youtube.com/watch?v=KF9Awj74dMw
 
-La grande raison de l'époque : *shipping software from A to B, reliably and automatically*
+La grande raison de l'époque : *shipping software from A to B, reliably and automatically* (https://youtu.be/3N3n9FzebAA?t=102 01:42)
     ** It has to behave the same way on both machine, and this with technological stack behind applications being more and more complex
     ** and your shipping place can be different depending on developer environment, servers, etc etc. (a lot of possible combinations that result finally in different environments)
     ** 08:39 (https://youtu.be/3N3n9FzebAA?t=519), to avoid all those shipping problems in the (shipping) industry, one day in the 1950s, people agreed on using a standard box, with standard dimensions, weight, way to open the doors, etc etc. AND it resulted with the creation on the container we know today. +
-    This "ugly box" allows *separation of concerns* : je crée un outil / soft, je veux le shipper, je le mets dans le container, et ma responsabilité pour le shipping s'arrête là. Je ne m'intéresse QU'A mon produit, et PAS au container. +
-    De la même façon, pour les personnes en charge du shipping, elles n'ont pas besoin de s'intéresser à ce qu'il y a dans le container : elles savent que le container a une taille, un poids, des dimensions données, et que TOUS ces containers peuvent être utilisés via les mêmes moyens standards.
-        *** ces "boîtes" ont réellement changé le monde à cette époque : AVANT, c'était une galère de livrer du fait de toutes les combinaisons possibles de packaging des produits à livrer.
+    This "ugly box" allows *separation of concerns* (séparation des responsabilités) : je crée un outil / soft, je veux le shipper, je le mets dans le container, et ma responsabilité pour le shipping s'arrête là. Je ne m'intéresse QU'A mon produit, et PAS au container. +
+    De la même façon, pour les personnes en charge du shipping, elles n'ont *pas besoin de s'intéresser à ce qu'il y a dans le container* : elles savent que le container a une taille, un poids, des dimensions données, et que TOUS ces containers peuvent être utilisés via les mêmes moyens standards.
+
+        *** ces "boîtes" ont réellement changé le monde à cette époque : *AVANT, c'était une galère de livrer* du fait de toutes les combinaisons possibles de packaging des produits à livrer.
+
             **** pour info, article sur *l'histoire des shipping containers* (conteneurs maritimes) : https://mccontainers.com/blog/the-history-of-containers/ +
             "A couple of ISO standards were set to determine terminology, dimensions, classifications, identifiers and so on. Thanks to these standards we nowadays have the 20’ and 40’ containers, the 20’ container (Twenty-foot Equivalent Unit, or TEU) being the standard volume."
             **** la standardisation des containers dans il est fait mention ci-dessus arriva en 1967 (https://fr.wikipedia.org/wiki/Conteneur)
+            **** autre article sur la normalisation des conteneurs maritimes : http://geoconfluences.ens-lyon.fr/glossaire/conteneur-conteneurisation +
+            "Les conteneurs sont des boîtes métalliques de *dimensions normalisées*, de 20 ou 40 pieds de long (6 ou 12 m) dont l'utilisation pour le groupage de marchandises a été *imaginée en 1956* par un ancien camionneur américain, *Malcolm McLean*, fondateur de l'entreprise Sea Land. Des conteneurs en bois existaient en Europe avant la Seconde guerre mondiale, mais l'utilisation de l'acier, la standardisation des dimensions par l'ISO et l'adoption des conteneurs par l'armée américaine pour sa logistique pendant la guerre du Vietnam ont favorisé sa généralisation à partir des années 1970."
+            **** autre article sur le sujet : https://netbox-containers.fr/de-la-boite-qui-servait-au-transport-de-marchandise-a-la-maison-container/
+                ***** "26 avril 1956, le premier « porte-conteneurs », nommé l’Ideal-X, parti du port de Newark, avec à son bord 58 containers maritimes chargés par des grues"
+
         *** We finally wanted to do the same in our IT world for our own shipping needs.
-        
+    ** Pour une explication du parallèle de Solomon entre le shipping logiciel et le shipping Software à cette dotScale : https://www.linkedin.com/pulse/why-docker-container-built-ankit-utekar/
+        *** "What does a container like Docker do? It allows us, developers, to pack software inside a container image with its dependencies - its own code with required runtimes, libraries, and other configurations. Release engineers don’t need to know about these details now as the software comes packaged with its required dependencies."
+
     ** Avant, on avait bien déjà des archives comme des jars, rvms, etc. MAIS ce *sandboxing n'était pas complet*
 
     ** Il y avait bien *les VMs* : cette fois-ci, on a l'appli et on livre finalement toute la machine avec. On est maintenant sûr qu'on a bien le même "contexte" à chaque livraison.
@@ -346,16 +359,22 @@ La grande raison de l'époque : *shipping software from A to B, reliably and aut
 
             *** *libcontainer* : voir http://igm.univ-mlv.fr/~dr/XPOSE2014/Docker/fonctionnement.html +
             "Libcontainer est une bibliothèque écrite en Go pour la création de conteneurs avec des espaces de noms, les groupes de contrôle, les capacités et les contrôles d'accès du système de fichiers. Cette librairie a été développée pour faire le travail de lxc tout en simplifiant l'installation de docker. Elle vous permet de gérer le cycle de vie du conteneur, effectuer des opérations supplémentaires après que le container soit créé."
+
+                **** Libcontainer était une bibliothèque open source développée par Docker pour fournir une interface standardisée pour les fonctionnalités de conteneurisation du noyau Linux.
+                **** Libcontainer a permis à Docker de devenir indépendant de la bibliothèque LXC et de fournir une interface *plus flexible* et *plus sûre* pour la *création*, la *gestion* et l'*orchestration* de conteneurs.
+
             *** *Borg* is Google's cluster manager that runs hundreds of thousands of jobs, from many thousands of different applications, across a number of clusters each with up to tens of thousands of machines. +
             See https://research.google/pubs/pub43438/ for more details
             *** https://faun.pub/the-missing-introduction-to-containerization-de1fbb73efc5 : The libcontainer repository has been archived now. +
             Voir le repo https://github.com/docker-archive/libcontainer, et l'article de blog http://blog.docker.com/2015/06/open-container-project-foundation/. +
-            Ce dernier, datant du 2015/06/15 annonce la création de l'Open Container Projet (OCP, plus tard rebaptisé OCI) et la donation de *runc* par Docker à ce projet. +
+            Ce dernier, datant du 2015/06/15 annonce la création de l'*Open Container Projet* (OCP, plus tard *rebaptisé OCI*) et la donation de *runc* par Docker à ce projet. +
             Il y est expliqué que *libcontainer* a été la base de *runc* : +
-            "Docker has taken the entire contents of the libcontainer project, including [nsinit], and all modifications needed to make it run independently of Docker,  and donated it to this effort. This codebase, called runC, can be found at github/opencontainers/runc. libcontainer will cease to operate as a separate project."
+            "Docker has taken the entire contents of the libcontainer project, including [nsinit], and all modifications needed to make it run independently of Docker, and donated it to this effort. This codebase, called runC, can be found at github/opencontainers/runc. libcontainer will cease to operate as a separate project."
 
         *** *runC* : most widely used container runtime
             **** originally developed as part of Docker, then extracted as a separate tool and library.
+                ***** Il s'agit en fait de l'extraction de libcontainer, voir ci-dessus
+
                 ***** So runC is the low-level runtime that was broken off from Docker.
             **** runC implements the *OCI runtime spec* (Open Container Initiative)
                 ***** Pour plus détails, lire l'OCI runtime spec : https://github.com/opencontainers/runtime-spec
@@ -631,6 +650,8 @@ En fait, on trouve plus d'infos que je ne le pensais via les recherches Google "
         *** *2013* : LMCTFY +
         "Let Me Contain That For You (LMCTFY) kicked off in 2013 as an open-source version of Google's container stack (based on Borg internals), providing Linux application containers. Applications can be made “container aware,” creating and managing their own subcontainers. Active deployment in LMCTFY stopped in 2015 after Google started contributing core LMCTFY concepts to libcontainer, which is now part of the Open Container Foundation."
             **** initial release 2013/10/13, et final release (0.4.5) 2014/03/28
+            **** Open Container Foundation doit être assimilé à l'Open Container Project qui deviendra après l'OCI. +
+            -> CONFIRME, c'est bien la même chose
         *** *2013* : Docker +
         "When Docker emerged in 2013, containers exploded in popularity. It’s no coincidence the growth of Docker and container use goes hand-in-hand." +
         "Just as Warden did, Docker also used LXC in its initial stages and later replaced that container manager with its own library, libcontainer. But there’s no doubt that Docker separated itself from the pack by offering an entire ecosystem for container management."
@@ -1654,9 +1675,33 @@ Last stable patch was released in 2006
     ** Docker floated onto the scene in 2013 with an easy-to-use GUI, and the ability to package, provision and run container technology. Because Docker enabled multiple applications with different OS requirements to run on the same OS kernel in containers, IT admins and organizations saw opportunity for simplification and resource savings. +
     *Unlike VMs*, containers have a significantly smaller resource footprint, are faster to spin up and down, and require less overhead to manage. VMs must also each encapsulate a fully independent OS and other resources, while *containers share the same OS kernel* and use a proxy system to connect to the resources they need, depending upon where those resources are located.
 
-    ** *Concern and hesitation* arose in the IT community regarding the *security of a shared OS kernel*. A vulnerable container could result in a vulnerable ecosystem without the right precautions baked into the container technology. Additional complaints early in the modern evolution of containers bemoaned the lack of data persistence, which is important to the vast majority of enterprise applications. Efficient networking also posed problems, as well as the logistics of regulatory compliance and distributed application management.
-
     ** "Docker was introduced in 2013 by an San Francisco company that offers PaaS cloud services named dotCloud as an open-source project, and its founder is Solomon Hykes. When it first came out, *it aimed to convert monolitich applications into image and container structure by using LXC* (Linux containers). Later on, it started to develop his own container runtime, *libcontainer*, and after this stage, libcontainer was started to be used."
+
+    ** *Hésitations et craintes côté sécurité :* 
+
+        *** (https://searchitoperations.techtarget.com/feature/Dive-into-the-decades-long-history-of-container-technology) +
+        *Concern and hesitation* arose in the IT community regarding the *security of a shared OS kernel*. A vulnerable container could result in a vulnerable ecosystem without the right precautions baked into the container technology. Additional complaints early in the modern evolution of containers bemoaned the lack of data persistence, which is important to the vast majority of enterprise applications. Efficient networking also posed problems, as well as the logistics of regulatory compliance and distributed application management.
+
+        *** Documentation de Docker qui mentionne que le *daemon docker tourne toujours en root* : https://docs.docker.com/engine/install/linux-postinstall/
+            **** D'où des problématiques de *Privilege Escalation* (élévation de privilèges)
+            **** un mode pour faire run Docker without root privileges existe, mais ce n'est pas parfait, et c'est arrivé plus tard : +
+            https://docs.docker.com/engine/install/linux-postinstall/
+            **** "The Docker daemon always runs as the root user. +
+            If you don’t want to preface the docker command with sudo, *create a Unix group called docker and add users to it*. When the Docker daemon starts, it creates a Unix socket accessible by members of the docker group."
+        **** tout le problème vient de groupe "docker", voir https://github.com/chrisfosterelli/dockerrootplease et https://fosterelli.co/privilege-escalation-via-docker
+
+        *** Pour une bonne présentation du pourquoi de podman, à savoir les problèmes de sécurité de Docker et l'hégémonie de Kubernetes, et une demo de son utilisation, voir https://www.redhat.com/en/blog/say-hello-buildah-podman-and-skopeo (2019/10) +
+        "This excites some people who always saw the *monolith daemon that required root access for everything as a problem*.
+            **** -> Ce qui *a conduit à l'émergence des daemonless et autre rootless comme Podman* et Buildah
+
+            **** Originally built as a monolithic daemon, *dockerd*, and the *docker client (Docker CLI)* application. +
+            The daemon provided most of the logic of building containers, managing the images, and running containers, along with an API.
+                ***** et ce daemon avait besoin d'être root pour tout
+
+        *** https://www.techtarget.com/searchitoperations/feature/Dive-into-the-decades-long-history-of-container-technology +
+        "Sysdig's "2022 Cloud-Native Security and Usage Report" found that 75% of respondents were running containers with high or critical vulnerabilities, and *76% had containers running as root*, playing a dangerous game with IT ecosystem safety."
+            **** une partie des résultats de l'étude est disponible ici : https://sysdig.com/blog/2022-cloud-native-security-usage-report/
+            **** chercher Container Security le chiffre de 76% précédent qui nous intéresse
 
 * *2013/10* : LMCTFY +
 
@@ -1774,6 +1819,13 @@ Ce besoin accrue de sécurisation a amené à l'apparition de nouveaux types de 
             "This excites some people who always saw the *monolith daemon that required root access for everything as a problem*. This brings us to the heart of this article – the *daemon-less* and largely *rootless* suite of container management tools."
             *** *Podman ne build pas d'image OCI*, il délègue cela à buildah
 
+            *** Documentation de Docker qui mentionne que le *daemon docker tourne toujours en root* : https://docs.docker.com/engine/install/linux-postinstall/
+                **** un mode pour faire run Docker without root privileges existe, mais ce n'est pas parfait, et c'est arrivé plus tard : +
+                https://docs.docker.com/engine/install/linux-postinstall/
+                **** "The Docker daemon always runs as the root user. +
+                If you don’t want to preface the docker command with sudo, *create a Unix group called docker and add users to it*. When the Docker daemon starts, it creates a Unix socket accessible by members of the docker group."
+                    ***** tout le problème vient de groupe "docker", voir https://github.com/chrisfosterelli/dockerrootplease et https://fosterelli.co/privilege-escalation-via-docker (2015/04/22)
+
         *** *Buildah* : Buildah is a common containerize tool for container systems that comply with the OCI (Open Container Initiative) standards, one of the most important reasons for its development being its power in building container images.
             **** 1st release v0.11 2018/01/17
             **** The build commands in Podman are actually a subset of Buildah commands and they use the same codes.
@@ -1845,7 +1897,7 @@ Ce besoin accrue de sécurisation a amené à l'apparition de nouveaux types de 
 
     * la série d'articles de Ian Lewis
     * Le talk durant lequel Solomon Hykes a introduit Docker, le 2013/06/07 : https://www.youtube.com/watch?v=3N3n9FzebAA[Why Docker ?]
-    Le talk a été donné à la conférence dotScale 2013, juste après la 1ere publication de Docker.
+    * Le talk a été donné à la conférence dotScale 2013, juste après la 1ere publication de Docker.
 
 * TODO : parler du grand problème de Docker, le "monolith daemon that required root access for everything" +
 Ce qui a conduit à l'émergence des daemonless et autre rootless comme Podman et Buildah
@@ -1971,8 +2023,8 @@ Les outils suivants ont l'air bien adaptés :
     ** cycle de hype du Gartner et "présence oppressante" des OPS dans votre dos quand vous avez pensé "il faut qu'on pousse ça en PROD !"
     ** redonner le bout de code Docker qui permet en 1 ligne une élévation de privilèges, le fameux "Docker root please"
         *** https://github.com/VonC/blog/blob/201711_docker/PITCHME.md
-        *** https://github.com/chrisfosterelli/dockerrootplease
-            **** https://fosterelli.co/privilege-escalation-via-docker
+        *** https://github.com/chrisfosterelli/dockerrootplease 
+            **** https://fosterelli.co/privilege-escalation-via-docker (2015/04/22)
             **** "A tous ceux qui sont OPS dans la salle, attention, souvenir douloureux..."
             **** "s'il y a des OPS dans la salle, pardonnez-moi, je vais rappeler un souvenir douloureux..." +
             "Ca rappelle des souvenirs à certains ?" et slide avec "Docker Root Please"
@@ -1990,229 +2042,6 @@ Les outils suivants ont l'air bien adaptés :
 * Remerciements : bien indiquer que j'ai utilisé un très grand nombre de doc pour ma curation de contenus, et que j'en remercie tous les auteurs, même si je ne les ai pas tous cités.
 
 -> La tendance : l'industrialisation (normalisation, cf la 3e spec de l'OCI, la bytecode alliance) et donc la sécurité
-
-== Accompagnement des slides
-
-=== SLIDE : INTRODUCTION
-
-Wahou, cela fait vraiment plaisir de voir que vous êtes aussi nombreux à avoir été intéressés par ce sujet 👍 
-Quand j'ai vu le nombre de like sur l'application, je vous garantis que cela fait chaud au coeur.
-
-Donc bonjour à toutes et à tous,
-
-Et bienvenue à ce talk où il va être question de *conteneurisation*, et plus particulièrement de *l'histoire et l'évolution de cette dernière depuis ses débuts*, il y a bieeennnnnnn longtemps, jusqu'à aujourd'hui.
-
-=== SLIDE : PRESENTATION
-
-Alors, je me présente, je m'appelle Thomas SCHWENDER, je suis architecte au sein de la société *Softeam*, qui est depuis 2020 une entité du groupe *Docaposte*, qui lui-même appartient au groupe *La Poste* que tout le monde connaît bien. +
-Les 2 sociétés ont cette année *un stand sur le salon*, n'hésitez pas à y faire un tour pour découvrir nos projets. On ne s'en doute peut-être pas de prime abord, mais de la *confiance numérique* à l'*eSanté* en passant par l'*IA*, on travaille vraiment sur des *enjeux de société très actuels*.
-
-Depuis 2 ans, je mets également à jour un *article sur le blog de Devoxx France* qui explique *comment tirer profit au maximum de sa présence à un salon comme Devoxx*.
-Entre autres conseils pratiques, j'y explique comment *créer sa propre base de connaissances* pour persister sa veille techno et la rendre facilement accessible et exploitable tout au long de sa carrière.
-
-D'ailleurs, sur ce même thème, je vous conseille vraiment d'aller *assister vendredi à la conférence "Apprendre en continu avec sa veille technologique"* de Fabien Hiegel et David Franck.
-Ils ont déjà donné ce talk au dernier DevFest Nantes, je l'ai trouvé top, et ils vont plus loin que moi sur ce concept de base de connaissance ou de "2nd cerveau" comme ils l'appellent.
-Vraiment, pour vous, la veille que vous faites en salon, ou par d'autres moyens, faites en sorte qu'elle vous serve le plus longtemps possible, et qu'elle ne soit pas oubliée dans quelques jours ou semaines.
-
-Sur ce revenons au *sujet qui va nous intéresser jusqu'à la fin du talk*, à savoir *comprendre par quoi l'informatique est passée* pour arriver jusqu'aux conteneurs tels qu'on les connaît aujourd'hui, et *pourquoi* ça s'est passé comme ça.
-L'idée de ce talk est que, pour mieux comprendre le présent, et pouvoir envisager sereinement le futur, il est bon de connaître le passé et savoir d'où l'on vient.
-
--> C'est également l'idée d'une citation de Nicolas Machiavel (Philosophe (1469 - 1527)) : 
-Pour prévoir l'avenir, il faut connaître le passé, car les événements de ce monde ont en tout temps des liens aux temps qui les ont précédés. Créés par les hommes animés des mêmes passions, ces événements doivent nécessairement avoir les mêmes résultats.
-
-=== SLIDE : DISCLAIMER
-
-Petit disclaimer avant d'aller plus loin : on ne va *PAS expliquer comment se servir de Docker, Kubernetes ou WebAssembly* durant ce talk.
-Le but est vraiment de se concentrer sur *l'enchaînement des progrès technologiques* au cours des années.
-
-Autre point : n'allez surtout pas croire que je suis un spécialiste de chaque technologie présentée.
-Il y aura donc des slides verbeux, car je ne suis tout simplement pas capable de tout retenir.
-
-=== SLIDE : PLAN
-
-Donc en termes de plan, les choses sont simples : dans ce talk, il sera question de dates. +
-Et dans l'histoire de la conteneurisation depuis les années 70s, des dates il y en a eu beaucoup... VRAIMENT beaucoup...
-
-En fait, des dates, il y en a trop, on ne pourra pas entrer dans les détails de chacune, on va *se concentrer sur les plus importantes*.
-
-PAR CONTRE, en *fin de talk*, je vous mettrai à disposition la *version complète de la chronologie* sur laquelle j'ai travaillé 😉 
-
-=== SLIDE : DEFINTION : CONTENEUR
-
-Avant de débuter notre voyage dans le temps, il est important de revoir 2 concepts qui reviendront tout au long du talk.
-
-Commençons par le 1er : mais au fait, *qu'est-ce donc qu'un conteneur ?*
-Aussi surprenant que cela puisse paraître, il n'y a pas de réelle définition "officielle" de ce qu'est un "container"
-
-Mais ce sur quoi tout le monde s'accorde est qu'à minima un conteneur est un *groupe de process isolés du reste du système (du host) par certains moyens techniques*.
-Dans la suite du talk, nous allons justement préciser de quels moyens il est question.
-
-=== SLIDE : DEFINTION : RUNTIME
-
-L'autre concept dont il est question est celui de *runtime*, ou environnement d'exécution.
-
-Alors, runtime, runtime environment, RTE, environnement d'exécution, toutes ces expressions sont *synonymes*.
-
-Et la définition que l'on peut en donner est qu'un runtime est la pile logicielle offrant les services nécessaires à l'exécution d'applications, et *UNIQUEMENT l’exécution*, PAS la compilation, et cela, *indépendamment du système d'exploitation*.
-
-Le runtime met à disposition un certain nombre de fonctions de base au service de la *mémoire*, du *réseau* ou du *matériel* ET *exécute ces fonctions à la place de l’application*, indépendamment du système d’exploitation. C'est en fait le runtime qui fait donc le lien entre l’application et le système d’exploitation.
-
-=== SLIDE - RUNTIME : JRE vs JDK vs JVM
-
-Un exemple bien connu de runtime est tout simplement le *JRE de Java*. +
-Ce dernier englobe la *JVM* et la *JCL*, la *Java Class Library*, un ensemble de classes procurant à la JVM tout ce dont elle a besoin pour exécuter une application Java d'un point de vue *mémoire*, *réseau*, système de *fichiers*, spécificités *matérielles*.
-
-On peut également donner d'autres exemples : 
-
-* *Node.js* : qui est un environnement d'exécution permettant d'exécuter du *code Javascript* côté serveur.
-* On y pense moins, mais il y a également le bon vieux *Cygwin* qui est un environnement d’exécution permettant aux *applications Linux* de fonctionner sur d'autres OS comme Windows ou macOS.
-
-=== SLIDE - RUNTIME : comparaison JRE vs Node.js
-
-D'ailleurs si on compare le JRE à Node.js, on voit tout de suite les similitudes : 
-
-    * En lieu et place de la JVM, Node.js utilise *V8*, le *moteur Javascript de Google*, initialement développé pour Chrome.
-    * Et les classes de la JCL sont remplacées par des *modules équivalents* côté Node.js
-
-=== SLIDE 9 - 1970s
-
-Bon, nous sommes maintenant parés pour notre voyage dans le temps, et pour débuter ce dernier, nous allons remonter jusqu'aux années 1970 !
-
-=== SLIDE - 1972
-
-* L’idée originale de conteneur a germé dans les années 70s sur les systèmes *Unix*, lorsqu'on a eu besoin de mieux *isoler le code applicatif*.
-    
-* A cette époque les *ordinateurs* étaient très *chers* et donc très *rares*, aussi fallait-il pouvoir *les exploiter au maximum*. +
-On a donc cherché à *partager leurs ressources entre différents utilisateurs*, sans que le travail de l'un n'ait d'impact sur celui de l'autre.
-    
-* L'autre problématique concernait *les tests*. On l'a dit les ordinateurs étaient très chers, on ne disposait donc souvent que d'*une seule machine* qui devait faire tourner ET les *systèmes de production* ET permettre aux développeurs de *tester leurs applications*. +
-Il fallait donc que ces tests puissent se faire sans impacter les traitements de PROD, aussi c'est à cette époque que sont apparus *les 1eres "sandboxes"*, des environnements isolés permettant de tester applications, services et process ; en d'autres termes : les 1ers conteneurs.
-
-Concernant la photo, il s'agit de *Ken Thompson* et *Dennis Ritchie* à côté d'un PDP-11 chez Bell Labs, vers 1972. +
-Pour rappel, ce sont vraiment 2 des plus grands pionniers de l'informatique ; les créateurs d'Unix et du langage C. +
-Ken Thompson est également le créateur du premier shell Unix en 1971, sur la 1ere version d'Unix. +
-
-Personnellement, c'est une photo qui me touche, c'est l'alter ego informatique de "Trois hommes dans un salon" avec Brel, Brassens et Ferré en 1969, c'est un moment d'histoire...
-
-=== SlIDE - 1979 chroot
-
-Dans cet exemple, "ls" ne peut pas accéder au répertoire racine initial, il est restreint à l'environnement isolé qu'on lui a donné.
-
-Attention, chroot a plusieurs *problèmes de sécurité* connus. +
-En l'occurrence, il est *facile de "s'échapper de l'environnement isolé"*
-
-Raison pour laquelle les outils de conteneurisation actuels, comme Docker, utilisent à la place *pivot_root* pour lequel s'est bien moins facile.
-
-=== SLIDE - 2000s
-
-Et là, gros gap, on va directement sauter aux années 2000, où vont apparaître les 1eres réelles implémentations d'outils de conteneurisation.
-
-=== SLIDE - FreeBSD Jails
-
-=== SLIDE - Linux VServer
-
-Impossible de trouver un schéma d'architecture global de Linux VServer.
-J'ai donc mis le schéma d'architecture du VServer Control Daemon, mais cela n'apporte vraiment rien dans notre cas.
-
-Ce projet permet d'*exécuter une ou plusieurs distributions sur une distribution* (distribution = système d'exploitation sans le noyau)
-
-Patcher le kernel Linux : une *charge en plus* pour les distributeurs et les sysadmin.
-
-=== SLIDE - 2002 - 1er LINUX NAMESPACE
-
-=== SLIDE - Julia EVANS "HOW TO MAKE A NAMESPACE"
-
-J'en reparlerai en fin de talk, mais voici une planche créée par Julia EVANS pour vulgariser la création d'un namespace.
-Je voulais vous la montrer car je trouve cela super bien fait, mais on ne va pas tout regarder.
-Jetez juste un oeil au nom de la commande (unshare) permettant la création d'un namespace : "tu ne partageras point"
-
-=== SLIDE - 2002 - MOUNT NAMESPACES
-
-Les mount namespaces sont utilisés pour isoler les points de montage du système de fichiers entre les différents processus, ce qui permet à chaque processus de disposer de son propre point de montage racine. Cela permet d'isoler les systèmes de fichiers et les processus entre eux, ce qui est essentiel pour la conteneurisation.
-
-=== SLIDE - 2003 - BORG 
-
-Borg est bien toujours utilisé aujourd'hui (2022) dans les datacenters de Google, et PAS Kubernetes, qui est utilisé pour des services Cloud et est surtout destiné à des utilisateurs externes.
-
-=== SLIDE - 2004 - Solaris Containers (Zones Solaris)
-
-=== SLIDE - 2005 - OpenVZ
-
-https://www.youtube.com/watch?v=sK5i-N34im8[cgroups, namespaces, and beyond: what are containers made from?] de Jérôme PETAZZONI
-
-Container runtimes qui ne sont PAS basés sur les namespaces et les cgroups (fonctionnalités du noyau Linux) : 
-
-    * *Jails*
-    * *Solaris Containers*
-    * *OpenVZ* 
-
--> Logique, ces 3 OS, même s'ils sont de type Unix, utilisent des noyaux différents, et les namespaces et les cgroups sont des fonctionnalités du noyau LINUX.
-
-=== SLIDE - Warden
-
-Clound Foundry a plus tard remplacé les Containers Linux par leur propre implémentation, utilisant toujours les cgroups et les namespaces
-
-Le plus important pour Warden était de rendre possible la gestion d’environnements isolés par un moyen simple : une API.
-
-=== SLIDE cgroups + namespaces -> création de conteneurs
-
-    * *pivot_root* : set a process's root directory to a directory with the contents of the container image
-        ** difference between pivot_root and *chroot* : chroot is easy to escape from if you're root and pivot root isn't +
-        -> so containers use pivot_root instead of chroot
-        ** l'héritier de chroot en version plus sécurisée
-    * *cgroups* : limit memory / CPU usage for a group of processes
-        ** limiter COMBIEN on peut utiliser (mémoire, CPU)
-    * *namespaces* : allow processes to have their own network / PIDs / users / hostname / mounts / and more !
-        ** limiter ce que l'on peut voir
-
-    * *seccomp-bpf* : security: prevent dangerous system calls
-        ** seccomp means "secure computing"
-        ** bpf, pour Berkeley Packet Filter, est une extension de seccomp
-        ** vise à éviter les appels système dangereux
-
-    * *capabilities* : security: avoid giving root access
-        ** évite de donner les droits root
-        ** Capabilities allow to reduce the privileges of an active process
-
-Rappel : *System call* : a request for the operating system to do something on behalf of the user's program. The system calls are functions used in the kernel itself. +
-Un appel système permet au programme utilisateur d'accéder aux fonctionnalités du noyau telles que la gestion des fichiers, des processus et des périphériques.
-
-=== SLIDE exemple de Julia Evans de création de conteneur à la main
-
-
-
-=== SLIDE - DOCKER
-
-* Donc, pour résumer, on a fait Docker dans le but de *shipper*. +
-Il fallait donc que Docker ne soit pas "trop infâme" à utiliser.
-    ** on avait déjà les Linux Containers (LXC) avant, mais ce type de Operating System (OS) Containers n'est pas des plus simples à utiliser. Ces derniers sont plutôt à destination des sysadmin, pas des équipes qui "ship"
-
-
-
-
-
-
-
-=== SLIDE XXX - RESSOURCES et REMERCIEMENTS
-
-Un immense merci à tous les auteur(e)s des articles de blog, ebooks et vidéos que j'ai lus et vues pour préparer ce sujet. +
-
-J'ai consulté des dizaines et des dizaines de publications, je ne peux pas nommer toutes les personnes à remercier, mais je vous garantis que le coeur y est.
-
-Remerciements particuliers à *Julia Evans* (@b0rk), dont je trouve le travail fantastique 👍 
-Pour celles et ceux qui ne la connaissent pas, Julia vulgarise des concepts compliqués en BD.
-C'est concis et limpide, je ne saurais que trop vous conseiller d'aller jeter un oeil à son travail.
-Elle publie régulièrement sur Twitter et pour la soutenir vous pouvez également acheter ses "zines" pour quelques euros sur son site https://wizardzines.com/
-(Et dans le cas de ce talk, tout particulièrement le zine *"How containers work"*)
-
-=== SLIDE FIN
-
-Voilà, notre voyage dans le temps est terminé.
-
-Je vous remercie et j'espère que vous avez pu découvrir des choses que vous ne saviez pas sur l'histoire de la conteneurisation depuis ses lointains débuts jusqu'à aujourd'hui.
-
-
-
 
 
 
