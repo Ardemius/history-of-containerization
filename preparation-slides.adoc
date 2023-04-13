@@ -271,6 +271,17 @@ DOCKER ROOT PLEASE ! (2015)
 
 * https://sysdig.com/blog/2022-cloud-native-security-usage-report/ : pour les 76% de containers en root toujours en 2022
 
+
+=== SLIDE WASM
+
+
+
+* Au final : donner l'exemple de Wordpress qui tourne dans le browser : https://wordpress.wasmlabs.dev/
+
+
+
+
+
 === SLIDE XXX - RESSOURCES et REMERCIEMENTS
 
 Un immense merci à tous les auteur(e)s des articles de blog, ebooks et vidéos que j'ai lus et vues pour préparer ce sujet. +

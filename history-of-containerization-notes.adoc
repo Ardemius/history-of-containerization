@@ -941,7 +941,7 @@ Ils nous aideront également à mieux comprendre pourquoi Web Assembly s'annonce
         *** *WebAssembly can provide the kind of isolation* that makes it safe to run untrusted code. We can have an architecture that’s like Unix’s many small processes, or *like containers and microservices*. +
         -> BUT this isolation is *much lighter weight*, and the *communication between them isn’t much slower* than a regular function call.
     
-    ** Donc WAMS est LIGHT, FAST and SECURE, comment est-ce réalisé ? 
+    ** Donc WASM est LIGHT, FAST and SECURE, comment est-ce réalisé ? 
 
         *** *each WebAssembly module is sandboxed by default* : By default, the module doesn’t have access to APIs and system calls. +
         If you want the module to be able to interact with anything outside of the module, you have to explicitly provide the module with the function or syscall.
@@ -982,7 +982,7 @@ Ils nous aideront également à mieux comprendre pourquoi Web Assembly s'annonce
             **** ChatGPT : WASI provides a standard interface between WebAssembly modules and the host environment, allowing WebAssembly to be used outside of the web, for example in serverless computing or edge computing.
 
 
-            **** *2019/03/27* - Lin Clark Announcing WASI : https://twitter.com/linclark/status/1110920999061594113 +
+            **** *2019/03/27* - Lin Clark (Fastly) Announcing WASI : https://twitter.com/linclark/status/1110920999061594113 +
             A system interface for running WebAssembly outside the web (and inside it too)
             **** En réaction à ce Tweet, Solomon Hykes répondit (https://twitter.com/solomonstre/status/1111004913222324225) : +
             "If WASM+WASI existed in 2008, *we wouldn't have needed to created Docker*. That's how important it is. *Webassembly on the server is the future of computing*. A standardized system interface was the missing link. Let's hope WASI is up to the task!"
