@@ -1734,6 +1734,7 @@ Last stable patch was released in 2006
         ** ce "*prevent fragmentation*" est très probablement la principal raison du "split" de Docker opéré par Docker Inc
 
 * *2015/07* : GRANDE ETAPE - *runc* est publié pour la 1ere fois, et son code a *tout de suite donné par Docker à l'OCI* (runc est l'implémentation de référence de la runtime-spec)
+    ** runc est libcontainer qui a été "sorti" de Docker pour le mettre à disposition de la communauté au travers de l'OCI
 
 * *2015/07/21* : ETAPE MAJEURE - *release de la 1ere version de Kubernetes* par Google, et *création de la CNCF*, comme umbrella projet de la Linux Foundation, à laquelle Kubernetes sera donné comme élément fondateur. +
 
@@ -2047,12 +2048,18 @@ Les outils suivants ont l'air bien adaptés :
 
 -> La tendance : l'industrialisation (normalisation, cf la 3e spec de l'OCI, la bytecode alliance) et donc la sécurité
 
+[IMPORTANT]
+====
+*La réflexion globale du talk* :
 
+* Au début, les outils n'étaient pas là
+* Puis ils ont été créés (namespaces, cgroups, Jails, Linux VServer, LXC, etc.) MAIS ils étaient compliqués d'usage / d'utilisation
+* Donc on passe à la simplification de ces derniers : Warden et surtout Docker
+    ** Mais également LXC qui était historiquement utilisé "tel quel" par Docker (avait le mérite d'exister, mais était compliqué d'usage) avant d'être réécrit en interne pour être simplifié (libcontainer)
+* Et une fois qu'on a quelque chose qui marche ET qui est simple d'utilisation, on peut l'ouvrir, et le mettre à la disposition de la communauté (libcontainer qui devient runc et qui est donné à l'OCI)
+====
 
-
-
-
-
+TODO : ajouter un slide pour expliquer cette réflexion ?
 
 == Création des slides
 
