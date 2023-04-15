@@ -2048,9 +2048,10 @@ Les outils suivants ont l'air bien adaptés :
 
 -> La tendance : l'industrialisation (normalisation, cf la 3e spec de l'OCI, la bytecode alliance) et donc la sécurité
 
+.La réflexion globable à avoir sur toute l'évolution proposée
 [IMPORTANT]
 ====
-*La réflexion globale du talk* :
+-> Cette réflexion peut évidemment se généraliser à d'autres secteurs (mais sûrement pas tous non plus)
 
 * Au début, les outils n'étaient pas là
 * Puis ils ont été créés (namespaces, cgroups, Jails, Linux VServer, LXC, etc.) MAIS ils étaient compliqués d'usage / d'utilisation
@@ -2059,7 +2060,15 @@ Les outils suivants ont l'air bien adaptés :
 * Et une fois qu'on a quelque chose qui marche ET qui est simple d'utilisation, on peut l'ouvrir, et le mettre à la disposition de la communauté (libcontainer qui devient runc et qui est donné à l'OCI)
 ====
 
-TODO : ajouter un slide pour expliquer cette réflexion ?
+TODO : ajouter un slide pour expliquer cette réflexion ? Sous forme de schéma fléché ?
+
+    * donner également un exemple récent dans un autre secteur. +
+        ** Exemple avec la sécurité, et la "jungle actuelle" des différentes offres de protection.
+        Cf BFM Tech & Co du 2023/04/13, avec le rapprochement Free Pro et ITrust pour pouvoir proposer un service de sécurité "plus facile d'accès" et "simple d'utilisation"
+        guichet unique
+        FIC : Forum International de la Cybersécurité
+        Phase de simplication : plutôt que de devoir couvrir les différentes fonctionnalités requises du secteur avec 15 offres différentes (ce qu'aucun DSI n'est capable de faire, sauf s'il vient lui-même de ce secteur), des offres / solutions de regroupement apparaissent (exemple des "guichets uniques") afin de proposer une "offre globale", plus simple à appréhender
+
 
 == Création des slides
 
