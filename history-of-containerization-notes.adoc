@@ -2064,11 +2064,8 @@ TODO : ajouter un slide pour expliquer cette réflexion ? Sous forme de schéma 
 
     * donner également un exemple récent dans un autre secteur. +
         ** Exemple avec la sécurité, et la "jungle actuelle" des différentes offres de protection.
-        Cf BFM Tech & Co du 2023/04/13, avec le rapprochement Free Pro et ITrust pour pouvoir proposer un service de sécurité "plus facile d'accès" et "simple d'utilisation"
-        guichet unique
-        FIC : Forum International de la Cybersécurité
-        Phase de simplication : plutôt que de devoir couvrir les différentes fonctionnalités requises du secteur avec 15 offres différentes (ce qu'aucun DSI n'est capable de faire, sauf s'il vient lui-même de ce secteur), des offres / solutions de regroupement apparaissent (exemple des "guichets uniques") afin de proposer une "offre globale", plus simple à appréhender
-
+            *** Cf BFM Tech & Co du 2023/04/13, avec le rapprochement Free Pro et ITrust pour pouvoir proposer un service de sécurité "plus facile d'accès" et "simple d'utilisation"
+            *** *Phase de simplication* : plutôt que de devoir couvrir les différentes fonctionnalités requises du secteur avec 15 offres différentes (ce qu'aucun DSI n'est capable de faire, sauf s'il vient lui-même de ce secteur, ce qui a pu se voir au dernier FIC (Forum International de la Cybersécurité) ), des offres / solutions de regroupement apparaissent (exemple des "guichets uniques") afin de proposer une "offre globale", plus simple à appréhender
 
 == Création des slides
 

@@ -45,7 +45,7 @@ endif::[]
 * *2002/08* : Les 1er *Linux namespaces* (mount namespaces) sont ajoutés au kernel Linux 2.4.19 (2002/08/03)
 * *2003* : Google introduced *Borg*, the organization's container cluster management system.
 * *2004* : *Solaris Containers*
-* *2005* : *Open VZ* (Open Virtuzzo)
+* *2005* : *Open VZ* (Open Virtuozzo)
 * *2006* : début des travaux sur les *Process Containers* chez Google (later renamed *cgroups* / Control Groups)
 * *2007/10* : ajout des 1eres briques de l'implémentation des *user namespaces* dans le kernel Linux 2.6.23 par Eric Biederman (Red Hat)
 * *2008/01* : GRANDE ETAPE - ajout de la fonctionnalité des *cgroups* dans le kernel Linux 2.6.24
@@ -60,7 +60,7 @@ endif::[]
 * *2014/11* : 1ere release de rkt (prononcer "rocket"), le container runtime créé par les équipes de CoreOS.
 * *2015/06/17* : création de *WebAssembly*
 * *2015/06* : GRANDE ETAPE - *Docker Inc donne la codebase du projet Docker à l'OCI*, projet de la Linux Fondation, *créé pour cette occasion*.
-* *2015/07* : GRANDE ETAPE - *runc* est publié pour la 1ere fois, et son code a *tout de suite donné par Docker à l'OCI* (runc est l'implémentation de référence de la runtime-spec)
+* *2015/07* : GRANDE ETAPE - *runc* est publié pour la 1ere fois, et son code est *tout de suite donné par Docker à l'OCI* (runc est l'implémentation de référence de la runtime-spec)
 * *2015/07/21* : ETAPE MAJEURE - *release de la 1ere version de Kubernetes* par Google, et *création de la CNCF*, comme umbrella projet de la Linux Foundation, à laquelle Kubernetes sera donné comme élément fondateur.
 * *2015/12* : GRANDE ETAPE - Docker introduce *containerd*
 * *2016/03/14* : 1ere apparition des cgroups v2 dans le Linux Kernel 4.5
@@ -77,13 +77,13 @@ endif::[]
     ** 2018 marque également l'apparition des "*sandbox runtimes*" : *Kata containers*, *gVisor*, *Nabla*
         *** *2018/05/02* : release initiale de *gVisor* par Google
         *** *2018/05/22* : lancement de la v1.0 de *Kata containers*
-        *** *2018/07* : lancemnet des *Nabla containers*
+        *** *2018/07* : lancement des *Nabla containers*
     ** ainsi que celles des *daemonless runtimes* et du *rootless* : *podman* (avec *buildah* et *Skopeo*)
         *** *2018/04* : 1ere release de Podman
 * *2019* : GRANDE ETAPE - les conséquences de l'essor de Kubernetes (le déclin de Docker et d'autres container runtimes)
-* *2019/03/27* : ETAPE MAJEURE - 1st version de WASI (WebAssembly System Interface) qui marge l'essor de WebAssembly
+* *2019/03/27* : ETAPE MAJEURE - 1st version de WASI (WebAssembly System Interface) qui marque le début de l'essor de WebAssembly
 * *2019/04* : la CNCF archive le projet rkt, suite à une adoption utilisateur en forte baisse
-* *2019/11/12* : GRANDE ETAPE - *création de la Bytecode Alliance*, partenariat industriel poussant le développement de Wasm, tout particulièrement en dehors du browser (va marquer le début de l'essort rapide de WebAssembly)
+* *2019/11/12* : GRANDE ETAPE - *création de la Bytecode Alliance*, partenariat industriel poussant le développement de Wasm, tout particulièrement en dehors du browser (va également fortement participer à l'essor rapide de WebAssembly)
 * *2019/11/13* : Docker se scinde en 2 : Mirantis rachète Docker Enterprise, et Docker Inc se recentre autour de Docker Desktop (et Docker Hub) 
 * *2020/02* : le project rkt est arrêté (https://github.com/rkt/rkt/issues/4024)
 * *2020/12* : le daemon docker (dockerd) est déprécié pour Kubernetes 1.20 (2020/12), et est remplacé par containerd
