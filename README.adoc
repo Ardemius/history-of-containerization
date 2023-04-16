@@ -1,10 +1,17 @@
 = Histoire de la conteneurisation logicielle
 
-Conférence présentée à Devoxx France 2023, sous le titre *"De chroot à Docker, Podman, et maintenant les modules Wasm, 40 ans d'évolution de la conteneurisation"*. +
-Présente *l'histoire de la conteneurisation logicielle*, depuis ses débuts sur les systèmes Unix dans les années 1970, et jusqu'à aujourd'hui avec les modules Wasm.
+Etude retraçant *l'histoire de la conteneurisation logicielle* depuis ses débuts, sur les systèmes Unix dans les années 1970, jusqu'à aujourd'hui avec les modules WebAssembly.
 
-    * La dernière version des slides, *présentée à Devoxx France*, est disponible via le *Powerpoint* dans le répertoire link:docs[]. +
-    * Une ancienne version est également disponible en Asciidoctor / reveal.js, et peut-être http://ardemius.github.io/history-of-containerization/slides.html[vue en ligne] à l'aide des GitHub pages du repo.
+    * Une *chronologie condensée*, regroupant toutes les dates importantes (à mes yeux) est disponible via le fichier link:chronology-all-dates.adoc[]
+    * Mon *document de travail*, contenant toute ma *curation de contenu* sur le sujet, est disponible via le fichier link:history-of-containerization-notes.adoc[]
+        ** ⚠️ Attention ⚠️ Il s'agit de notes en mode "*draft*" ! (présence de duplications / répétitions)
 
-Pour plus d'informations sur la génération des slides avec http://asciidoctor.org/[*Asciidoctor*] et le backend https://github.com/asciidoctor/asciidoctor-reveal.js[*reveal.js*], se référer à ma https://github.com/Ardemius/asciidoctor-presentation#slides-rendering-with-revealjs[présentation] sur le sujet.
+L'étude a fait l'objet d'un *talk* donné à *Devoxx France 2023* (type conférence, 45 min)
+    
+    * Le talk insiste surtout sur la période de 1970 à 2013, avec la release de Docker
+    * Les slides sont disponibles via le *Powerpoint* dans le répertoire link:docs[] : link:docs/40-ans-evolution-conteneurisation.pptx[]
+
+Une *ancienne version des slides* est également disponible en Asciidoctor / reveal.js, et peut-être http://ardemius.github.io/history-of-containerization/history-of-containerization-slides_OLD-VERSION.html[vue en ligne] à l'aide des GitHub pages du repo.
+    
+    * Pour plus d'informations sur la génération des slides avec http://asciidoctor.org/[*Asciidoctor*] et le backend https://github.com/asciidoctor/asciidoctor-reveal.js[*reveal.js*], se référer à ma https://github.com/Ardemius/asciidoctor-presentation#slides-rendering-with-revealjs[présentation] sur le sujet.
 
